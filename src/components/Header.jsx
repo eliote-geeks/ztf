@@ -228,7 +228,7 @@ const Header = () => {
         .mobile-menu {
           position: fixed;
           top: 0;
-          right: -100%;
+          right: -280px;
           width: 280px;
           height: 100vh;
           z-index: 1040;

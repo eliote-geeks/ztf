@@ -341,8 +341,7 @@ const Catalogue = () => {
 
       <style jsx>{`
         .catalogue-container {
-          padding-top: 80px;
-          background: var(--gradient-primary);
+          background: var(--bg-primary);
           min-height: 100vh;
         }
 
@@ -441,13 +440,13 @@ const Catalogue = () => {
         .stat-number {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 0.25rem;
         }
 
         .stat-label {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         .search-stats {
@@ -474,12 +473,12 @@ const Catalogue = () => {
         .stat-number {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .stat-label {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         /* Search Section */
@@ -503,13 +502,13 @@ const Catalogue = () => {
         .search-header h3 {
           font-size: 1.75rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1rem;
         }
 
         .search-header p {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           max-width: 500px;
           margin: 0 auto;
         }
@@ -523,7 +522,7 @@ const Catalogue = () => {
           left: 1rem;
           top: 50%;
           transform: translateY(-50%);
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--text-muted);
           font-size: 1rem;
         }
 
@@ -533,7 +532,7 @@ const Catalogue = () => {
           border-radius: 8px;
           padding: 0.75rem 1rem 0.75rem 3rem;
           font-size: 0.875rem;
-          color: #ffffff;
+          color: var(--text-primary);
           width: 100%;
         }
 
@@ -542,11 +541,11 @@ const Catalogue = () => {
           border-color: var(--warning);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
           outline: none;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .search-input::placeholder {
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--text-muted);
         }
 
         .btn-search {
@@ -580,7 +579,7 @@ const Catalogue = () => {
 
         .categories-header {
           text-align: center;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1.5rem;
           padding-bottom: 1rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -606,7 +605,7 @@ const Catalogue = () => {
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           padding: 0.75rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           cursor: pointer;
           transition: all 0.3s ease;
@@ -634,14 +633,14 @@ const Catalogue = () => {
         }
 
         .results-header h4 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
         }
 
         .results-count {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
         }
 
@@ -712,7 +711,7 @@ const Catalogue = () => {
         .book-title {
           font-size: 1rem;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text-primary);
           margin: 0;
           line-height: 1.3;
           flex: 1;
@@ -743,13 +742,13 @@ const Catalogue = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.75rem;
         }
 
         .book-description {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           line-height: 1.4;
           margin-bottom: 1rem;
           flex: 1;
@@ -766,7 +765,7 @@ const Catalogue = () => {
           display: flex;
           align-items: center;
           gap: 0.25rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           font-size: 0.75rem;
         }
 

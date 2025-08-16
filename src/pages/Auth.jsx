@@ -257,8 +257,7 @@ const Auth = () => {
 
       <style jsx>{`
         .auth-container {
-          padding-top: 80px;
-          background: var(--gradient-dark);
+          background: var(--bg-primary);
           min-height: 100vh;
           display: flex;
           align-items: center;
@@ -319,14 +318,14 @@ const Auth = () => {
         .feature-title {
           font-size: 1.75rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1rem;
           line-height: 1.2;
         }
 
         .feature-description {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           margin-bottom: 2rem;
           line-height: 1.5;
         }
@@ -367,12 +366,12 @@ const Auth = () => {
         .feature-label {
           font-size: 0.875rem;
           font-weight: 500;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .feature-count {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         .security-note {
@@ -405,13 +404,13 @@ const Auth = () => {
         .form-title {
           font-size: 1.5rem;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 0.5rem;
         }
 
         .form-subtitle {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         /* Form Elements */
@@ -434,7 +433,7 @@ const Auth = () => {
           border-radius: 8px;
           padding: 0.75rem;
           font-size: 0.875rem;
-          color: #ffffff;
+          color: var(--text-primary);
           transition: all 0.3s ease;
           width: 100%;
         }
@@ -444,7 +443,7 @@ const Auth = () => {
           border-color: var(--warning);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
           outline: none;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .form-control-modern::placeholder {
@@ -462,7 +461,7 @@ const Auth = () => {
           transform: translateY(-50%);
           background: none;
           border: none;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           cursor: pointer;
           padding: 0.25rem;
           transition: color 0.3s ease;
@@ -496,7 +495,7 @@ const Auth = () => {
         .link-button {
           background: none;
           border: none;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           cursor: pointer;
           transition: color 0.3s ease;
@@ -504,7 +503,7 @@ const Auth = () => {
         }
 
         .link-button:hover {
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .link-primary {
@@ -528,7 +527,7 @@ const Auth = () => {
 
         .toggle-text {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           margin-right: 0.5rem;
         }
 

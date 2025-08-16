@@ -15,6 +15,7 @@ import {
   FaMoon,
   FaSun,
   FaChevronDown,
+  FaChevronRight,
   FaBookOpen,
   FaGraduationCap,
   FaChurch,
@@ -240,98 +241,106 @@ const ProfessionalHeader = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMenuOpen ? 'show' : ''}`}>
-        <div className="mobile-menu-content">
-          <div className="mobile-menu-header">
-            <h6>Menu Navigation</h6>
-            <button onClick={toggleMenu} className="close-btn">
-              <FaTimes size={20} />
+      {/* Modern Mobile Menu Overlay */}
+      <div className={`modern-mobile-overlay ${isMenuOpen ? 'active' : ''}`}>
+        <div className="overlay-content">
+          {/* Header avec logo et fermeture */}
+          <div className="overlay-header">
+            <div className="overlay-logo">
+              <FaBook size={24} className="logo-icon" />
+              <span className="logo-text">Bibliothèque ZTF</span>
+            </div>
+            <button onClick={toggleMenu} className="overlay-close">
+              <FaTimes size={24} />
             </button>
           </div>
 
-          <div className="mobile-menu-body">
+          {/* Navigation principale */}
+          <div className="overlay-nav">
             {menuItems.map((item, index) => (
-              <div key={index} className="mobile-nav-item">
+              <div key={index} className="overlay-nav-group">
                 {item.path ? (
                   <Link
                     to={item.path}
-                    className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                    className={`nav-group-link ${location.pathname === item.path ? 'active' : ''}`}
                     onClick={toggleMenu}
                   >
-                    <item.icon size={16} />
+                    <item.icon size={20} />
                     <span>{item.label}</span>
+                    <FaChevronRight size={12} className="link-arrow" />
                   </Link>
                 ) : (
                   <>
-                    <button 
-                      className="mobile-nav-link dropdown-toggle"
-                      onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
-                    >
-                      <item.icon size={16} />
-                      <span>{item.label}</span>
-                      <FaChevronDown 
-                        size={12} 
-                        className={`dropdown-arrow ${activeDropdown === index ? 'open' : ''}`} 
-                      />
-                    </button>
-
-                    {/* Mobile Dropdown */}
-                    <div className={`mobile-dropdown ${activeDropdown === index ? 'show' : ''}`}>
-                      {item.dropdown?.map((category, catIndex) => (
-                        <div key={catIndex} className="mobile-category">
-                          <h6 className="mobile-category-title">{category.category}</h6>
-                          {category.items.map((subItem, subIndex) => (
-                            <Link
-                              key={subIndex}
-                              to={subItem.path}
-                              className="mobile-dropdown-item"
-                              onClick={toggleMenu}
-                            >
-                              <subItem.icon size={14} />
-                              <span>{subItem.label}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      ))}
+                    <div className="nav-group-header">
+                      <item.icon size={20} />
+                      <span className="nav-group-title">{item.label}</span>
                     </div>
+                    
+                    {item.dropdown && (
+                      <div className="nav-group-items">
+                        {item.dropdown.map((category, catIndex) => (
+                          <div key={catIndex} className="nav-category">
+                            <h6 className="category-header">{category.category}</h6>
+                            <div className="category-links">
+                              {category.items.map((subItem, subIndex) => (
+                                <Link 
+                                  key={subIndex} 
+                                  to={subItem.path} 
+                                  className="nav-link-item"
+                                  onClick={toggleMenu}
+                                >
+                                  <subItem.icon size={16} />
+                                  <span>{subItem.label}</span>
+                                  <FaChevronRight size={12} className="link-arrow" />
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
             ))}
           </div>
 
-          <div className="mobile-menu-footer">
-            <Link to="/auth" className="btn btn-warning w-100" onClick={toggleMenu}>
-              <FaUser size={16} className="me-2" />
-              Se Connecter
+          {/* Actions rapides */}
+          <div className="overlay-actions">
+            <button 
+              onClick={() => { toggleTheme(); toggleMenu(); }}
+              className="action-button theme-toggle"
+            >
+              {isDark ? <FaSun size={18} /> : <FaMoon size={18} />}
+              <span>Mode {isDark ? 'clair' : 'sombre'}</span>
+            </button>
+            
+            <Link to="/auth" className="action-button auth-button" onClick={toggleMenu}>
+              <FaUser size={18} />
+              <span>Se Connecter</span>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Mobile Backdrop */}
-      {isMenuOpen && (
-        <div className="mobile-backdrop" onClick={toggleMenu} />
-      )}
-
       <style jsx>{`
         /* Compact Navigation */
         .compact-navbar {
-          background: var(--dark-900);
-          border-bottom: 1px solid var(--border-primary);
+          background: #ffffff;
+          border-bottom: 2px solid var(--border-primary);
           padding: 0.75rem 0;
           position: sticky;
           top: 0;
           z-index: 1030;
           transition: all 0.3s ease;
           width: 100%;
+          box-shadow: 0 2px 10px rgba(29, 79, 139, 0.1);
         }
 
         .compact-navbar.scrolled {
           padding: 0.5rem 0;
-          box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-          background: var(--dark-950);
+          box-shadow: 0 4px 20px rgba(29, 79, 139, 0.15);
+          background: #ffffff;
         }
 
         .navbar-content {
@@ -355,12 +364,12 @@ const ProfessionalHeader = () => {
         .brand-icon {
           width: 32px;
           height: 32px;
-          background: linear-gradient(135deg, var(--warning), #f1c40e);
+          background: linear-gradient(135deg, var(--blumine), var(--ming));
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--dark-900);
+          color: white;
         }
 
         .brand-text {
@@ -404,7 +413,7 @@ const ProfessionalHeader = () => {
           align-items: center;
           gap: 0.25rem;
           padding: 0.5rem 0.75rem;
-          color: var(--text-secondary);
+          color: var(--blumine);
           text-decoration: none;
           border-radius: 6px;
           font-weight: 500;
@@ -418,7 +427,7 @@ const ProfessionalHeader = () => {
 
         .nav-link:hover,
         .nav-link.active {
-          color: var(--warning);
+          color: var(--buttercup);
           background: rgba(241, 196, 14, 0.1);
         }
 
@@ -438,10 +447,10 @@ const ProfessionalHeader = () => {
           left: 50%;
           transform: translateX(-50%);
           min-width: 300px;
-          background: var(--dark-900);
+          background: #ffffff;
           border: 1px solid var(--border-primary);
           border-radius: 8px;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 8px 25px rgba(29, 79, 139, 0.15);
           opacity: 0;
           visibility: hidden;
           transform: translateX(-50%) translateY(-10px);
@@ -471,7 +480,7 @@ const ProfessionalHeader = () => {
         .category-title {
           font-size: 0.75rem;
           font-weight: 600;
-          color: var(--warning);
+          color: var(--buttercup);
           margin-bottom: 0.5rem;
           padding-bottom: 0.25rem;
           border-bottom: 1px solid var(--border-primary);
@@ -493,7 +502,7 @@ const ProfessionalHeader = () => {
           align-items: center;
           gap: 0.5rem;
           padding: 0.5rem;
-          color: var(--text-secondary);
+          color: var(--blumine);
           text-decoration: none;
           border-radius: 4px;
           font-size: 0.8rem;
@@ -501,7 +510,7 @@ const ProfessionalHeader = () => {
         }
 
         .dropdown-item:hover {
-          color: var(--warning);
+          color: var(--buttercup);
           background: rgba(241, 196, 14, 0.1);
         }
 
@@ -522,15 +531,15 @@ const ProfessionalHeader = () => {
           background: var(--bg-input);
           border: 1px solid var(--border-primary);
           border-radius: 6px;
-          color: var(--text-secondary);
+          color: var(--blumine);
           text-decoration: none;
           transition: all 0.3s ease;
           cursor: pointer;
         }
 
         .action-btn:hover {
-          color: var(--warning);
-          border-color: var(--warning);
+          color: var(--buttercup);
+          border-color: var(--buttercup);
           background: rgba(241, 196, 14, 0.1);
         }
 
@@ -539,94 +548,250 @@ const ProfessionalHeader = () => {
           display: none;
           background: none;
           border: none;
-          color: var(--text-secondary);
+          color: var(--blumine);
           padding: 0.25rem;
           border-radius: 4px;
           transition: all 0.3s ease;
         }
 
         .mobile-toggle:hover {
-          color: var(--warning);
+          color: var(--buttercup);
           background: rgba(241, 196, 14, 0.1);
         }
 
-        /* Mobile Menu */
-        .mobile-menu {
+        /* Modern Mobile Overlay */
+        .modern-mobile-overlay {
           position: fixed;
           top: 0;
-          right: -100%;
-          width: 350px;
-          height: 100vh;
-          background: var(--dark-900);
-          backdrop-filter: blur(20px);
-          border-left: 1px solid var(--border-primary);
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, 
+            rgba(29, 79, 139, 0.95) 0%, 
+            rgba(60, 107, 139, 0.98) 100%);
           z-index: 1050;
-          transition: right 0.3s ease;
-          overflow-y: auto;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          backdrop-filter: blur(10px);
         }
 
-        .mobile-menu.show {
-          right: 0;
+        .modern-mobile-overlay.active {
+          opacity: 1;
+          visibility: visible;
         }
 
-        .mobile-menu-content {
+        .overlay-content {
           height: 100%;
           display: flex;
           flex-direction: column;
+          padding: 2rem;
+          overflow-y: auto;
         }
 
-        .mobile-menu-header {
+        .overlay-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 1.5rem;
-          border-bottom: 1px solid var(--border-primary);
+          margin-bottom: 3rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 2px solid rgba(241, 196, 14, 0.3);
         }
 
-        .mobile-menu-header h6 {
-          color: var(--text-primary);
-          font-weight: 600;
-          margin: 0;
+        .overlay-logo {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
         }
 
-        .close-btn {
-          background: none;
-          border: none;
-          color: var(--text-secondary);
+        .logo-icon {
+          color: var(--warning);
           padding: 0.5rem;
-          border-radius: 6px;
+          background: rgba(241, 196, 14, 0.1);
+          border-radius: 8px;
         }
 
-        .mobile-menu-body {
+        .logo-text {
+          color: #ffffff;
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+
+        .overlay-close {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+          padding: 0.75rem;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .overlay-close:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: scale(1.05);
+        }
+
+        .overlay-nav {
           flex: 1;
-          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .mobile-nav-item {
-          margin-bottom: 0.5rem;
+        .overlay-nav-group {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 1.5rem;
+          transition: all 0.3s ease;
         }
 
-        .mobile-nav-link {
+        .overlay-nav-group:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .nav-group-header {
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1rem;
-          color: var(--text-secondary);
-          text-decoration: none;
-          border-radius: 8px;
-          font-weight: 500;
-          transition: all 0.3s ease;
-          background: none;
-          border: none;
-          width: 100%;
-          text-align: left;
+          margin-bottom: 1rem;
+          color: #ffffff;
         }
 
-        .mobile-nav-link:hover,
-        .mobile-nav-link.active {
-          color: var(--warning);
-          background: rgba(241, 196, 14, 0.1);
+        .nav-group-title {
+          font-size: 1.1rem;
+          font-weight: 600;
         }
+
+        .nav-group-link {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 1.1rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .nav-group-link:hover,
+        .nav-group-link.active {
+          color: var(--warning);
+          transform: translateX(0.5rem);
+        }
+
+        .nav-group-link .link-arrow {
+          margin-left: auto;
+          opacity: 0.6;
+          transition: all 0.3s ease;
+        }
+
+        .nav-group-link:hover .link-arrow {
+          opacity: 1;
+          transform: translateX(0.25rem);
+        }
+
+        .nav-group-items {
+          padding-left: 1rem;
+          border-left: 2px solid rgba(241, 196, 14, 0.2);
+        }
+
+        .nav-category {
+          margin-bottom: 1.5rem;
+        }
+
+        .category-header {
+          color: var(--warning);
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .category-links {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .nav-link-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
+        }
+
+        .nav-link-item:hover {
+          background: rgba(241, 196, 14, 0.1);
+          border-color: rgba(241, 196, 14, 0.3);
+          color: var(--warning);
+          transform: translateX(0.25rem);
+        }
+
+        .nav-link-item .link-arrow {
+          margin-left: auto;
+          opacity: 0.5;
+          transition: all 0.3s ease;
+        }
+
+        .nav-link-item:hover .link-arrow {
+          opacity: 1;
+          transform: translateX(0.25rem);
+        }
+
+        .overlay-actions {
+          margin-top: 2rem;
+          padding-top: 1.5rem;
+          border-top: 2px solid rgba(241, 196, 14, 0.3);
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .action-button {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem 1.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          color: #ffffff;
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .action-button:hover {
+          background: rgba(241, 196, 14, 0.2);
+          border-color: rgba(241, 196, 14, 0.4);
+          color: var(--warning);
+          transform: translateY(-2px);
+        }
+
+        .auth-button {
+          background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
+          border-color: var(--warning);
+          color: var(--dark-900);
+          font-weight: 600;
+        }
+
+        .auth-button:hover {
+          color: var(--dark-900);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+
 
         .mobile-nav-link .dropdown-arrow {
           margin-left: auto;
@@ -702,6 +867,17 @@ const ProfessionalHeader = () => {
         }
 
         /* Responsive */
+
+        @media (max-width: 768px) {
+          .dropdown-menu {
+            min-width: 200px;
+            max-width: calc(100vw - 40px);
+            left: 10px;
+            right: 10px;
+            transform: none;
+          }
+        }
+
         @media (max-width: 1024px) {
           .nav-link {
             padding: 0.4rem 0.6rem;
