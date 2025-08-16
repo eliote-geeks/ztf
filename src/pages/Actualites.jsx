@@ -352,8 +352,7 @@ const Actualites = () => {
 
       <style jsx>{`
         .actualites-container {
-          padding-top: 80px;
-          background: var(--gradient-dark);
+          background: var(--bg-primary);
           min-height: 100vh;
         }
 
@@ -387,14 +386,14 @@ const Actualites = () => {
         .hero-title {
           font-size: 2.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1rem;
           line-height: 1.2;
         }
 
         .hero-subtitle {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           margin-bottom: 1.5rem;
           line-height: 1.6;
         }
@@ -423,12 +422,12 @@ const Actualites = () => {
         .stat-number {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .stat-label {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         /* Featured Video */
@@ -497,7 +496,7 @@ const Actualites = () => {
           bottom: 0.5rem;
           right: 0.5rem;
           background: rgba(0, 0, 0, 0.8);
-          color: #ffffff;
+          color: var(--text-primary);
           padding: 0.25rem 0.5rem;
           border-radius: 4px;
           font-size: 0.75rem;
@@ -511,14 +510,14 @@ const Actualites = () => {
         }
 
         .video-info h3 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 1rem;
         }
 
         .video-info p {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           margin-bottom: 1rem;
           line-height: 1.5;
         }
@@ -532,7 +531,7 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           font-size: 0.875rem;
         }
 
@@ -554,7 +553,7 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1.5rem;
           padding-bottom: 1rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -580,7 +579,7 @@ const Actualites = () => {
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           padding: 0.75rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           cursor: pointer;
           transition: all 0.3s ease;
@@ -637,7 +636,7 @@ const Actualites = () => {
         }
 
         .event-info h6 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 0.875rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
@@ -650,12 +649,12 @@ const Actualites = () => {
         .event-time,
         .event-location {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         .event-info p {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           margin: 0;
         }
 
@@ -667,14 +666,14 @@ const Actualites = () => {
         }
 
         .news-header h4 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
         }
 
         .news-count {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
         }
 
@@ -761,12 +760,12 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 0.25rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           font-size: 0.75rem;
         }
 
         .news-title {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 1rem;
@@ -778,7 +777,7 @@ const Actualites = () => {
         }
 
         .news-excerpt {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           line-height: 1.5;
           margin-bottom: 1.5rem;
@@ -797,7 +796,7 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
         }
 
@@ -810,7 +809,7 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 0.25rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           font-size: 0.75rem;
         }
 

@@ -89,10 +89,175 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--gradient-primary);
+  background: #ffffff !important;
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--text-primary);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Empêcher le débordement horizontal des grilles Bootstrap */
+.container,
+.container-fluid {
+  max-width: 100%;
+}
+
+/* Système de bordures pour distinguer les éléments sur fond blanc */
+.modern-card,
+.info-card,
+.service-card,
+.news-card,
+.resource-card,
+.auth-feature-panel,
+.auth-form-panel,
+.sidebar-card,
+.categories-card,
+.access-card,
+.quick-info-card,
+.featured-video-card {
+  border: 1px solid rgba(29, 79, 139, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(29, 79, 139, 0.08) !important;
+}
+
+/* Bordures pour les sections hero */
+.infos-hero,
+.actualites-hero,
+.ressources-hero,
+.hero-section {
+  border-bottom: 2px solid rgba(29, 79, 139, 0.1) !important;
+  box-shadow: 0 4px 12px rgba(29, 79, 139, 0.05) !important;
+}
+
+/* Bordures pour les éléments de forme */
+.form-control-modern,
+.input-themed,
+.modern-input {
+  border: 1px solid rgba(29, 79, 139, 0.2) !important;
+}
+
+.form-control-modern:focus,
+.input-themed:focus,
+.modern-input:focus {
+  border-color: rgba(241, 196, 14, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1) !important;
+}
+
+/* Bordures pour les boutons */
+.btn-modern,
+.btn-primary,
+.btn-secondary {
+  border: 1px solid rgba(29, 79, 139, 0.2) !important;
+}
+
+/* Arrière-plans subtils pour distinguer les éléments */
+.modern-card,
+.info-card,
+.service-card,
+.news-card,
+.resource-card,
+.sidebar-card,
+.categories-card,
+.access-card,
+.quick-info-card {
+  background: rgba(29, 79, 139, 0.02) !important;
+}
+
+.auth-feature-panel {
+  background: linear-gradient(135deg, rgba(29, 79, 139, 0.05), rgba(60, 107, 139, 0.03)) !important;
+}
+
+.auth-form-panel,
+.featured-video-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Séparateurs visuels */
+.section-block {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  background: rgba(29, 79, 139, 0.01);
+  border: 1px solid rgba(29, 79, 139, 0.08);
+}
+
+/* Bordures pour les sections de la page d'accueil */
+.search-section,
+.services-section,
+.featured-books-section,
+.featured-authors-section,
+.quick-actions-section,
+.info-section {
+  border-top: 1px solid rgba(29, 79, 139, 0.08);
+  padding-top: 3rem;
+  margin-top: 2rem;
+}
+
+/* Amélioration des cartes sur la page d'accueil */
+.category-card,
+.service-card,
+.book-card,
+.author-card,
+.action-card {
+  border: 1px solid rgba(29, 79, 139, 0.12) !important;
+  background: rgba(29, 79, 139, 0.02) !important;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover,
+.service-card:hover,
+.book-card:hover,
+.author-card:hover,
+.action-card:hover {
+  border-color: rgba(241, 196, 14, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(29, 79, 139, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+/* Bordures pour les éléments de navigation et contrôles */
+.hour-item,
+.category-item,
+.event-item,
+.contact-item,
+.facility-item,
+.legal-link,
+.subject-tag,
+.feature-tag {
+  border: 1px solid rgba(29, 79, 139, 0.1) !important;
+  background: rgba(29, 79, 139, 0.02) !important;
+}
+
+/* État actif/hover pour les éléments interactifs */
+.category-item.active,
+.category-item:hover,
+.hour-item:hover,
+.legal-link:hover {
+  border-color: rgba(241, 196, 14, 0.4) !important;
+  background: rgba(241, 196, 14, 0.08) !important;
+}
+
+/* Bordures pour les conteneurs principaux */
+.container {
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(29, 79, 139, 0.1), transparent);
+  pointer-events: none;
 }
 
 /* Arrière-plans */

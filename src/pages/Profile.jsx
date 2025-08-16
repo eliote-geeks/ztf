@@ -549,8 +549,7 @@ const Profile = () => {
 
       <style jsx>{`
         .profile-container {
-          padding-top: 80px;
-          background: var(--gradient-dark);
+          background: var(--bg-primary);
           min-height: 100vh;
         }
 
@@ -584,14 +583,14 @@ const Profile = () => {
         .hero-title {
           font-size: 2.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1rem;
           line-height: 1.2;
         }
 
         .hero-subtitle {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           margin-bottom: 1.5rem;
           line-height: 1.6;
         }
@@ -619,12 +618,12 @@ const Profile = () => {
         .stat-number {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .stat-label {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         /* Tabs */
@@ -647,7 +646,7 @@ const Profile = () => {
           gap: 0.5rem;
           background: transparent;
           border: none;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           padding: 0.75rem 1.5rem;
           border-radius: 8px;
           font-size: 0.875rem;
@@ -725,14 +724,14 @@ const Profile = () => {
         }
 
         .profile-header h4 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
         }
 
         .student-id {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           margin-bottom: 1rem;
         }
@@ -772,7 +771,7 @@ const Profile = () => {
 
         .stat-name {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         .card-header {
@@ -784,7 +783,7 @@ const Profile = () => {
         }
 
         .card-header h3 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
@@ -814,7 +813,7 @@ const Profile = () => {
           border-radius: 8px;
           padding: 0.75rem;
           font-size: 0.875rem;
-          color: #ffffff;
+          color: var(--text-primary);
           transition: all 0.3s ease;
         }
 
@@ -823,13 +822,13 @@ const Profile = () => {
           border-color: var(--warning);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
           outline: none;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .form-control-modern:disabled {
           background: rgba(255, 255, 255, 0.03);
           border-color: rgba(255, 255, 255, 0.05);
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
         }
 
         .section-header {
@@ -837,14 +836,14 @@ const Profile = () => {
         }
 
         .section-header h3 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
         }
 
         .section-header p {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
         }
 
@@ -888,17 +887,17 @@ const Profile = () => {
 
         .status-success {
           background: rgba(34, 197, 94, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .status-warning {
           background: rgba(245, 158, 11, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .status-danger {
           background: rgba(239, 68, 68, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .book-info {
@@ -908,7 +907,7 @@ const Profile = () => {
         }
 
         .book-title {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
@@ -916,7 +915,7 @@ const Profile = () => {
         }
 
         .book-author {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           margin-bottom: 1rem;
         }
@@ -934,12 +933,12 @@ const Profile = () => {
 
         .detail-label {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
         }
 
         .detail-value {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-weight: 500;
         }
 
@@ -975,7 +974,7 @@ const Profile = () => {
           top: 0.5rem;
           right: 0.5rem;
           background: rgba(34, 197, 94, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
           padding: 0.25rem 0.5rem;
           border-radius: 12px;
           font-size: 0.6rem;
@@ -985,7 +984,7 @@ const Profile = () => {
         }
 
         .book-title-small {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 0.9rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
@@ -993,7 +992,7 @@ const Profile = () => {
         }
 
         .book-author-small {
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
           font-size: 0.75rem;
           margin-bottom: 1rem;
         }
@@ -1010,11 +1009,11 @@ const Profile = () => {
         }
 
         .date-item span:first-child {
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
         }
 
         .date-item span:last-child {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
         }
 
         .rating-section {
@@ -1025,7 +1024,7 @@ const Profile = () => {
         }
 
         .rating-section span {
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
         }
 
         .stars {

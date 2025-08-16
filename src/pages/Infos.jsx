@@ -414,8 +414,7 @@ const Infos = () => {
 
       <style jsx>{`
         .infos-container {
-          padding-top: 80px;
-          background: var(--gradient-dark);
+          background: var(--bg-primary);
           min-height: 100vh;
         }
 
@@ -449,14 +448,14 @@ const Infos = () => {
         .hero-title {
           font-size: 2.5rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-primary);
           margin-bottom: 1rem;
           line-height: 1.2;
         }
 
         .hero-subtitle {
           font-size: 1rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           margin-bottom: 1.5rem;
           line-height: 1.6;
         }
@@ -486,13 +485,13 @@ const Infos = () => {
 
         .info-title {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-secondary);
         }
 
         .info-value {
           font-size: 1rem;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         /* Content Section */
@@ -524,7 +523,7 @@ const Infos = () => {
         }
 
         .card-header h3 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
@@ -575,13 +574,13 @@ const Infos = () => {
 
         .day {
           font-weight: 500;
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 0.875rem;
         }
 
         .hours {
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
         }
 
@@ -613,19 +612,19 @@ const Infos = () => {
         }
 
         .service-header h6 {
-          color: #ffffff;
+          color: var(--text-primary);
           font-size: 1rem;
           font-weight: 600;
           margin: 0;
         }
 
         .capacity {
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--text-tertiary);
           font-size: 0.75rem;
         }
 
         .service-item p {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           margin-bottom: 1rem;
         }
@@ -676,7 +675,7 @@ const Infos = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.8rem;
           padding: 0.5rem;
           background: rgba(255, 255, 255, 0.05);
@@ -714,7 +713,7 @@ const Infos = () => {
         }
 
         .regulation-section li {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           font-size: 0.875rem;
           padding: 0.5rem 0;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -766,7 +765,7 @@ const Infos = () => {
 
         .contact-value {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           line-height: 1.4;
         }
 
@@ -786,7 +785,7 @@ const Infos = () => {
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 6px;
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
         }
 
         .facility-item.available svg {
@@ -816,7 +815,7 @@ const Infos = () => {
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 6px;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
           text-decoration: none;
           font-size: 0.875rem;
           transition: all 0.3s ease;

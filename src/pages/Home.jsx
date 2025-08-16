@@ -782,7 +782,7 @@ const Home = () => {
 
       <style jsx>{`
         .home-container {
-          background: var(--gradient-dark);
+          background: var(--bg-primary);
           min-height: 100vh;
         }
 
@@ -1283,12 +1283,12 @@ const Home = () => {
 
         .type-badge.book {
           background: rgba(59, 130, 246, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .type-badge.ebook {
           background: rgba(139, 69, 19, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .availability-badge {
@@ -1300,12 +1300,12 @@ const Home = () => {
 
         .availability-badge.available {
           background: rgba(34, 197, 94, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .availability-badge.unavailable {
           background: rgba(239, 68, 68, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
 
         .book-info {
