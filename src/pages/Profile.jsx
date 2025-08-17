@@ -1,127 +1,173 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaUser, 
   FaEdit,
-  FaSave,
-  FaTimes,
   FaBook,
-  FaCalendar,
+  FaHeart,
   FaHistory,
-  FaEye,
+  FaCog,
   FaDownload,
+  FaEye,
   FaStar,
+  FaCalendar,
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
   FaGraduationCap,
   FaIdCard,
-  FaCamera,
+  FaKey,
+  FaBell,
+  FaPalette,
+  FaLanguage,
+  FaShieldAlt,
+  FaTrash,
   FaCheck,
+  FaTimes,
   FaClock,
-  FaExclamationTriangle
+  FaBookmark,
+  FaChartLine,
+  FaAward,
+  FaFileAlt,
+  FaQuoteLeft
 } from 'react-icons/fa';
 
 const Profile = () => {
+  const [activeTab, setActiveTab] = useState('overview');
   const [isEditing, setIsEditing] = useState(false);
-  const [activeTab, setActiveTab] = useState('profile');
   const [userInfo, setUserInfo] = useState({
     firstName: 'Marie',
-    lastName: 'Atangana',
-    email: 'marie.atangana@student.univ-cm.org',
+    lastName: 'Essomba',
+    email: 'marie.essomba@exemple.com',
     phone: '+237 699 123 456',
-    address: 'Quartier Mvan, Yaoundé',
-    studentId: 'ETU20240156',
-    level: 'Master 2 Théologie',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
+    address: 'Yaoundé, Cameroun',
+    userType: 'researcher',
+    studentId: 'RES20240001',
+    joinDate: '2022-03-15',
+    bio: 'Chercheuse en théologie africaine, spécialisée dans les mouvements spirituels contemporains.'
   });
 
-  const [borrowedBooks] = useState([
+  const [preferences, setPreferences] = useState({
+    language: 'fr',
+    theme: 'auto',
+    notifications: {
+      email: true,
+      newBooks: true,
+      dueDates: true,
+      recommendations: false
+    },
+    privacy: {
+      showProfile: true,
+      showActivity: false,
+      showFavorites: true
+    }
+  });
+
+  const tabs = [
+    { id: 'overview', label: 'Vue d\'ensemble', icon: FaUser },
+    { id: 'loans', label: 'Mes Emprunts', icon: FaBook },
+    { id: 'favorites', label: 'Mes Favoris', icon: FaHeart },
+    { id: 'history', label: 'Historique', icon: FaHistory },
+    { id: 'settings', label: 'Paramètres', icon: FaCog }
+  ];
+
+  const userStats = [
+    { label: 'Emprunts actifs', value: 5, icon: FaBook, color: 'text-primary' },
+    { label: 'Livres lus', value: 127, icon: FaEye, color: 'text-success' },
+    { label: 'Favoris', value: 34, icon: FaHeart, color: 'text-danger' },
+    { label: 'Téléchargements', value: 89, icon: FaDownload, color: 'text-warning' }
+  ];
+
+  const currentLoans = [
     {
       id: 1,
       title: "L'Art de la Prière",
       author: "Zacharias Tanee Fomum",
-      borrowDate: "2024-01-05",
-      dueDate: "2024-02-05",
-      status: "active",
-      cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=250&fit=crop",
-      isbn: "978-2-123456-78-9",
-      category: "Théologie"
+      dueDate: "2024-02-28",
+      renewals: 1,
+      maxRenewals: 3,
+      type: "book",
+      cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=150&h=200&fit=crop"
     },
     {
       id: 2,
       title: "Histoire du Cameroun Moderne",
       author: "Jean-Baptiste Sipa",
-      borrowDate: "2024-01-10",
-      dueDate: "2024-02-10",
-      status: "active",
-      cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=250&fit=crop",
-      isbn: "978-2-987654-32-1",
-      category: "Histoire"
+      dueDate: "2024-03-05",
+      renewals: 0,
+      maxRenewals: 3,
+      type: "ebook",
+      cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=200&fit=crop"
+    }
+  ];
+
+  const favoriteBooks = [
+    {
+      id: 1,
+      title: "Spiritualité et Modernité",
+      author: "Père Joseph Nkomo",
+      rating: 4.8,
+      addedDate: "2024-01-15",
+      category: "Théologie",
+      cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=150&h=200&fit=crop"
+    },
+    {
+      id: 2,
+      title: "Contes et Légendes du Cameroun",
+      author: "Marie Atangana",
+      rating: 4.6,
+      addedDate: "2024-01-10",
+      category: "Littérature",
+      cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=150&h=200&fit=crop"
     },
     {
       id: 3,
       title: "Philosophie Africaine Contemporaine",
       author: "Prof. Emmanuel Ngwé",
-      borrowDate: "2023-12-15",
-      dueDate: "2024-01-15",
-      status: "overdue",
-      cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200&h=250&fit=crop",
-      isbn: "978-2-456789-01-2",
-      category: "Philosophie"
+      rating: 4.5,
+      addedDate: "2024-01-08",
+      category: "Philosophie",
+      cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=150&h=200&fit=crop"
     }
-  ]);
+  ];
 
-  const [borrowHistory] = useState([
+  const readingHistory = [
     {
-      id: 4,
-      title: "Contes et Légendes du Cameroun",
-      author: "Marie Atangana",
-      borrowDate: "2023-11-01",
-      returnDate: "2023-12-01",
-      status: "returned",
-      rating: 5,
-      cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=200&h=250&fit=crop"
-    },
-    {
-      id: 5,
+      id: 1,
       title: "Développement Durable en Afrique Centrale",
       author: "Dr. Paul Mbarga",
-      borrowDate: "2023-10-15",
-      returnDate: "2023-11-15",
-      status: "returned",
+      completedDate: "2024-01-20",
       rating: 4,
-      cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=200&h=250&fit=crop"
+      type: "ebook"
+    },
+    {
+      id: 2,
+      title: "Les Royaumes Bamiléké",
+      author: "Prof. Marie Essomba",
+      completedDate: "2024-01-18",
+      rating: 5,
+      type: "book"
     }
-  ]);
+  ];
 
-  const [statistics] = useState({
-    totalBorrowed: 15,
-    currentlyBorrowed: 3,
-    overdue: 1,
-    totalReturned: 12,
-    averageRating: 4.3,
-    memberSince: "2023-09-01"
-  });
-
-  const handleInputChange = (e) => {
-    setUserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value
-    });
+  const handleUserInfoChange = (field, value) => {
+    setUserInfo(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
-  const handleSave = () => {
-    // Ici on sauvegarderait les données
-    console.log('Saving user info:', userInfo);
-    setIsEditing(false);
+  const handlePreferenceChange = (category, field, value) => {
+    setPreferences(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [field]: value
+      }
+    }));
   };
 
-  const handleCancel = () => {
-    // Reset les changements
-    setIsEditing(false);
-  };
-
-  const getDaysLeft = (dueDate) => {
+  const calculateDaysUntilDue = (dueDate) => {
     const due = new Date(dueDate);
     const today = new Date();
     const diffTime = due - today;
@@ -129,78 +175,73 @@ const Profile = () => {
     return diffDays;
   };
 
-  const getStatusColor = (status, daysLeft) => {
-    if (status === 'overdue') return 'danger';
-    if (daysLeft <= 3) return 'warning';
-    return 'success';
+  const getDueDateStatus = (dueDate) => {
+    const days = calculateDaysUntilDue(dueDate);
+    if (days < 0) return { class: 'overdue', text: `En retard de ${Math.abs(days)} jour(s)` };
+    if (days <= 3) return { class: 'due-soon', text: `${days} jour(s) restant(s)` };
+    return { class: 'normal', text: `${days} jour(s) restant(s)` };
   };
 
-  const tabs = [
-    { id: 'profile', label: 'Mon Profil', icon: FaUser },
-    { id: 'borrowed', label: 'Mes Emprunts', icon: FaBook },
-    { id: 'history', label: 'Historique', icon: FaHistory }
-  ];
+  const getUserTypeLabel = (type) => {
+    const types = {
+      student: 'Étudiant',
+      researcher: 'Chercheur',
+      staff: 'Personnel'
+    };
+    return types[type] || type;
+  };
 
   return (
     <div className="profile-container">
-      {/* Hero Section */}
-      <section className="profile-hero">
+      {/* Header avec info utilisateur */}
+      <section className="profile-header">
         <div className="container">
           <div className="row align-items-center g-4">
-            <div className="col-lg-8">
-              <div className="hero-content">
-                <div className="hero-badge">
-                  <FaUser size={12} className="me-2" />
-                  Mon Espace Personnel
+            <div className="col-lg-3">
+              <div className="profile-avatar-section">
+                <div className="profile-avatar">
+                  <FaUser size={48} />
                 </div>
-                <h1 className="hero-title">
-                  Bonjour <span className="text-warning">{userInfo.firstName}</span>
-                </h1>
-                <p className="hero-subtitle">
-                  Gérez votre profil, consultez vos emprunts et suivez votre activité 
-                  sur la plateforme de la Bibliothèque ZTF.
-                </p>
+                <div className="avatar-actions">
+                  <button className="btn btn-outline-warning btn-sm">
+                    <FaEdit size={12} />
+                    Modifier photo
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-6">
+              <div className="profile-info">
+                <h1 className="profile-name">{userInfo.firstName} {userInfo.lastName}</h1>
+                <div className="profile-meta">
+                  <span className="user-type">
+                    <FaGraduationCap size={14} />
+                    {getUserTypeLabel(userInfo.userType)}
+                  </span>
+                  <span className="join-date">
+                    <FaCalendar size={14} />
+                    Membre depuis {new Date(userInfo.joinDate).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
+                  </span>
+                  <span className="user-id">
+                    <FaIdCard size={14} />
+                    ID: {userInfo.studentId}
+                  </span>
+                </div>
+                <p className="profile-bio">{userInfo.bio}</p>
+              </div>
+            </div>
+            <div className="col-lg-3">
               <div className="profile-stats">
-                <div className="stat-item">
-                  <FaBook className="stat-icon text-primary" />
-                  <div>
-                    <div className="stat-number">{statistics.currentlyBorrowed}</div>
-                    <div className="stat-label">Emprunts actifs</div>
-                  </div>
-                </div>
-                <div className="stat-item">
-                  <FaStar className="stat-icon text-warning" />
-                  <div>
-                    <div className="stat-number">{statistics.averageRating}</div>
-                    <div className="stat-label">Note moyenne</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation Tabs */}
-      <section className="tabs-section">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="tabs-nav">
-                {tabs.map((tab) => {
-                  const Icon = tab.icon;
+                {userStats.map((stat, index) => {
+                  const Icon = stat.icon;
                   return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`tab-item ${activeTab === tab.id ? 'active' : ''}`}
-                    >
-                      <Icon size={16} />
-                      <span>{tab.label}</span>
-                    </button>
+                    <div key={index} className="stat-item">
+                      <Icon className={`stat-icon ${stat.color}`} />
+                      <div className="stat-content">
+                        <div className="stat-value">{stat.value}</div>
+                        <div className="stat-label">{stat.label}</div>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -209,341 +250,471 @@ const Profile = () => {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="content-section">
+      {/* Navigation par onglets */}
+      <section className="profile-navigation">
+        <div className="container">
+          <div className="tabs-container">
+            {tabs.map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  <Icon size={16} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Contenu des onglets */}
+      <section className="profile-content">
         <div className="container">
           
-          {/* Profile Tab */}
-          {activeTab === 'profile' && (
-            <div className="row g-4">
-              <div className="col-lg-4">
-                <div className="profile-card">
-                  <div className="profile-header">
-                    <div className="avatar-section">
-                      <div className="avatar-wrapper">
-                        <img src={userInfo.avatar} alt="Avatar" className="avatar" />
-                        <button className="avatar-edit-btn">
-                          <FaCamera size={12} />
-                        </button>
-                      </div>
-                      <h4>{userInfo.firstName} {userInfo.lastName}</h4>
-                      <p className="student-id">{userInfo.studentId}</p>
-                      <span className="level-badge">{userInfo.level}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="profile-stats-detailed">
-                    <div className="stats-grid">
-                      <div className="stat-detail">
-                        <div className="stat-value">{statistics.totalBorrowed}</div>
-                        <div className="stat-name">Total emprunts</div>
-                      </div>
-                      <div className="stat-detail">
-                        <div className="stat-value">{statistics.totalReturned}</div>
-                        <div className="stat-name">Retournés</div>
-                      </div>
-                      <div className="stat-detail">
-                        <div className="stat-value">{statistics.overdue}</div>
-                        <div className="stat-name">En retard</div>
-                      </div>
-                      <div className="stat-detail">
-                        <div className="stat-value">
-                          {new Date(statistics.memberSince).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
-                        </div>
-                        <div className="stat-name">Membre depuis</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-8">
-                <div className="info-card">
-                  <div className="card-header">
-                    <h3>Informations personnelles</h3>
-                    {!isEditing ? (
+          {/* Vue d'ensemble */}
+          {activeTab === 'overview' && (
+            <div className="tab-content">
+              <div className="row g-4">
+                <div className="col-lg-8">
+                  <div className="content-card">
+                    <div className="card-header">
+                      <h3>Informations personnelles</h3>
                       <button 
-                        onClick={() => setIsEditing(true)}
-                        className="btn btn-sm btn-outline-warning"
+                        className="btn btn-outline-warning btn-sm"
+                        onClick={() => setIsEditing(!isEditing)}
                       >
-                        <FaEdit size={14} className="me-2" />
-                        Modifier
+                        <FaEdit size={14} />
+                        {isEditing ? 'Annuler' : 'Modifier'}
                       </button>
-                    ) : (
-                      <div className="edit-actions">
-                        <button 
-                          onClick={handleSave}
-                          className="btn btn-sm btn-success me-2"
-                        >
-                          <FaSave size={14} className="me-2" />
-                          Enregistrer
-                        </button>
-                        <button 
-                          onClick={handleCancel}
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          <FaTimes size={14} className="me-2" />
-                          Annuler
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="card-content">
-                    <form>
-                      <div className="row g-4">
+                    </div>
+                    <div className="card-content">
+                      <div className="row g-3">
                         <div className="col-md-6">
-                          <label className="form-label">
-                            <FaUser size={12} className="me-2" />
-                            Prénom
-                          </label>
-                          <input
-                            type="text"
-                            name="firstName"
-                            className="form-control form-control-modern"
-                            value={userInfo.firstName}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
+                          <label className="form-label">Prénom</label>
+                          {isEditing ? (
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={userInfo.firstName}
+                              onChange={(e) => handleUserInfoChange('firstName', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">{userInfo.firstName}</div>
+                          )}
                         </div>
-                        
                         <div className="col-md-6">
-                          <label className="form-label">
-                            <FaUser size={12} className="me-2" />
-                            Nom
-                          </label>
-                          <input
-                            type="text"
-                            name="lastName"
-                            className="form-control form-control-modern"
-                            value={userInfo.lastName}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
+                          <label className="form-label">Nom</label>
+                          {isEditing ? (
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={userInfo.lastName}
+                              onChange={(e) => handleUserInfoChange('lastName', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">{userInfo.lastName}</div>
+                          )}
                         </div>
-                        
                         <div className="col-md-6">
-                          <label className="form-label">
-                            <FaEnvelope size={12} className="me-2" />
-                            Email
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            className="form-control form-control-modern"
-                            value={userInfo.email}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
-                        </div>
-                        
-                        <div className="col-md-6">
-                          <label className="form-label">
-                            <FaPhone size={12} className="me-2" />
-                            Téléphone
-                          </label>
-                          <input
-                            type="tel"
-                            name="phone"
-                            className="form-control form-control-modern"
-                            value={userInfo.phone}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
-                        </div>
-                        
-                        <div className="col-md-6">
-                          <label className="form-label">
-                            <FaIdCard size={12} className="me-2" />
-                            Numéro étudiant
-                          </label>
-                          <input
-                            type="text"
-                            name="studentId"
-                            className="form-control form-control-modern"
-                            value={userInfo.studentId}
-                            onChange={handleInputChange}
-                            disabled={true}
-                          />
-                        </div>
-                        
-                        <div className="col-md-6">
-                          <label className="form-label">
-                            <FaGraduationCap size={12} className="me-2" />
-                            Niveau d'étude
-                          </label>
-                          <input
-                            type="text"
-                            name="level"
-                            className="form-control form-control-modern"
-                            value={userInfo.level}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
-                        </div>
-                        
-                        <div className="col-12">
-                          <label className="form-label">
-                            <FaMapMarkerAlt size={12} className="me-2" />
-                            Adresse
-                          </label>
-                          <input
-                            type="text"
-                            name="address"
-                            className="form-control form-control-modern"
-                            value={userInfo.address}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Borrowed Books Tab */}
-          {activeTab === 'borrowed' && (
-            <div className="row g-4">
-              <div className="col-12">
-                <div className="section-header">
-                  <h3>Mes emprunts en cours ({borrowedBooks.length})</h3>
-                  <p>Gérez vos emprunts actuels et suivez les dates de retour</p>
-                </div>
-                
-                <div className="row g-3">
-                  {borrowedBooks.map((book) => {
-                    const daysLeft = getDaysLeft(book.dueDate);
-                    const statusColor = getStatusColor(book.status, daysLeft);
-                    
-                    return (
-                      <div key={book.id} className="col-lg-4">
-                        <div className="borrowed-book-card">
-                          <div className="book-cover-section">
-                            <img src={book.cover} alt={book.title} className="book-cover" />
-                            <div className={`status-badge status-${statusColor}`}>
-                              {book.status === 'overdue' ? (
-                                <>
-                                  <FaExclamationTriangle size={12} />
-                                  En retard
-                                </>
-                              ) : daysLeft <= 3 ? (
-                                <>
-                                  <FaClock size={12} />
-                                  {daysLeft} jour{daysLeft > 1 ? 's' : ''}
-                                </>
-                              ) : (
-                                <>
-                                  <FaCheck size={12} />
-                                  À jour
-                                </>
-                              )}
-                            </div>
-                          </div>
-                          
-                          <div className="book-info">
-                            <h5 className="book-title">{book.title}</h5>
-                            <p className="book-author">par {book.author}</p>
-                            
-                            <div className="book-details">
-                              <div className="detail-row">
-                                <span className="detail-label">Emprunté le:</span>
-                                <span className="detail-value">
-                                  {new Date(book.borrowDate).toLocaleDateString('fr-FR')}
-                                </span>
-                              </div>
-                              <div className="detail-row">
-                                <span className="detail-label">À rendre le:</span>
-                                <span className={`detail-value text-${statusColor}`}>
-                                  {new Date(book.dueDate).toLocaleDateString('fr-FR')}
-                                </span>
-                              </div>
-                              <div className="detail-row">
-                                <span className="detail-label">ISBN:</span>
-                                <span className="detail-value">{book.isbn}</span>
-                              </div>
-                            </div>
-                            
-                            <div className="book-actions">
-                              <button className="btn btn-sm btn-outline-primary">
-                                <FaEye size={12} />
-                                Voir
-                              </button>
-                              <button className="btn btn-sm btn-warning">
-                                Prolonger
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* History Tab */}
-          {activeTab === 'history' && (
-            <div className="row g-4">
-              <div className="col-12">
-                <div className="section-header">
-                  <h3>Historique des emprunts ({borrowHistory.length})</h3>
-                  <p>Livres que vous avez empruntés et retournés</p>
-                </div>
-                
-                <div className="row g-3">
-                  {borrowHistory.map((book) => (
-                    <div key={book.id} className="col-lg-3">
-                      <div className="history-book-card">
-                        <div className="book-cover-small">
-                          <img src={book.cover} alt={book.title} />
-                          <div className="returned-badge">
-                            <FaCheck size={10} />
-                            Retourné
-                          </div>
-                        </div>
-                        
-                        <div className="book-info-small">
-                          <h6 className="book-title-small">{book.title}</h6>
-                          <p className="book-author-small">{book.author}</p>
-                          
-                          <div className="history-dates">
-                            <div className="date-item">
-                              <span>Emprunté:</span>
-                              <span>{new Date(book.borrowDate).toLocaleDateString('fr-FR')}</span>
-                            </div>
-                            <div className="date-item">
-                              <span>Retourné:</span>
-                              <span>{new Date(book.returnDate).toLocaleDateString('fr-FR')}</span>
-                            </div>
-                          </div>
-                          
-                          {book.rating && (
-                            <div className="rating-section">
-                              <span>Ma note:</span>
-                              <div className="stars">
-                                {[...Array(5)].map((_, i) => (
-                                  <FaStar 
-                                    key={i} 
-                                    className={i < book.rating ? 'star-filled' : 'star-empty'} 
-                                    size={12} 
-                                  />
-                                ))}
-                              </div>
+                          <label className="form-label">Email</label>
+                          {isEditing ? (
+                            <input
+                              type="email"
+                              className="form-control"
+                              value={userInfo.email}
+                              onChange={(e) => handleUserInfoChange('email', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">
+                              <FaEnvelope size={14} className="me-2" />
+                              {userInfo.email}
                             </div>
                           )}
                         </div>
+                        <div className="col-md-6">
+                          <label className="form-label">Téléphone</label>
+                          {isEditing ? (
+                            <input
+                              type="tel"
+                              className="form-control"
+                              value={userInfo.phone}
+                              onChange={(e) => handleUserInfoChange('phone', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">
+                              <FaPhone size={14} className="me-2" />
+                              {userInfo.phone}
+                            </div>
+                          )}
+                        </div>
+                        <div className="col-12">
+                          <label className="form-label">Adresse</label>
+                          {isEditing ? (
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={userInfo.address}
+                              onChange={(e) => handleUserInfoChange('address', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">
+                              <FaMapMarkerAlt size={14} className="me-2" />
+                              {userInfo.address}
+                            </div>
+                          )}
+                        </div>
+                        <div className="col-12">
+                          <label className="form-label">Biographie</label>
+                          {isEditing ? (
+                            <textarea
+                              className="form-control"
+                              rows="3"
+                              value={userInfo.bio}
+                              onChange={(e) => handleUserInfoChange('bio', e.target.value)}
+                            />
+                          ) : (
+                            <div className="info-display">{userInfo.bio}</div>
+                          )}
+                        </div>
+                      </div>
+                      {isEditing && (
+                        <div className="form-actions">
+                          <button className="btn btn-success">
+                            <FaCheck size={14} className="me-2" />
+                            Sauvegarder
+                          </button>
+                          <button 
+                            className="btn btn-outline-secondary"
+                            onClick={() => setIsEditing(false)}
+                          >
+                            <FaTimes size={14} className="me-2" />
+                            Annuler
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="col-lg-4">
+                  <div className="content-card">
+                    <div className="card-header">
+                      <h4>Activité récente</h4>
+                    </div>
+                    <div className="card-content">
+                      <div className="activity-list">
+                        <div className="activity-item">
+                          <div className="activity-icon text-success">
+                            <FaDownload size={12} />
+                          </div>
+                          <div className="activity-content">
+                            <div className="activity-text">Téléchargé "L'Art de la Prière"</div>
+                            <div className="activity-time">Il y a 2 heures</div>
+                          </div>
+                        </div>
+                        <div className="activity-item">
+                          <div className="activity-icon text-danger">
+                            <FaHeart size={12} />
+                          </div>
+                          <div className="activity-content">
+                            <div className="activity-text">Ajouté aux favoris "Spiritualité et Modernité"</div>
+                            <div className="activity-time">Hier</div>
+                          </div>
+                        </div>
+                        <div className="activity-item">
+                          <div className="activity-icon text-warning">
+                            <FaStar size={12} />
+                          </div>
+                          <div className="activity-content">
+                            <div className="activity-text">Noté "Les Royaumes Bamiléké" - 5 étoiles</div>
+                            <div className="activity-time">Il y a 2 jours</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
+          {/* Emprunts */}
+          {activeTab === 'loans' && (
+            <div className="tab-content">
+              <div className="content-card">
+                <div className="card-header">
+                  <h3>Mes emprunts actuels ({currentLoans.length})</h3>
+                  <Link to="/catalogue" className="btn btn-warning">
+                    <FaBook size={14} className="me-2" />
+                    Emprunter un livre
+                  </Link>
+                </div>
+                <div className="card-content">
+                  <div className="loans-grid">
+                    {currentLoans.map(loan => {
+                      const dueStatus = getDueDateStatus(loan.dueDate);
+                      return (
+                        <div key={loan.id} className="loan-card">
+                          <div className="loan-cover">
+                            <img src={loan.cover} alt={loan.title} />
+                            <div className="loan-type">
+                              {loan.type === 'ebook' ? 'E-book' : 'Livre'}
+                            </div>
+                          </div>
+                          <div className="loan-info">
+                            <h5 className="loan-title">{loan.title}</h5>
+                            <p className="loan-author">par {loan.author}</p>
+                            <div className={`due-date ${dueStatus.class}`}>
+                              <FaClock size={12} />
+                              <span>{dueStatus.text}</span>
+                            </div>
+                            <div className="loan-renewals">
+                              Renouvellements: {loan.renewals}/{loan.maxRenewals}
+                            </div>
+                            <div className="loan-actions">
+                              <button 
+                                className="btn btn-outline-warning btn-sm"
+                                disabled={loan.renewals >= loan.maxRenewals}
+                              >
+                                Renouveler
+                              </button>
+                              <button className="btn btn-outline-primary btn-sm">
+                                <FaEye size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Favoris */}
+          {activeTab === 'favorites' && (
+            <div className="tab-content">
+              <div className="content-card">
+                <div className="card-header">
+                  <h3>Mes livres favoris ({favoriteBooks.length})</h3>
+                </div>
+                <div className="card-content">
+                  <div className="favorites-grid">
+                    {favoriteBooks.map(book => (
+                      <div key={book.id} className="favorite-card">
+                        <div className="favorite-cover">
+                          <img src={book.cover} alt={book.title} />
+                          <button className="remove-favorite">
+                            <FaTimes size={12} />
+                          </button>
+                        </div>
+                        <div className="favorite-info">
+                          <span className="favorite-category">{book.category}</span>
+                          <h6 className="favorite-title">{book.title}</h6>
+                          <p className="favorite-author">par {book.author}</p>
+                          <div className="favorite-rating">
+                            <FaStar className="star-filled" />
+                            <span>{book.rating}</span>
+                          </div>
+                          <div className="favorite-added">
+                            Ajouté le {new Date(book.addedDate).toLocaleDateString('fr-FR')}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Historique */}
+          {activeTab === 'history' && (
+            <div className="tab-content">
+              <div className="content-card">
+                <div className="card-header">
+                  <h3>Historique de lecture</h3>
+                </div>
+                <div className="card-content">
+                  <div className="history-list">
+                    {readingHistory.map(item => (
+                      <div key={item.id} className="history-item">
+                        <div className="history-icon">
+                          <FaCheck />
+                        </div>
+                        <div className="history-content">
+                          <h6 className="history-title">{item.title}</h6>
+                          <p className="history-author">par {item.author}</p>
+                          <div className="history-meta">
+                            <span className="completion-date">
+                              <FaCalendar size={12} />
+                              Terminé le {new Date(item.completedDate).toLocaleDateString('fr-FR')}
+                            </span>
+                            <div className="history-rating">
+                              {[...Array(5)].map((_, i) => (
+                                <FaStar 
+                                  key={i} 
+                                  className={i < item.rating ? 'star-filled' : 'star-empty'} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="history-actions">
+                          <button className="btn btn-outline-primary btn-sm">
+                            <FaEye size={12} />
+                          </button>
+                          <button className="btn btn-outline-warning btn-sm">
+                            <FaQuoteLeft size={12} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Paramètres */}
+          {activeTab === 'settings' && (
+            <div className="tab-content">
+              <div className="row g-4">
+                <div className="col-lg-6">
+                  <div className="content-card">
+                    <div className="card-header">
+                      <h4>Préférences</h4>
+                    </div>
+                    <div className="card-content">
+                      <div className="settings-section">
+                        <h6>
+                          <FaLanguage className="me-2" />
+                          Langue
+                        </h6>
+                        <select 
+                          className="form-select"
+                          value={preferences.language}
+                          onChange={(e) => handlePreferenceChange('', 'language', e.target.value)}
+                        >
+                          <option value="fr">Français</option>
+                          <option value="en">English</option>
+                        </select>
+                      </div>
+                      
+                      <div className="settings-section">
+                        <h6>
+                          <FaPalette className="me-2" />
+                          Thème
+                        </h6>
+                        <select 
+                          className="form-select"
+                          value={preferences.theme}
+                          onChange={(e) => handlePreferenceChange('', 'theme', e.target.value)}
+                        >
+                          <option value="light">Clair</option>
+                          <option value="dark">Sombre</option>
+                          <option value="auto">Automatique</option>
+                        </select>
+                      </div>
+
+                      <div className="settings-section">
+                        <h6>
+                          <FaBell className="me-2" />
+                          Notifications
+                        </h6>
+                        <div className="toggle-list">
+                          <div className="toggle-item">
+                            <label>Notifications par email</label>
+                            <input 
+                              type="checkbox" 
+                              checked={preferences.notifications.email}
+                              onChange={(e) => handlePreferenceChange('notifications', 'email', e.target.checked)}
+                            />
+                          </div>
+                          <div className="toggle-item">
+                            <label>Nouveaux livres</label>
+                            <input 
+                              type="checkbox" 
+                              checked={preferences.notifications.newBooks}
+                              onChange={(e) => handlePreferenceChange('notifications', 'newBooks', e.target.checked)}
+                            />
+                          </div>
+                          <div className="toggle-item">
+                            <label>Dates d'échéance</label>
+                            <input 
+                              type="checkbox" 
+                              checked={preferences.notifications.dueDates}
+                              onChange={(e) => handlePreferenceChange('notifications', 'dueDates', e.target.checked)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="content-card">
+                    <div className="card-header">
+                      <h4>Sécurité</h4>
+                    </div>
+                    <div className="card-content">
+                      <div className="settings-section">
+                        <h6>
+                          <FaKey className="me-2" />
+                          Mot de passe
+                        </h6>
+                        <button className="btn btn-outline-warning">
+                          Changer le mot de passe
+                        </button>
+                      </div>
+                      
+                      <div className="settings-section">
+                        <h6>
+                          <FaShieldAlt className="me-2" />
+                          Confidentialité
+                        </h6>
+                        <div className="toggle-list">
+                          <div className="toggle-item">
+                            <label>Profil public</label>
+                            <input 
+                              type="checkbox" 
+                              checked={preferences.privacy.showProfile}
+                              onChange={(e) => handlePreferenceChange('privacy', 'showProfile', e.target.checked)}
+                            />
+                          </div>
+                          <div className="toggle-item">
+                            <label>Activité visible</label>
+                            <input 
+                              type="checkbox" 
+                              checked={preferences.privacy.showActivity}
+                              onChange={(e) => handlePreferenceChange('privacy', 'showActivity', e.target.checked)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="settings-section danger-zone">
+                        <h6>
+                          <FaTrash className="me-2" />
+                          Zone de danger
+                        </h6>
+                        <p>Supprimer définitivement votre compte et toutes vos données.</p>
+                        <button className="btn btn-outline-danger">
+                          Supprimer le compte
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -551,263 +722,208 @@ const Profile = () => {
         .profile-container {
           background: var(--bg-primary);
           min-height: 100vh;
+          width: 100%;
+          margin: 0;
+          padding: 0;
         }
 
-        .container {
-          max-width: 1200px;
+        .profile-container .container {
+          max-width: 1400px !important;
+          margin: 0 auto !important;
+          padding: 0 1rem !important;
+          width: 100% !important;
         }
 
-        /* Hero Section */
-        .profile-hero {
-          padding: 3rem 0;
+        /* Profile Header */
+        .profile-header {
+          padding: 3rem 0 2rem;
           background: linear-gradient(135deg, 
-            rgba(29, 79, 139, 0.1) 0%, 
-            rgba(60, 107, 139, 0.05) 100%);
+            rgba(59, 130, 246, 0.1) 0%, 
+            rgba(16, 185, 129, 0.05) 100%);
           border-radius: 0 0 20px 20px;
           margin-bottom: 2rem;
         }
 
-        .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          background: rgba(241, 196, 14, 0.1);
-          border: 1px solid rgba(241, 196, 14, 0.3);
-          color: var(--warning);
-          font-size: 0.75rem;
-          font-weight: 500;
-          padding: 0.25rem 0.75rem;
-          border-radius: 20px;
-          margin-bottom: 1rem;
+        .profile-avatar-section {
+          text-align: center;
         }
 
-        .hero-title {
-          font-size: 2.5rem;
+        .profile-avatar {
+          width: 120px;
+          height: 120px;
+          background: linear-gradient(135deg, var(--warning), #e67e22);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          margin: 0 auto 1rem;
+          box-shadow: 0 8px 25px rgba(241, 196, 14, 0.3);
+        }
+
+        .avatar-actions {
+          margin-top: 1rem;
+        }
+
+        .profile-name {
+          font-size: 2rem;
           font-weight: 700;
           color: var(--text-primary);
           margin-bottom: 1rem;
-          line-height: 1.2;
         }
 
-        .hero-subtitle {
-          font-size: 1rem;
+        .profile-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .profile-meta span {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
           color: var(--text-secondary);
-          margin-bottom: 1.5rem;
+          font-size: 0.875rem;
+        }
+
+        .user-type {
+          background: rgba(59, 130, 246, 0.1);
+          color: #3b82f6 !important;
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          font-weight: 500;
+        }
+
+        .profile-bio {
+          color: var(--text-secondary);
           line-height: 1.6;
+          font-style: italic;
         }
 
         .profile-stats {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .stat-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          padding: 1rem;
-          border-radius: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-icon {
-          font-size: 1.5rem;
-        }
-
-        .stat-number {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--text-primary);
-        }
-
-        .stat-label {
-          font-size: 0.875rem;
-          color: var(--text-secondary);
-        }
-
-        /* Tabs */
-        .tabs-section {
-          padding: 1rem 0;
-        }
-
-        .tabs-nav {
-          display: flex;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 0.5rem;
-          gap: 0.5rem;
-        }
-
-        .tab-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: transparent;
-          border: none;
-          color: var(--text-secondary);
-          padding: 0.75rem 1.5rem;
-          border-radius: 8px;
-          font-size: 0.875rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          flex: 1;
-          justify-content: center;
-        }
-
-        .tab-item:hover {
-          background: rgba(255, 255, 255, 0.05);
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .tab-item.active {
-          background: rgba(241, 196, 14, 0.1);
-          color: var(--warning);
-          border: 1px solid rgba(241, 196, 14, 0.3);
-        }
-
-        /* Content */
-        .content-section {
-          padding: 2rem 0 4rem;
-        }
-
-        .profile-card,
-        .info-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          overflow: hidden;
-        }
-
-        .profile-header {
-          padding: 2rem;
-          text-align: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .avatar-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .avatar-wrapper {
-          position: relative;
-          margin-bottom: 1rem;
-        }
-
-        .avatar {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          border: 3px solid rgba(241, 196, 14, 0.3);
-          object-fit: cover;
-        }
-
-        .avatar-edit-btn {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          background: var(--warning);
-          color: var(--dark-900);
-          border: none;
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
-
-        .profile-header h4 {
-          color: var(--text-primary);
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-        }
-
-        .student-id {
-          color: var(--text-secondary);
-          font-size: 0.875rem;
-          margin-bottom: 1rem;
-        }
-
-        .level-badge {
-          background: rgba(241, 196, 14, 0.1);
-          color: var(--warning);
-          padding: 0.25rem 0.75rem;
-          border-radius: 12px;
-          font-size: 0.75rem;
-          font-weight: 500;
-        }
-
-        .profile-stats-detailed {
-          padding: 1.5rem;
-        }
-
-        .stats-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 1rem;
         }
 
-        .stat-detail {
-          text-align: center;
+        .stat-item {
           background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
           padding: 1rem;
-          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+          transform: translateY(-2px);
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .stat-icon {
+          font-size: 1.25rem;
         }
 
         .stat-value {
           font-size: 1.25rem;
           font-weight: 700;
-          color: var(--warning);
-          margin-bottom: 0.25rem;
+          color: var(--text-primary);
         }
 
-        .stat-name {
+        .stat-label {
           font-size: 0.75rem;
           color: var(--text-secondary);
         }
 
+        /* Navigation */
+        .profile-navigation {
+          padding: 1rem 0 2rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          margin-bottom: 2rem;
+        }
+
+        .tabs-container {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .tab-btn {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 0.75rem 1.5rem;
+          color: var(--text-secondary);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+          background: rgba(241, 196, 14, 0.1);
+          border-color: rgba(241, 196, 14, 0.3);
+          color: var(--warning);
+        }
+
+        /* Content */
+        .profile-content {
+          padding: 0 0 4rem;
+        }
+
+        .tab-content {
+          min-height: 400px;
+        }
+
+        .content-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          overflow: hidden;
+          margin-bottom: 2rem;
+        }
+
         .card-header {
+          background: rgba(255, 255, 255, 0.08);
+          padding: 1.5rem 2rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 1.5rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .card-header h3 {
+        .card-header h3,
+        .card-header h4 {
           color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
         }
 
-        .edit-actions {
-          display: flex;
-          gap: 0.5rem;
-        }
-
         .card-content {
-          padding: 1.5rem;
+          padding: 2rem;
         }
 
         .form-label {
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.9);
+          color: var(--text-primary);
           margin-bottom: 0.5rem;
-          display: flex;
-          align-items: center;
+          display: block;
         }
 
-        .form-control-modern {
+        .form-control,
+        .form-select {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 8px;
@@ -815,9 +931,11 @@ const Profile = () => {
           font-size: 0.875rem;
           color: var(--text-primary);
           transition: all 0.3s ease;
+          width: 100%;
         }
 
-        .form-control-modern:focus {
+        .form-control:focus,
+        .form-select:focus {
           background: rgba(255, 255, 255, 0.12);
           border-color: var(--warning);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
@@ -825,250 +943,533 @@ const Profile = () => {
           color: var(--text-primary);
         }
 
-        .form-control-modern:disabled {
-          background: rgba(255, 255, 255, 0.03);
-          border-color: rgba(255, 255, 255, 0.05);
-          color: var(--text-tertiary);
-        }
-
-        .section-header {
-          margin-bottom: 2rem;
-        }
-
-        .section-header h3 {
-          color: var(--text-primary);
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-          color: var(--text-secondary);
-          font-size: 0.875rem;
-        }
-
-        /* Borrowed Books */
-        .borrowed-book-card {
+        .info-display {
           background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          display: flex;
-          gap: 1.25rem;
-          padding: 1.25rem;
-          height: 100%;
-        }
-
-        .book-cover-section {
-          position: relative;
-          flex: 0 0 100px;
-        }
-
-        .book-cover {
-          width: 100px;
-          height: 130px;
           border-radius: 8px;
-          object-fit: cover;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .status-badge {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          padding: 0.25rem 0.5rem;
-          border-radius: 12px;
-          font-size: 0.7rem;
-          font-weight: 600;
+          padding: 0.75rem;
+          color: var(--text-primary);
+          font-size: 0.875rem;
           display: flex;
           align-items: center;
-          gap: 0.25rem;
         }
 
-        .status-success {
-          background: rgba(34, 197, 94, 0.9);
-          color: var(--text-primary);
+        .form-actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 2rem;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .status-warning {
-          background: rgba(245, 158, 11, 0.9);
-          color: var(--text-primary);
+        .btn {
+          border: none;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.5rem;
+          text-decoration: none;
+          cursor: pointer;
         }
 
-        .status-danger {
-          background: rgba(239, 68, 68, 0.9);
-          color: var(--text-primary);
+        .btn-sm {
+          padding: 0.5rem 1rem;
+          font-size: 0.8rem;
         }
 
-        .book-info {
-          flex: 1;
+        .btn-warning {
+          background: var(--gradient-accent);
+          color: var(--dark-900);
+        }
+
+        .btn-warning:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(241, 196, 14, 0.3);
+        }
+
+        .btn-success {
+          background: #22c55e;
+          color: white;
+        }
+
+        .btn-success:hover {
+          background: #16a34a;
+          transform: translateY(-2px);
+        }
+
+        .btn-outline-warning {
+          background: transparent;
+          border: 1px solid var(--warning);
+          color: var(--warning);
+        }
+
+        .btn-outline-warning:hover:not(:disabled) {
+          background: var(--warning);
+          color: var(--dark-900);
+        }
+
+        .btn-outline-warning:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .btn-outline-primary {
+          background: transparent;
+          border: 1px solid #3b82f6;
+          color: #3b82f6;
+        }
+
+        .btn-outline-primary:hover {
+          background: #3b82f6;
+          color: white;
+        }
+
+        .btn-outline-secondary {
+          background: transparent;
+          border: 1px solid var(--text-secondary);
+          color: var(--text-secondary);
+        }
+
+        .btn-outline-secondary:hover {
+          background: var(--text-secondary);
+          color: var(--bg-primary);
+        }
+
+        .btn-outline-danger {
+          background: transparent;
+          border: 1px solid #ef4444;
+          color: #ef4444;
+        }
+
+        .btn-outline-danger:hover {
+          background: #ef4444;
+          color: white;
+        }
+
+        /* Activity List */
+        .activity-list {
           display: flex;
           flex-direction: column;
+          gap: 1rem;
         }
 
-        .book-title {
+        .activity-item {
+          display: flex;
+          gap: 1rem;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .activity-text {
           color: var(--text-primary);
-          font-size: 0.95rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+          color: var(--text-tertiary);
+          font-size: 0.75rem;
+        }
+
+        /* Loans Grid */
+        .loans-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .loan-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .loan-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .loan-cover {
+          position: relative;
+          height: 200px;
+          overflow: hidden;
+        }
+
+        .loan-cover img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .loan-type {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          background: rgba(59, 130, 246, 0.9);
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border-radius: 8px;
+          font-size: 0.7rem;
+          font-weight: 600;
+        }
+
+        .loan-info {
+          padding: 1.5rem;
+        }
+
+        .loan-title {
+          color: var(--text-primary);
+          font-size: 1rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
-          line-height: 1.3;
         }
 
-        .book-author {
+        .loan-author {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+        }
+
+        .due-date {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+          padding: 0.5rem;
+          border-radius: 6px;
+        }
+
+        .due-date.normal {
+          background: rgba(34, 197, 94, 0.1);
+          color: #22c55e;
+        }
+
+        .due-date.due-soon {
+          background: rgba(245, 158, 11, 0.1);
+          color: #f59e0b;
+        }
+
+        .due-date.overdue {
+          background: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
+        }
+
+        .loan-renewals {
+          color: var(--text-tertiary);
+          font-size: 0.8rem;
+          margin-bottom: 1rem;
+        }
+
+        .loan-actions {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        /* Favorites Grid */
+        .favorites-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .favorite-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .favorite-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .favorite-cover {
+          position: relative;
+          height: 180px;
+          overflow: hidden;
+        }
+
+        .favorite-cover img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .remove-favorite {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          background: rgba(239, 68, 68, 0.9);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .remove-favorite:hover {
+          background: #ef4444;
+          transform: scale(1.1);
+        }
+
+        .favorite-info {
+          padding: 1.5rem;
+        }
+
+        .favorite-category {
+          background: rgba(241, 196, 14, 0.1);
+          color: var(--warning);
+          padding: 0.25rem 0.5rem;
+          border-radius: 8px;
+          font-size: 0.7rem;
+          font-weight: 500;
+        }
+
+        .favorite-title {
+          color: var(--text-primary);
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin: 0.75rem 0 0.5rem;
+        }
+
+        .favorite-author {
           color: var(--text-secondary);
           font-size: 0.8rem;
           margin-bottom: 0.75rem;
         }
 
-        .book-details {
-          flex: 1;
-          margin-bottom: 1rem;
-        }
-
-        .detail-row {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 0.5rem;
-        }
-
-        .detail-label {
-          font-size: 0.75rem;
-          color: var(--text-tertiary);
-        }
-
-        .detail-value {
-          font-size: 0.75rem;
-          color: var(--text-secondary);
-          font-weight: 500;
-        }
-
-        .book-actions {
-          display: flex;
-          gap: 0.5rem;
-        }
-
-        /* History Books */
-        .history-book-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 1rem;
-          height: 100%;
-        }
-
-        .book-cover-small {
-          position: relative;
-          margin-bottom: 1rem;
-        }
-
-        .book-cover-small img {
-          width: 100%;
-          height: 100px;
-          border-radius: 6px;
-          object-fit: cover;
-        }
-
-        .returned-badge {
-          position: absolute;
-          top: 0.5rem;
-          right: 0.5rem;
-          background: rgba(34, 197, 94, 0.9);
-          color: var(--text-primary);
-          padding: 0.25rem 0.5rem;
-          border-radius: 12px;
-          font-size: 0.6rem;
+        .favorite-rating {
           display: flex;
           align-items: center;
           gap: 0.25rem;
-        }
-
-        .book-title-small {
-          color: var(--text-primary);
-          font-size: 0.85rem;
-          font-weight: 600;
           margin-bottom: 0.5rem;
-          line-height: 1.3;
-        }
-
-        .book-author-small {
-          color: var(--text-secondary);
-          font-size: 0.7rem;
-          margin-bottom: 0.75rem;
-        }
-
-        .history-dates {
-          margin-bottom: 0.75rem;
-        }
-
-        .date-item {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 0.25rem;
-          font-size: 0.7rem;
-        }
-
-        .date-item span:first-child {
-          color: var(--text-tertiary);
-        }
-
-        .date-item span:last-child {
-          color: var(--text-secondary);
-        }
-
-        .rating-section {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 0.75rem;
-        }
-
-        .rating-section span {
-          color: var(--text-tertiary);
-        }
-
-        .stars {
-          display: flex;
-          gap: 0.125rem;
         }
 
         .star-filled {
-          color: var(--warning);
+          color: #f59e0b;
         }
 
         .star-empty {
-          color: rgba(255, 255, 255, 0.3);
+          color: rgba(245, 158, 11, 0.3);
+        }
+
+        .favorite-added {
+          color: var(--text-tertiary);
+          font-size: 0.75rem;
+        }
+
+        /* History List */
+        .history-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .history-item {
+          display: flex;
+          gap: 1rem;
+          padding: 1.5rem;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .history-icon {
+          width: 40px;
+          height: 40px;
+          background: rgba(34, 197, 94, 0.1);
+          color: #22c55e;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .history-content {
+          flex: 1;
+        }
+
+        .history-title {
+          color: var(--text-primary);
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .history-author {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .history-meta {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .completion-date {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--text-tertiary);
+          font-size: 0.8rem;
+        }
+
+        .history-rating {
+          display: flex;
+          gap: 0.25rem;
+        }
+
+        .history-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        /* Settings */
+        .settings-section {
+          margin-bottom: 2rem;
+          padding-bottom: 2rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .settings-section:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+        }
+
+        .settings-section h6 {
+          color: var(--text-primary);
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+        }
+
+        .toggle-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .toggle-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+        }
+
+        .toggle-item label {
+          color: var(--text-primary);
+          font-size: 0.875rem;
+          margin: 0;
+        }
+
+        .toggle-item input[type="checkbox"] {
+          width: 18px;
+          height: 18px;
+          accent-color: var(--warning);
+        }
+
+        .danger-zone {
+          background: rgba(239, 68, 68, 0.05);
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          border-radius: 8px;
+          padding: 1.5rem;
+        }
+
+        .danger-zone h6 {
+          color: #ef4444;
+        }
+
+        .danger-zone p {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-          .hero-title {
-            font-size: 2rem;
+          .profile-name {
+            font-size: 1.5rem;
+          }
+          
+          .profile-meta {
+            flex-direction: column;
+            gap: 0.75rem;
           }
           
           .profile-stats {
+            grid-template-columns: 1fr;
             margin-top: 2rem;
           }
           
-          .tabs-nav {
+          .tabs-container {
             flex-direction: column;
+            align-items: center;
           }
           
-          .tab-item {
-            justify-content: flex-start;
-          }
-          
-          .borrowed-book-card {
+          .card-header {
             flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
           }
           
-          .book-cover-section {
-            flex: none;
-            align-self: center;
-          }
-          
-          .stats-grid {
+          .loans-grid,
+          .favorites-grid {
             grid-template-columns: 1fr;
+          }
+          
+          .history-item {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .history-actions {
+            flex-direction: row;
+            justify-content: center;
+          }
+          
+          .form-actions {
+            flex-direction: column;
           }
         }
       `}</style>
