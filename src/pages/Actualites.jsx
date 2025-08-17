@@ -11,7 +11,10 @@ import {
   FaStar,
   FaBookOpen,
   FaGraduationCap,
-  FaGlobe
+  FaGlobe,
+  FaChevronRight,
+  FaClock,
+  FaMapMarkerAlt
 } from 'react-icons/fa';
 
 const Actualites = () => {
@@ -29,7 +32,7 @@ const Actualites = () => {
     {
       id: 1,
       title: "Nouvelle collection de livres sur l'histoire du Cameroun",
-      excerpt: "La bibliothèque enrichit sa collection avec 200 nouveaux ouvrages dédiés à l'histoire contemporaine du Cameroun, incluant des œuvres d'auteurs camerounais reconnus.",
+      excerpt: "La bibliothèque enrichit sa collection avec 200 nouveaux ouvrages dédiés à l'histoire contemporaine du Cameroun.",
       author: "Dr. Marie Atangana",
       date: "2024-01-15",
       category: "Nouvelles",
@@ -42,7 +45,7 @@ const Actualites = () => {
     {
       id: 2,
       title: "Conférence sur la théologie africaine contemporaine",
-      excerpt: "Le Pr. Zacharias Tanee Fomum animera une conférence sur les défis de la théologie africaine moderne le 25 janvier à l'amphithéâtre principal.",
+      excerpt: "Le Pr. Zacharias Tanee Fomum animera une conférence sur les défis de la théologie africaine moderne.",
       author: "Comité d'organisation",
       date: "2024-01-12",
       category: "Événements",
@@ -54,7 +57,7 @@ const Actualites = () => {
     {
       id: 3,
       title: "Recherche : L'impact de la littérature orale sur l'éducation",
-      excerpt: "Une étude menée par nos chercheurs révèle l'importance des contes traditionnels camerounais dans l'apprentissage des enfants.",
+      excerpt: "Une étude menée par nos chercheurs révèle l'importance des contes traditionnels camerounais.",
       author: "Dr. Paul Mbarga",
       date: "2024-01-10",
       category: "Focus Recherche",
@@ -66,7 +69,7 @@ const Actualites = () => {
     {
       id: 4,
       title: "Nouvelle plateforme numérique pour les étudiants",
-      excerpt: "Lancement d'une plateforme interactive permettant aux étudiants d'accéder aux ressources numériques depuis leurs appareils mobiles.",
+      excerpt: "Lancement d'une plateforme interactive permettant l'accès aux ressources numériques.",
       author: "Équipe Technique",
       date: "2024-01-08",
       category: "Nouvelles",
@@ -78,7 +81,7 @@ const Actualites = () => {
     {
       id: 5,
       title: "Publication : Philosophie Ubuntu et développement durable",
-      excerpt: "Nouveau livre du Dr. Emmanuel Ngwé explorant les liens entre la philosophie Ubuntu et les enjeux environnementaux africains.",
+      excerpt: "Nouveau livre explorant les liens entre la philosophie Ubuntu et les enjeux environnementaux.",
       author: "Dr. Emmanuel Ngwé",
       date: "2024-01-05",
       category: "Publications",
@@ -90,7 +93,7 @@ const Actualites = () => {
     {
       id: 6,
       title: "Atelier : Techniques de recherche documentaire",
-      excerpt: "Formation pratique sur les méthodes modernes de recherche documentaire et l'utilisation des bases de données académiques.",
+      excerpt: "Formation pratique sur les méthodes modernes de recherche documentaire.",
       author: "Équipe Bibliothécaires",
       date: "2024-01-03",
       category: "Événements",
@@ -171,16 +174,16 @@ const Actualites = () => {
               </div>
             </div>
             <div className="col-lg-4">
-              <div className="news-stats">
+              <div className="quick-stats-card">
                 <div className="stat-item">
-                  <FaNewspaper className="stat-icon" />
+                  <FaNewspaper className="stat-icon text-warning" />
                   <div>
                     <div className="stat-number">45</div>
                     <div className="stat-label">Articles</div>
                   </div>
                 </div>
                 <div className="stat-item">
-                  <FaEye className="stat-icon" />
+                  <FaEye className="stat-icon text-info" />
                   <div>
                     <div className="stat-number">12,450</div>
                     <div className="stat-label">Vues totales</div>
@@ -192,8 +195,8 @@ const Actualites = () => {
         </div>
       </section>
 
-      {/* Featured Video */}
-      <section className="featured-video-section">
+      {/* Featured Video Section */}
+      <section className="featured-section">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-10">
@@ -202,12 +205,12 @@ const Actualites = () => {
                   <img src={featuredVideo.thumbnail} alt={featuredVideo.title} />
                   <div className="video-overlay">
                     <button className="play-button">
-                      <FaPlay size={24} />
+                      <FaPlay size={20} />
                     </button>
                   </div>
                   <div className="video-duration">{featuredVideo.duration}</div>
                 </div>
-                <div className="video-info">
+                <div className="video-content">
                   <h3>{featuredVideo.title}</h3>
                   <p>{featuredVideo.description}</p>
                   <div className="video-meta">
@@ -230,71 +233,83 @@ const Actualites = () => {
       {/* Main Content */}
       <section className="content-section">
         <div className="container">
-          <div className="row g-4">
+          <div className="row g-3">
             
             {/* Sidebar */}
             <div className="col-lg-3">
               {/* Categories */}
               <div className="sidebar-card">
-                <div className="sidebar-header">
+                <div className="card-header">
                   <FaNewspaper size={16} />
                   <h5>Catégories</h5>
                 </div>
-                <div className="categories-list">
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`category-item ${selectedCategory === category.id ? 'active' : ''}`}
-                    >
-                      <span className="category-label">{category.label}</span>
-                      <span className="category-count">{category.count}</span>
-                    </button>
-                  ))}
+                <div className="card-content">
+                  <div className="categories-list">
+                    {categories.map((category) => (
+                      <button
+                        key={category.id}
+                        onClick={() => setSelectedCategory(category.id)}
+                        className={`category-item ${selectedCategory === category.id ? 'active' : ''}`}
+                      >
+                        <span className="category-label">{category.label}</span>
+                        <span className="category-count">{category.count}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Upcoming Events */}
               <div className="sidebar-card">
-                <div className="sidebar-header">
+                <div className="card-header">
                   <FaCalendar size={16} />
                   <h5>Événements à venir</h5>
                 </div>
-                <div className="events-list">
-                  {upcomingEvents.map((event) => (
-                    <div key={event.id} className="event-item">
-                      <div className="event-date">
-                        <div className="event-day">
-                          {new Date(event.date).getDate()}
+                <div className="card-content">
+                  <div className="events-list">
+                    {upcomingEvents.map((event) => (
+                      <div key={event.id} className="event-card">
+                        <div className="event-date">
+                          <div className="event-day">
+                            {new Date(event.date).getDate()}
+                          </div>
+                          <div className="event-month">
+                            {new Date(event.date).toLocaleDateString('fr-FR', { month: 'short' })}
+                          </div>
                         </div>
-                        <div className="event-month">
-                          {new Date(event.date).toLocaleDateString('fr-FR', { month: 'short' })}
+                        <div className="event-info">
+                          <h6>{event.title}</h6>
+                          <div className="event-details">
+                            <div className="event-meta">
+                              <FaClock size={10} />
+                              {event.time}
+                            </div>
+                            <div className="event-meta">
+                              <FaMapMarkerAlt size={10} />
+                              {event.location}
+                            </div>
+                          </div>
+                          <p>{event.description}</p>
                         </div>
                       </div>
-                      <div className="event-info">
-                        <h6>{event.title}</h6>
-                        <div className="event-details">
-                          <div className="event-time">{event.time}</div>
-                          <div className="event-location">{event.location}</div>
-                        </div>
-                        <p>{event.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Main Content - News */}
             <div className="col-lg-9">
-              <div className="news-header">
-                <h4>Dernières actualités</h4>
-                <span className="news-count">
-                  {filteredNews.length} article{filteredNews.length > 1 ? 's' : ''}
-                </span>
+              <div className="section-header">
+                <div>
+                  <h4>Dernières actualités</h4>
+                  <span className="news-count">
+                    {filteredNews.length} article{filteredNews.length > 1 ? 's' : ''}
+                  </span>
+                </div>
               </div>
 
-              <div className="row g-4">
+              <div className="row g-3">
                 {filteredNews.map((article) => (
                   <div key={article.id} className={`${article.featured ? 'col-12' : 'col-lg-6'}`}>
                     <article className={`news-card ${article.featured ? 'featured' : ''}`}>
@@ -302,7 +317,7 @@ const Actualites = () => {
                         <img src={article.image} alt={article.title} />
                         {article.featured && (
                           <div className="featured-badge">
-                            <FaStar size={12} />
+                            <FaStar size={10} />
                             À la une
                           </div>
                         )}
@@ -312,7 +327,7 @@ const Actualites = () => {
                         <div className="news-meta">
                           <span className="news-category">{article.category}</span>
                           <span className="news-date">
-                            <FaCalendar size={12} />
+                            <FaCalendar size={10} />
                             {new Date(article.date).toLocaleDateString('fr-FR')}
                           </span>
                         </div>
@@ -322,20 +337,20 @@ const Actualites = () => {
                         
                         <div className="news-footer">
                           <div className="news-author">
-                            <FaUser size={12} />
+                            <FaUser size={10} />
                             {article.author}
                           </div>
                           <div className="news-stats">
                             <span className="stat-item">
-                              <FaEye size={12} />
+                              <FaEye size={10} />
                               {article.views}
                             </span>
                             <span className="stat-item">
-                              <FaHeart size={12} />
+                              <FaHeart size={10} />
                               {article.likes}
                             </span>
                             <span className="stat-item">
-                              <FaComment size={12} />
+                              <FaComment size={10} />
                               {article.comments}
                             </span>
                           </div>
@@ -398,7 +413,12 @@ const Actualites = () => {
           line-height: 1.6;
         }
 
-        .news-stats {
+        .quick-stats-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 1.25rem;
           display: flex;
           flex-direction: column;
           gap: 1rem;
@@ -408,31 +428,31 @@ const Actualites = () => {
           display: flex;
           align-items: center;
           gap: 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          padding: 1rem;
-          border-radius: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 1rem 0;
+        }
+
+        .stat-item:not(:last-child) {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-icon {
-          color: var(--warning);
           font-size: 1.5rem;
         }
 
         .stat-number {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           font-weight: 700;
           color: var(--text-primary);
         }
 
         .stat-label {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           color: var(--text-secondary);
         }
 
         /* Featured Video */
-        .featured-video-section {
-          padding: 2rem 0;
+        .featured-section {
+          padding: 1rem 0 2rem;
         }
 
         .featured-video-card {
@@ -442,14 +462,20 @@ const Actualites = () => {
           border-radius: 12px;
           overflow: hidden;
           display: flex;
-          gap: 2rem;
-          padding: 1.5rem;
+          gap: 1.5rem;
+          padding: 1.25rem;
+          transition: all 0.3s ease;
+        }
+
+        .featured-video-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .video-thumbnail {
           position: relative;
-          flex: 0 0 300px;
-          height: 200px;
+          flex: 0 0 240px;
+          height: 140px;
           border-radius: 8px;
           overflow: hidden;
         }
@@ -477,8 +503,8 @@ const Actualites = () => {
           background: var(--warning);
           border: none;
           border-radius: 50%;
-          width: 60px;
-          height: 60px;
+          width: 48px;
+          height: 48px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -497,42 +523,44 @@ const Actualites = () => {
           right: 0.5rem;
           background: rgba(0, 0, 0, 0.8);
           color: var(--text-primary);
-          padding: 0.25rem 0.5rem;
+          padding: 0.2rem 0.4rem;
           border-radius: 4px;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
         }
 
-        .video-info {
+        .video-content {
           flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: center;
         }
 
-        .video-info h3 {
+        .video-content h3 {
           color: var(--text-primary);
-          font-size: 1.5rem;
+          font-size: 1.1rem;
           font-weight: 600;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.3;
         }
 
-        .video-info p {
+        .video-content p {
           color: var(--text-secondary);
-          margin-bottom: 1rem;
-          line-height: 1.5;
+          margin-bottom: 0.75rem;
+          line-height: 1.4;
+          font-size: 0.85rem;
         }
 
         .video-meta {
           display: flex;
-          gap: 1.5rem;
+          gap: 1rem;
         }
 
         .meta-item {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
           color: var(--text-tertiary);
-          font-size: 0.875rem;
+          font-size: 0.75rem;
         }
 
         /* Content Section */
@@ -545,30 +573,38 @@ const Actualites = () => {
           backdrop-filter: blur(15px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
-          padding: 1.5rem;
-          margin-bottom: 2rem;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
         }
 
-        .sidebar-header {
+        .card-header {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          color: var(--text-primary);
-          margin-bottom: 1.5rem;
-          padding-bottom: 1rem;
+          gap: 0.75rem;
+          padding: 1rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
         }
 
-        .sidebar-header h5 {
+        .card-header h5 {
           margin: 0;
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        .card-header svg {
+          color: var(--warning);
+        }
+
+        .card-content {
+          padding: 1rem;
         }
 
         .categories-list {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.4rem;
         }
 
         .category-item {
@@ -577,10 +613,10 @@ const Actualites = () => {
           align-items: center;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 0.75rem;
+          border-radius: 6px;
+          padding: 0.6rem;
           color: var(--text-secondary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           cursor: pointer;
           transition: all 0.3s ease;
           width: 100%;
@@ -595,86 +631,98 @@ const Actualites = () => {
         }
 
         .category-count {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           opacity: 0.7;
         }
 
         .events-list {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
-        .event-item {
+        .event-card {
           display: flex;
-          gap: 1rem;
-          padding: 1rem;
+          gap: 0.75rem;
+          padding: 0.75rem;
           background: rgba(255, 255, 255, 0.05);
           border-radius: 8px;
           border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(241, 196, 14, 0.3);
         }
 
         .event-date {
-          flex: 0 0 50px;
+          flex: 0 0 40px;
           text-align: center;
           background: rgba(241, 196, 14, 0.1);
           border-radius: 6px;
-          padding: 0.5rem;
+          padding: 0.4rem;
           border: 1px solid rgba(241, 196, 14, 0.3);
         }
 
         .event-day {
-          font-size: 1.25rem;
+          font-size: 1rem;
           font-weight: 700;
           color: var(--warning);
+          line-height: 1;
         }
 
         .event-month {
-          font-size: 0.7rem;
+          font-size: 0.6rem;
           color: var(--warning);
           text-transform: uppercase;
+          line-height: 1;
         }
 
         .event-info h6 {
           color: var(--text-primary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.4rem;
+          line-height: 1.2;
         }
 
         .event-details {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.4rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
         }
 
-        .event-time,
-        .event-location {
-          font-size: 0.75rem;
+        .event-meta {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          font-size: 0.65rem;
           color: var(--text-secondary);
         }
 
         .event-info p {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           color: var(--text-tertiary);
           margin: 0;
+          line-height: 1.3;
         }
 
-        .news-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
+        .section-header {
+          margin-bottom: 1.5rem;
         }
 
-        .news-header h4 {
+        .section-header h4 {
           color: var(--text-primary);
           font-size: 1.25rem;
           font-weight: 600;
-          margin: 0;
+          margin-bottom: 0.25rem;
         }
 
         .news-count {
           color: var(--text-secondary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
         }
 
         /* News Cards */
@@ -698,17 +746,17 @@ const Actualites = () => {
 
         .news-card.featured {
           flex-direction: row;
-          min-height: 300px;
+          min-height: 200px;
         }
 
         .news-image {
           position: relative;
-          height: 200px;
+          height: 120px;
           overflow: hidden;
         }
 
         .news-card.featured .news-image {
-          flex: 0 0 400px;
+          flex: 0 0 280px;
           height: auto;
         }
 
@@ -720,21 +768,21 @@ const Actualites = () => {
 
         .featured-badge {
           position: absolute;
-          top: 1rem;
-          left: 1rem;
+          top: 0.75rem;
+          left: 0.75rem;
           background: var(--warning);
           color: var(--dark-900);
-          padding: 0.25rem 0.75rem;
-          border-radius: 20px;
-          font-size: 0.75rem;
+          padding: 0.2rem 0.6rem;
+          border-radius: 12px;
+          font-size: 0.7rem;
           font-weight: 600;
           display: flex;
           align-items: center;
-          gap: 0.25rem;
+          gap: 0.2rem;
         }
 
         .news-content {
-          padding: 1.5rem;
+          padding: 1rem;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -744,65 +792,69 @@ const Actualites = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
 
         .news-category {
           background: rgba(241, 196, 14, 0.1);
           color: var(--warning);
-          padding: 0.25rem 0.75rem;
-          border-radius: 12px;
-          font-size: 0.75rem;
+          padding: 0.2rem 0.5rem;
+          border-radius: 8px;
+          font-size: 0.7rem;
           font-weight: 500;
         }
 
         .news-date {
           display: flex;
           align-items: center;
-          gap: 0.25rem;
+          gap: 0.3rem;
           color: var(--text-tertiary);
-          font-size: 0.75rem;
+          font-size: 0.7rem;
         }
 
         .news-title {
           color: var(--text-primary);
-          font-size: 1.1rem;
+          font-size: 0.9rem;
           font-weight: 600;
-          margin-bottom: 1rem;
-          line-height: 1.4;
+          margin-bottom: 0.6rem;
+          line-height: 1.3;
         }
 
         .news-card.featured .news-title {
-          font-size: 1.5rem;
+          font-size: 1.1rem;
         }
 
         .news-excerpt {
           color: var(--text-secondary);
-          font-size: 0.875rem;
-          line-height: 1.5;
-          margin-bottom: 1.5rem;
+          font-size: 0.75rem;
+          line-height: 1.4;
+          margin-bottom: 0.75rem;
           flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .news-footer {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding-top: 1rem;
+          padding-top: 0.75rem;
           border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .news-author {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
           color: var(--text-secondary);
-          font-size: 0.875rem;
+          font-size: 0.7rem;
         }
 
         .news-stats {
           display: flex;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
         .news-stats .stat-item {
@@ -810,7 +862,7 @@ const Actualites = () => {
           align-items: center;
           gap: 0.25rem;
           color: var(--text-tertiary);
-          font-size: 0.75rem;
+          font-size: 0.7rem;
         }
 
         /* Responsive */
@@ -819,7 +871,7 @@ const Actualites = () => {
             font-size: 2rem;
           }
           
-          .news-stats {
+          .quick-stats-card {
             margin-top: 2rem;
           }
           
@@ -830,6 +882,7 @@ const Actualites = () => {
           .video-thumbnail {
             flex: none;
             width: 100%;
+            height: 180px;
           }
           
           .news-card.featured {
@@ -838,13 +891,11 @@ const Actualites = () => {
           
           .news-card.featured .news-image {
             flex: none;
-            height: 200px;
+            height: 160px;
           }
           
-          .news-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
+          .section-header {
+            margin-bottom: 1rem;
           }
         }
       `}</style>

@@ -543,9 +543,9 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="row g-4 justify-content-center">
-            {mockBooks.slice(0, 3).map((book) => (
-              <div key={book.id} className="col-lg-4 col-md-6 col-sm-8">
+          <div className="row g-3 justify-content-center">
+            {mockBooks.slice(0, 4).map((book) => (
+              <div key={book.id} className="col-lg-3 col-md-4 col-sm-6">
                 <div className="featured-book-card">
                   <div className="book-cover">
                     <img src={book.cover} alt={book.title} />
@@ -618,9 +618,9 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="row g-4 justify-content-center">
+          <div className="row g-3 justify-content-center">
             {mockAuthors.map((author) => (
-              <div key={author.id} className="col-lg-4 col-md-6 col-sm-8">
+              <div key={author.id} className="col-lg-3 col-md-4 col-sm-6">
                 <div className="featured-author-card">
                   <div className="author-header">
                     <div className="author-avatar">
@@ -670,11 +670,11 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="row g-4 justify-content-center">
+          <div className="row g-3 justify-content-center">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <div key={index} className="col-lg-4 col-md-6 col-sm-8">
+                <div key={index} className="col-lg-3 col-md-4 col-sm-6">
                   <Link to={service.path} className="service-card h-100 d-block">
                     <div className="service-header">
                       <div className="service-icon">
@@ -713,11 +713,11 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="row g-4 justify-content-center mb-5">
+          <div className="row g-3 justify-content-center mb-4">
             {quickActions.map((action, index) => {
               const Icon = action.icon;
               return (
-                <div key={index} className="col-6 col-lg-3 col-md-6">
+                <div key={index} className="col-6 col-lg-3 col-md-4">
                   <div className="quick-action-card h-100">
                     <Icon size={20} className="action-icon" />
                     <div className="action-content">
@@ -1018,14 +1018,14 @@ const Home = () => {
           background: var(--bg-card);
           backdrop-filter: blur(10px);
           border: 1px solid var(--border-primary);
-          border-radius: 12px;
-          padding: 1.5rem;
+          border-radius: 10px;
+          padding: 1.25rem;
           text-decoration: none;
           color: inherit;
           transition: all 0.3s ease;
           position: relative;
           overflow: hidden;
-          min-height: 200px;
+          min-height: 160px;
         }
 
         .service-card:hover {
@@ -1039,14 +1039,14 @@ const Home = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
 
         .service-icon {
-          width: 36px;
-          height: 36px;
+          width: 32px;
+          height: 32px;
           background: rgba(241, 196, 14, 0.1);
-          border-radius: 8px;
+          border-radius: 6px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1064,16 +1064,22 @@ const Home = () => {
         }
 
         .service-title {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           color: var(--text-primary);
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.4rem;
+          line-height: 1.3;
         }
 
         .service-description {
-          font-size: 0.875rem;
-          color: var(--text-tertiary);
-          margin-bottom: 1rem;
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+          margin-bottom: 0.75rem;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .service-arrow {
@@ -1093,13 +1099,13 @@ const Home = () => {
           background: var(--bg-card);
           backdrop-filter: blur(10px);
           border: 1px solid var(--border-primary);
-          border-radius: 10px;
-          padding: 1rem;
+          border-radius: 8px;
+          padding: 0.75rem;
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.6rem;
           transition: transform 0.3s ease;
-          min-height: 80px;
+          min-height: 65px;
         }
 
         .quick-action-card:hover {
@@ -1111,13 +1117,14 @@ const Home = () => {
         }
 
         .action-label {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           font-weight: 500;
           color: var(--text-primary);
+          line-height: 1.2;
         }
 
         .action-count {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           color: var(--text-tertiary);
         }
 
@@ -1126,8 +1133,8 @@ const Home = () => {
           background: var(--bg-card);
           backdrop-filter: blur(15px);
           border: 1px solid var(--border-primary);
-          border-radius: 12px;
-          padding: 2rem;
+          border-radius: 10px;
+          padding: 1.25rem;
           transition: all 0.3s ease;
         }
 
@@ -1473,7 +1480,7 @@ const Home = () => {
         /* Featured Book Cards use same styles as result cards */
         .featured-book-card .book-cover {
           position: relative;
-          height: 200px;
+          height: 160px;
           overflow: hidden;
         }
 
@@ -1484,35 +1491,35 @@ const Home = () => {
         }
 
         .featured-book-card .book-info {
-          padding: 1.5rem;
+          padding: 1.25rem;
         }
 
         .featured-book-card .book-title {
           color: var(--text-primary);
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.4rem;
           line-height: 1.3;
         }
 
         .featured-book-card .book-author {
           color: var(--text-tertiary);
-          font-size: 0.875rem;
-          margin-bottom: 1rem;
+          font-size: 0.8rem;
+          margin-bottom: 0.75rem;
         }
 
         .featured-book-card .book-details {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1rem;
+          gap: 0.4rem;
+          margin-bottom: 0.75rem;
         }
 
         .featured-book-card .book-description {
           color: var(--text-secondary);
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           line-height: 1.4;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
@@ -1521,21 +1528,21 @@ const Home = () => {
 
         /* Featured Author Cards use same styles as result cards */
         .featured-author-card {
-          padding: 1.5rem;
+          padding: 1.25rem;
         }
 
         .featured-author-card .author-header {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
-          padding-bottom: 1rem;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+          padding-bottom: 0.75rem;
           border-bottom: 1px solid var(--border-primary);
         }
 
         .featured-author-card .author-avatar {
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           overflow: hidden;
           border: 2px solid rgba(241, 196, 14, 0.3);

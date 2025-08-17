@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   FaInfoCircle, 
   FaClock, 
@@ -18,10 +18,14 @@ import {
   FaShieldAlt,
   FaFileAlt,
   FaSitemap,
-  FaGavel
+  FaGavel,
+  FaCheckCircle,
+  FaTimesCircle
 } from 'react-icons/fa';
 
 const Infos = () => {
+  const [activeTab, setActiveTab] = useState('horaires');
+
   const openingHours = [
     { day: 'Lundi - Vendredi', hours: '08:00 - 20:00', type: 'normal' },
     { day: 'Samedi', hours: '09:00 - 17:00', type: 'weekend' },
@@ -101,71 +105,12 @@ const Infos = () => {
     { name: 'Consignes sécurisées', icon: FaShieldAlt, available: true }
   ];
 
-  const regulations = [
-    {
-      title: 'Conditions d\'accès',
-      items: [
-        'Carte d\'étudiant ou de chercheur obligatoire',
-        'Visiteurs externes sur autorisation',
-        'Horaires d\'accès respecter strictement'
-      ]
-    },
-    {
-      title: 'Usage des ressources',
-      items: [
-        'Consultation libre des ouvrages en salle',
-        'Emprunt limité selon le statut',
-        'Reproduction soumise au droit d\'auteur'
-      ]
-    },
-    {
-      title: 'Comportement',
-      items: [
-        'Silence obligatoire en salle de lecture',
-        'Téléphones en mode silencieux',
-        'Interdiction de manger en salle'
-      ]
-    }
+  const tabs = [
+    { id: 'horaires', label: 'Horaires & Contact', icon: FaClock },
+    { id: 'services', label: 'Nos Services', icon: FaBuilding },
+    { id: 'reglement', label: 'Règlement', icon: FaFileAlt },
+    { id: 'plan', label: 'Plan d\'accès', icon: FaMapMarkerAlt }
   ];
-
-  const legalPages = [
-    { title: 'Conditions générales d\'utilisation', icon: FaFileAlt, link: '/legal/cgu' },
-    { title: 'Politique de confidentialité', icon: FaShieldAlt, link: '/legal/privacy' },
-    { title: 'Mentions légales', icon: FaGavel, link: '/legal/mentions' },
-    { title: 'Plan du site', icon: FaSitemap, link: '/sitemap' }
-  ];
-
-  const libraryMap = {
-    floors: [
-      {
-        name: 'Rez-de-chaussée',
-        areas: [
-          'Accueil et renseignements',
-          'Salle de lecture principale',
-          'Collections générales',
-          'Périodiques actuels'
-        ]
-      },
-      {
-        name: '1er étage',
-        areas: [
-          'Espace multimédia',
-          'Salles de travail en groupe',
-          'Collections spécialisées',
-          'Bureau des bibliothécaires'
-        ]
-      },
-      {
-        name: '2ème étage',
-        areas: [
-          'Archives et manuscrits',
-          'Salle de conférence',
-          'Collection Zacharias Tanee Fomum',
-          'Espace chercheurs'
-        ]
-      }
-    ]
-  };
 
   return (
     <div className="infos-container">
@@ -200,10 +145,35 @@ const Infos = () => {
                 <div className="info-item">
                   <FaPhone className="info-icon text-success" />
                   <div>
-                    <div className="info-title">Urgence</div>
-                    <div className="info-value">+237 699 123 456</div>
+                    <div className="info-title">Contact</div>
+                    <div className="info-value">+237 222 234 567</div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tabs Navigation */}
+      <section className="tabs-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="tabs-nav">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`tab-item ${activeTab === tab.id ? 'active' : ''}`}
+                    >
+                      <Icon size={16} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -213,202 +183,291 @@ const Infos = () => {
       {/* Main Content */}
       <section className="content-section">
         <div className="container">
-          <div className="row g-4">
-            
-            {/* Left Column */}
-            <div className="col-lg-8">
+          
+          {/* Horaires & Contact Tab */}
+          {activeTab === 'horaires' && (
+            <div className="row g-4">
+              <div className="col-lg-8">
+                <div className="info-card">
+                  <div className="card-header">
+                    <FaClock size={20} />
+                    <h3>Horaires d'ouverture</h3>
+                  </div>
+                  <div className="card-content">
+                    <div className="hours-grid">
+                      <div className="hours-section">
+                        <h5>Horaires normaux</h5>
+                        {openingHours.map((schedule, index) => (
+                          <div key={index} className={`hour-item ${schedule.type}`}>
+                            <span className="day">{schedule.day}</span>
+                            <span className="hours">{schedule.hours}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="hours-section">
+                        <h5>Horaires spéciaux</h5>
+                        {specialHours.map((schedule, index) => (
+                          <div key={index} className="hour-item special">
+                            <span className="day">{schedule.period}</span>
+                            <span className="hours">{schedule.hours}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="info-card">
+                  <div className="card-header">
+                    <FaEnvelope size={20} />
+                    <h3>Contact</h3>
+                  </div>
+                  <div className="card-content">
+                    <div className="contact-list">
+                      {contactInfo.map((contact, index) => {
+                        const Icon = contact.icon;
+                        return (
+                          <div key={index} className="contact-item">
+                            <div className={`contact-icon text-${contact.color}`}>
+                              <Icon size={18} />
+                            </div>
+                            <div className="contact-details">
+                              <div className="contact-type">{contact.type}</div>
+                              <div className="contact-value">
+                                {contact.value.split('\n').map((line, idx) => (
+                                  <div key={idx}>{line}</div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Services Tab */}
+          {activeTab === 'services' && (
+            <div className="row g-3">
+              <div className="col-12">
+                <div className="section-header">
+                  <h3>Nos services et équipements</h3>
+                  <p>Découvrez tous nos espaces et services à votre disposition</p>
+                </div>
+              </div>
               
-              {/* Opening Hours */}
-              <div className="info-card" id="horaires">
-                <div className="card-header">
-                  <FaClock size={20} />
-                  <h3>Horaires d'ouverture</h3>
-                </div>
-                <div className="card-content">
-                  <div className="hours-grid">
-                    <div className="hours-section">
-                      <h5>Horaires normaux</h5>
-                      {openingHours.map((schedule, index) => (
-                        <div key={index} className={`hour-item ${schedule.type}`}>
-                          <span className="day">{schedule.day}</span>
-                          <span className="hours">{schedule.hours}</span>
-                        </div>
-                      ))}
+              {services.map((service, index) => (
+                <div key={index} className="col-lg-3 col-md-6">
+                  <div className="service-card">
+                    <div className="service-icon">
+                      <service.icon size={24} />
                     </div>
-                    <div className="hours-section">
-                      <h5>Horaires spéciaux</h5>
-                      {specialHours.map((schedule, index) => (
-                        <div key={index} className="hour-item special">
-                          <span className="day">{schedule.period}</span>
-                          <span className="hours">{schedule.hours}</span>
-                        </div>
-                      ))}
+                    <div className="service-content">
+                      <h5 className="service-title">{service.title}</h5>
+                      <p className="service-description">{service.description}</p>
+                      <div className="service-capacity">{service.capacity}</div>
+                      <div className="service-features">
+                        {service.features.map((feature, idx) => (
+                          <span key={idx} className="feature-tag">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
 
-              {/* Services */}
-              <div className="info-card">
-                <div className="card-header">
-                  <FaBuilding size={20} />
-                  <h3>Nos services</h3>
-                </div>
-                <div className="card-content">
-                  <div className="row g-4">
-                    {services.map((service, index) => (
-                      <div key={index} className="col-md-6">
-                        <div className="service-item">
-                          <div className="service-header">
-                            <div className="service-icon">
-                              <service.icon size={20} />
-                            </div>
-                            <div>
-                              <h6>{service.title}</h6>
-                              <small className="capacity">{service.capacity}</small>
+              <div className="col-12 mt-4">
+                <div className="facilities-card">
+                  <div className="card-header">
+                    <FaShieldAlt size={20} />
+                    <h3>Équipements disponibles</h3>
+                  </div>
+                  <div className="card-content">
+                    <div className="row g-3">
+                      {facilities.map((facility, index) => {
+                        const Icon = facility.icon;
+                        return (
+                          <div key={index} className="col-lg-4 col-md-6">
+                            <div className={`facility-item ${facility.available ? 'available' : 'unavailable'}`}>
+                              <Icon size={16} />
+                              <span>{facility.name}</span>
+                              {facility.available ? (
+                                <FaCheckCircle className="status-icon available" size={14} />
+                              ) : (
+                                <FaTimesCircle className="status-icon unavailable" size={14} />
+                              )}
                             </div>
                           </div>
-                          <p>{service.description}</p>
-                          <div className="service-features">
-                            {service.features.map((feature, idx) => (
-                              <span key={idx} className="feature-tag">
-                                {feature}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+          )}
 
-              {/* Library Map */}
-              <div className="info-card">
-                <div className="card-header">
-                  <FaSitemap size={20} />
-                  <h3>Plan de la bibliothèque</h3>
-                </div>
-                <div className="card-content">
-                  <div className="library-map">
-                    {libraryMap.floors.map((floor, index) => (
-                      <div key={index} className="floor-section">
-                        <h6 className="floor-title">{floor.name}</h6>
-                        <div className="areas-grid">
-                          {floor.areas.map((area, idx) => (
-                            <div key={idx} className="area-item">
-                              <FaMapMarkerAlt size={12} />
-                              {area}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+          {/* Règlement Tab */}
+          {activeTab === 'reglement' && (
+            <div className="row g-4">
+              <div className="col-12">
+                <div className="info-card">
+                  <div className="card-header">
+                    <FaFileAlt size={20} />
+                    <h3>Règlement intérieur</h3>
                   </div>
-                </div>
-              </div>
-
-              {/* Regulations */}
-              <div className="info-card">
-                <div className="card-header">
-                  <FaFileAlt size={20} />
-                  <h3>Règlement intérieur</h3>
-                </div>
-                <div className="card-content">
-                  <div className="regulations-grid">
-                    {regulations.map((section, index) => (
-                      <div key={index} className="regulation-section">
-                        <h6>{section.title}</h6>
+                  <div className="card-content">
+                    <div className="regulations-grid">
+                      <div className="regulation-section">
+                        <h6>Conditions d'accès</h6>
                         <ul>
-                          {section.items.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                          ))}
+                          <li>Carte d'étudiant ou de chercheur obligatoire</li>
+                          <li>Visiteurs externes sur autorisation</li>
+                          <li>Horaires d'accès à respecter strictement</li>
                         </ul>
                       </div>
-                    ))}
+                      <div className="regulation-section">
+                        <h6>Usage des ressources</h6>
+                        <ul>
+                          <li>Consultation libre des ouvrages en salle</li>
+                          <li>Emprunt limité selon le statut</li>
+                          <li>Reproduction soumise au droit d'auteur</li>
+                        </ul>
+                      </div>
+                      <div className="regulation-section">
+                        <h6>Comportement</h6>
+                        <ul>
+                          <li>Silence obligatoire en salle de lecture</li>
+                          <li>Téléphones en mode silencieux</li>
+                          <li>Interdiction de manger en salle</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
+          )}
 
-            {/* Right Column */}
-            <div className="col-lg-4">
-              
-              {/* Contact Information */}
-              <div className="info-card sticky-card">
-                <div className="card-header">
-                  <FaEnvelope size={20} />
-                  <h3>Contact</h3>
-                </div>
-                <div className="card-content">
-                  <div className="contact-list">
-                    {contactInfo.map((contact, index) => {
-                      const Icon = contact.icon;
-                      return (
-                        <div key={index} className="contact-item">
-                          <div className={`contact-icon text-${contact.color}`}>
-                            <Icon size={18} />
+          {/* Plan Tab */}
+          {activeTab === 'plan' && (
+            <div className="row g-4">
+              <div className="col-lg-8">
+                <div className="info-card">
+                  <div className="card-header">
+                    <FaMapMarkerAlt size={20} />
+                    <h3>Plan de la bibliothèque</h3>
+                  </div>
+                  <div className="card-content">
+                    <div className="library-map">
+                      <div className="floor-section">
+                        <h6 className="floor-title">Rez-de-chaussée</h6>
+                        <div className="areas-grid">
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Accueil et renseignements
                           </div>
-                          <div className="contact-details">
-                            <div className="contact-type">{contact.type}</div>
-                            <div className="contact-value">
-                              {contact.value.split('\n').map((line, idx) => (
-                                <div key={idx}>{line}</div>
-                              ))}
-                            </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Salle de lecture principale
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Collections générales
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Périodiques actuels
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Facilities */}
-              <div className="info-card">
-                <div className="card-header">
-                  <FaBuilding size={20} />
-                  <h3>Équipements</h3>
-                </div>
-                <div className="card-content">
-                  <div className="facilities-grid">
-                    {facilities.map((facility, index) => {
-                      const Icon = facility.icon;
-                      return (
-                        <div key={index} className={`facility-item ${facility.available ? 'available' : 'unavailable'}`}>
-                          <Icon size={16} />
-                          <span>{facility.name}</span>
+                      </div>
+                      
+                      <div className="floor-section">
+                        <h6 className="floor-title">1er étage</h6>
+                        <div className="areas-grid">
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Espace multimédia
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Salles de travail en groupe
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Collections spécialisées
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Bureau des bibliothécaires
+                          </div>
                         </div>
-                      );
-                    })}
+                      </div>
+
+                      <div className="floor-section">
+                        <h6 className="floor-title">2ème étage</h6>
+                        <div className="areas-grid">
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Archives et manuscrits
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Salle de conférence
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Collection Zacharias Tanee Fomum
+                          </div>
+                          <div className="area-item">
+                            <FaMapMarkerAlt size={12} />
+                            Espace chercheurs
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Legal Pages */}
-              <div className="info-card">
-                <div className="card-header">
-                  <FaGavel size={20} />
-                  <h3>Pages légales</h3>
-                </div>
-                <div className="card-content">
-                  <div className="legal-links">
-                    {legalPages.map((page, index) => {
-                      const Icon = page.icon;
-                      return (
-                        <a key={index} href={page.link} className="legal-link">
-                          <Icon size={14} />
-                          <span>{page.title}</span>
-                        </a>
-                      );
-                    })}
+              <div className="col-lg-4">
+                <div className="info-card">
+                  <div className="card-header">
+                    <FaGavel size={20} />
+                    <h3>Pages légales</h3>
+                  </div>
+                  <div className="card-content">
+                    <div className="legal-links">
+                      <a href="/legal/cgu" className="legal-link">
+                        <FaFileAlt size={14} />
+                        <span>Conditions générales d'utilisation</span>
+                      </a>
+                      <a href="/legal/privacy" className="legal-link">
+                        <FaShieldAlt size={14} />
+                        <span>Politique de confidentialité</span>
+                      </a>
+                      <a href="/legal/mentions" className="legal-link">
+                        <FaGavel size={14} />
+                        <span>Mentions légales</span>
+                      </a>
+                      <a href="/sitemap" className="legal-link">
+                        <FaSitemap size={14} />
+                        <span>Plan du site</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
-          </div>
+          )}
+
         </div>
       </section>
 
@@ -465,7 +524,7 @@ const Infos = () => {
           backdrop-filter: blur(15px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
-          padding: 1.5rem;
+          padding: 1.25rem;
         }
 
         .info-item {
@@ -494,30 +553,85 @@ const Infos = () => {
           color: var(--text-primary);
         }
 
-        /* Content Section */
+        /* Tabs */
+        .tabs-section {
+          padding: 1rem 0;
+        }
+
+        .tabs-nav {
+          display: flex;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 0.5rem;
+          gap: 0.5rem;
+        }
+
+        .tab-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: transparent;
+          border: none;
+          color: var(--text-secondary);
+          padding: 0.75rem 1.25rem;
+          border-radius: 8px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          flex: 1;
+          justify-content: center;
+        }
+
+        .tab-item:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab-item.active {
+          background: rgba(241, 196, 14, 0.1);
+          color: var(--warning);
+          border: 1px solid rgba(241, 196, 14, 0.3);
+        }
+
+        /* Content */
         .content-section {
           padding: 2rem 0 4rem;
         }
 
-        .info-card {
+        .section-header {
+          margin-bottom: 2rem;
+          text-align: center;
+        }
+
+        .section-header h3 {
+          color: var(--text-primary);
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+        }
+
+        .info-card,
+        .facilities-card {
           background: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(15px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
-          margin-bottom: 2rem;
           overflow: hidden;
-        }
-
-        .sticky-card {
-          position: sticky;
-          top: 100px;
+          margin-bottom: 2rem;
         }
 
         .card-header {
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1.5rem;
+          padding: 1.25rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           background: rgba(255, 255, 255, 0.05);
         }
@@ -534,10 +648,75 @@ const Infos = () => {
         }
 
         .card-content {
-          padding: 1.5rem;
+          padding: 1.25rem;
         }
 
-        /* Hours Section */
+        /* Service Cards */
+        .service-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 1.25rem;
+          height: 100%;
+          transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+          border-color: rgba(241, 196, 14, 0.3);
+        }
+
+        .service-icon {
+          width: 48px;
+          height: 48px;
+          background: rgba(241, 196, 14, 0.1);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--warning);
+          margin-bottom: 1rem;
+        }
+
+        .service-title {
+          color: var(--text-primary);
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .service-description {
+          color: var(--text-secondary);
+          font-size: 0.8rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.4;
+        }
+
+        .service-capacity {
+          color: var(--warning);
+          font-size: 0.75rem;
+          font-weight: 500;
+          margin-bottom: 0.75rem;
+        }
+
+        .service-features {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.3rem;
+        }
+
+        .feature-tag {
+          background: rgba(241, 196, 14, 0.1);
+          color: var(--warning);
+          padding: 0.2rem 0.5rem;
+          border-radius: 8px;
+          font-size: 0.7rem;
+          font-weight: 500;
+        }
+
+        /* Hours */
         .hours-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -575,73 +754,129 @@ const Infos = () => {
         .day {
           font-weight: 500;
           color: var(--text-primary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
         }
 
         .hours {
           font-weight: 600;
           color: var(--text-secondary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
         }
 
-        /* Services */
-        .service-item {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 1.5rem;
-          height: 100%;
-        }
-
-        .service-header {
+        /* Contact */
+        .contact-list {
           display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
+          flex-direction: column;
+          gap: 1.25rem;
         }
 
-        .service-icon {
-          width: 40px;
-          height: 40px;
-          background: rgba(241, 196, 14, 0.1);
+        .contact-item {
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .contact-icon {
+          width: 36px;
+          height: 36px;
+          background: rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--warning);
+          flex-shrink: 0;
         }
 
-        .service-header h6 {
-          color: var(--text-primary);
+        .contact-type {
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--warning);
+          margin-bottom: 0.25rem;
+        }
+
+        .contact-value {
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+          line-height: 1.4;
+        }
+
+        /* Facilities */
+        .facility-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+        }
+
+        .facility-item.available {
+          border-color: rgba(34, 197, 94, 0.3);
+          background: rgba(34, 197, 94, 0.05);
+        }
+
+        .facility-item.unavailable {
+          opacity: 0.5;
+        }
+
+        .status-icon.available {
+          color: #10b981;
+          margin-left: auto;
+        }
+
+        .status-icon.unavailable {
+          color: #ef4444;
+          margin-left: auto;
+        }
+
+        /* Regulations */
+        .regulations-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .regulation-section {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 1rem;
+        }
+
+        .regulation-section h6 {
+          color: var(--warning);
           font-size: 1rem;
           font-weight: 600;
-          margin: 0;
-        }
-
-        .capacity {
-          color: var(--text-tertiary);
-          font-size: 0.75rem;
-        }
-
-        .service-item p {
-          color: var(--text-secondary);
-          font-size: 0.875rem;
           margin-bottom: 1rem;
         }
 
-        .service-features {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
+        .regulation-section ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
         }
 
-        .feature-tag {
-          background: rgba(241, 196, 14, 0.1);
+        .regulation-section li {
+          color: var(--text-secondary);
+          font-size: 0.8rem;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          position: relative;
+          padding-left: 1.5rem;
+        }
+
+        .regulation-section li:before {
+          content: '•';
           color: var(--warning);
-          padding: 0.25rem 0.5rem;
-          border-radius: 12px;
-          font-size: 0.7rem;
-          font-weight: 500;
+          position: absolute;
+          left: 0;
+        }
+
+        .regulation-section li:last-child {
+          border-bottom: none;
         }
 
         /* Library Map */
@@ -676,7 +911,7 @@ const Infos = () => {
           align-items: center;
           gap: 0.5rem;
           color: var(--text-secondary);
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           padding: 0.5rem;
           background: rgba(255, 255, 255, 0.05);
           border-radius: 4px;
@@ -684,120 +919,6 @@ const Infos = () => {
 
         .area-item svg {
           color: var(--warning);
-        }
-
-        /* Regulations */
-        .regulations-grid {
-          display: grid;
-          gap: 1.5rem;
-        }
-
-        .regulation-section {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 1rem;
-        }
-
-        .regulation-section h6 {
-          color: var(--warning);
-          font-size: 1rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-        }
-
-        .regulation-section ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .regulation-section li {
-          color: var(--text-secondary);
-          font-size: 0.875rem;
-          padding: 0.5rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          position: relative;
-          padding-left: 1.5rem;
-        }
-
-        .regulation-section li:before {
-          content: '•';
-          color: var(--warning);
-          position: absolute;
-          left: 0;
-        }
-
-        .regulation-section li:last-child {
-          border-bottom: none;
-        }
-
-        /* Contact */
-        .contact-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .contact-item {
-          display: flex;
-          gap: 1rem;
-          align-items: flex-start;
-        }
-
-        .contact-icon {
-          width: 40px;
-          height: 40px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .contact-type {
-          font-size: 0.875rem;
-          font-weight: 600;
-          color: var(--warning);
-          margin-bottom: 0.25rem;
-        }
-
-        .contact-value {
-          font-size: 0.875rem;
-          color: var(--text-secondary);
-          line-height: 1.4;
-        }
-
-        /* Facilities */
-        .facilities-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0.75rem;
-        }
-
-        .facility-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 6px;
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-        }
-
-        .facility-item.available svg {
-          color: #10b981;
-        }
-
-        .facility-item.unavailable {
-          opacity: 0.5;
-        }
-
-        .facility-item.unavailable svg {
-          color: #ef4444;
         }
 
         /* Legal Links */
@@ -817,7 +938,7 @@ const Infos = () => {
           border-radius: 6px;
           color: var(--text-secondary);
           text-decoration: none;
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           transition: all 0.3s ease;
         }
 
@@ -845,12 +966,12 @@ const Infos = () => {
             grid-template-columns: 1fr;
           }
           
-          .facilities-grid {
-            grid-template-columns: 1fr;
+          .tabs-nav {
+            flex-direction: column;
           }
           
-          .sticky-card {
-            position: static;
+          .tab-item {
+            justify-content: flex-start;
           }
         }
       `}</style>
