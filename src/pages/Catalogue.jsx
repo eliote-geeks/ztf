@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaSearch, 
   FaBook, 
@@ -101,7 +102,7 @@ const Catalogue = () => {
       pages: 298,
       rating: 4.7,
       downloads: 980,
-      cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop",
+      cover: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=400&fit=crop",
       description: "Nouvelles approches pédagogiques adaptées au contexte éducatif camerounais."
     }
   ];
@@ -277,16 +278,16 @@ const Catalogue = () => {
                 </span>
               </div>
 
-              <div className="row g-4">
+              <div className="row g-3">
                 {filteredBooks.map((book) => (
-                  <div key={book.id} className="col-lg-6 col-xl-4">
+                  <div key={book.id} className="col-lg-4 col-xl-3">
                     <div className="book-card">
                       <div className="book-cover">
                         <img src={book.cover} alt={book.title} />
                         <div className="book-overlay">
-                          <button className="btn btn-sm btn-light">
-                            <FaEye size={14} />
-                          </button>
+                          <Link to={`/ebook/${book.id}`} className="btn btn-sm btn-light">
+                            <FaBookOpen size={14} />
+                          </Link>
                           <button className="btn btn-sm btn-warning">
                             <FaDownload size={14} />
                           </button>
@@ -665,7 +666,7 @@ const Catalogue = () => {
 
         .book-cover {
           position: relative;
-          height: 200px;
+          height: 160px;
           overflow: hidden;
         }
 
@@ -695,7 +696,7 @@ const Catalogue = () => {
         }
 
         .book-info {
-          padding: 1.5rem;
+          padding: 1.25rem;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -709,7 +710,7 @@ const Catalogue = () => {
         }
 
         .book-title {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           color: var(--text-primary);
           margin: 0;
@@ -747,11 +748,15 @@ const Catalogue = () => {
         }
 
         .book-description {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           color: var(--text-secondary);
           line-height: 1.4;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
           flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .book-stats {

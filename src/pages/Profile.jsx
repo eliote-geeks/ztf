@@ -413,13 +413,13 @@ const Profile = () => {
                   <p>Gérez vos emprunts actuels et suivez les dates de retour</p>
                 </div>
                 
-                <div className="row g-4">
+                <div className="row g-3">
                   {borrowedBooks.map((book) => {
                     const daysLeft = getDaysLeft(book.dueDate);
                     const statusColor = getStatusColor(book.status, daysLeft);
                     
                     return (
-                      <div key={book.id} className="col-lg-6">
+                      <div key={book.id} className="col-lg-4">
                         <div className="borrowed-book-card">
                           <div className="book-cover-section">
                             <img src={book.cover} alt={book.title} className="book-cover" />
@@ -494,9 +494,9 @@ const Profile = () => {
                   <p>Livres que vous avez empruntés et retournés</p>
                 </div>
                 
-                <div className="row g-4">
+                <div className="row g-3">
                   {borrowHistory.map((book) => (
-                    <div key={book.id} className="col-lg-4">
+                    <div key={book.id} className="col-lg-3">
                       <div className="history-book-card">
                         <div className="book-cover-small">
                           <img src={book.cover} alt={book.title} />
@@ -854,19 +854,19 @@ const Profile = () => {
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
           display: flex;
-          gap: 1.5rem;
-          padding: 1.5rem;
+          gap: 1.25rem;
+          padding: 1.25rem;
           height: 100%;
         }
 
         .book-cover-section {
           position: relative;
-          flex: 0 0 120px;
+          flex: 0 0 100px;
         }
 
         .book-cover {
-          width: 120px;
-          height: 160px;
+          width: 100px;
+          height: 130px;
           border-radius: 8px;
           object-fit: cover;
           border: 1px solid rgba(255, 255, 255, 0.1);
@@ -908,7 +908,7 @@ const Profile = () => {
 
         .book-title {
           color: var(--text-primary);
-          font-size: 1.1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
           line-height: 1.3;
@@ -916,8 +916,8 @@ const Profile = () => {
 
         .book-author {
           color: var(--text-secondary);
-          font-size: 0.875rem;
-          margin-bottom: 1rem;
+          font-size: 0.8rem;
+          margin-bottom: 0.75rem;
         }
 
         .book-details {
@@ -932,12 +932,12 @@ const Profile = () => {
         }
 
         .detail-label {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           color: var(--text-tertiary);
         }
 
         .detail-value {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           color: var(--text-secondary);
           font-weight: 500;
         }
@@ -964,7 +964,7 @@ const Profile = () => {
 
         .book-cover-small img {
           width: 100%;
-          height: 120px;
+          height: 100px;
           border-radius: 6px;
           object-fit: cover;
         }
@@ -985,7 +985,7 @@ const Profile = () => {
 
         .book-title-small {
           color: var(--text-primary);
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           font-weight: 600;
           margin-bottom: 0.5rem;
           line-height: 1.3;
@@ -993,19 +993,19 @@ const Profile = () => {
 
         .book-author-small {
           color: var(--text-secondary);
-          font-size: 0.75rem;
-          margin-bottom: 1rem;
+          font-size: 0.7rem;
+          margin-bottom: 0.75rem;
         }
 
         .history-dates {
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
 
         .date-item {
           display: flex;
           justify-content: space-between;
           margin-bottom: 0.25rem;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
         }
 
         .date-item span:first-child {

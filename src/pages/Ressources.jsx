@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaDatabase, 
   FaBook, 
@@ -277,9 +278,9 @@ const Ressources = () => {
                     <span className="section-count">{databases.length} bases disponibles</span>
                   </div>
 
-                  <div className="row g-4">
+                  <div className="row g-3">
                     {databases.map((db) => (
-                      <div key={db.id} className={`${db.featured ? 'col-12' : 'col-lg-6'}`}>
+                      <div key={db.id} className={`${db.featured ? 'col-12' : 'col-lg-4'}`}>
                         <div className={`resource-card database-card ${db.featured ? 'featured' : ''}`}>
                           <div className="resource-image">
                             <img src={db.image} alt={db.name} />
@@ -340,16 +341,16 @@ const Ressources = () => {
                     <span className="section-count">{ebooksCollections.length} collections</span>
                   </div>
 
-                  <div className="row g-4">
+                  <div className="row g-3">
                     {ebooksCollections.map((collection) => (
-                      <div key={collection.id} className="col-lg-4">
+                      <div key={collection.id} className="col-lg-3">
                         <div className={`resource-card ebook-card ${collection.featured ? 'featured' : ''}`}>
                           <div className="resource-image">
                             <img src={collection.image} alt={collection.title} />
                             <div className="resource-overlay">
-                              <button className="btn btn-sm btn-warning">
+                              <Link to="/catalogue" className="btn btn-sm btn-warning">
                                 <FaBookOpen size={14} />
-                              </button>
+                              </Link>
                             </div>
                             {collection.featured && (
                               <div className="featured-badge">
@@ -389,9 +390,9 @@ const Ressources = () => {
                     <span className="section-count">{multimediaResources.length} collections</span>
                   </div>
 
-                  <div className="row g-4">
+                  <div className="row g-3">
                     {multimediaResources.map((resource) => (
-                      <div key={resource.id} className="col-lg-4">
+                      <div key={resource.id} className="col-lg-3">
                         <div className="resource-card multimedia-card">
                           <div className="resource-image">
                             <img src={resource.image} alt={resource.title} />
@@ -685,7 +686,7 @@ const Ressources = () => {
 
         .resource-image {
           position: relative;
-          height: 200px;
+          height: 160px;
           overflow: hidden;
         }
 
@@ -751,7 +752,7 @@ const Ressources = () => {
         }
 
         .resource-content {
-          padding: 1.5rem;
+          padding: 1.25rem;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -759,9 +760,9 @@ const Ressources = () => {
 
         .resource-title {
           color: var(--text-primary);
-          font-size: 1.1rem;
+          font-size: 0.95rem;
           font-weight: 600;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
           line-height: 1.3;
         }
 
@@ -771,10 +772,14 @@ const Ressources = () => {
 
         .resource-description {
           color: var(--text-secondary);
-          font-size: 0.875rem;
-          line-height: 1.5;
-          margin-bottom: 1rem;
+          font-size: 0.8rem;
+          line-height: 1.4;
+          margin-bottom: 0.75rem;
           flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .resource-details {

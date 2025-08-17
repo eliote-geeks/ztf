@@ -104,7 +104,7 @@ const ProfessionalHeader = () => {
           category: 'Bases de Données',
           items: [
             { label: 'CAIRN', path: '/ressources/cairn', icon: FaDatabase },
-            { label: 'E-books', path: '/ressources/ebooks', icon: FaFilePdf },
+            { label: 'E-books', path: '/catalogue', icon: FaFilePdf },
             { label: 'Thèses', path: '/ressources/theses', icon: FaGraduationCap }
           ]
         },

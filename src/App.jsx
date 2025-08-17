@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './contexts/ThemeContext';
-import ProfessionalHeader from './components/ProfessionalHeader';
+import LibraryHeader from './components/LibraryHeader';
 import PageTransition from './components/PageTransition';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
@@ -11,6 +11,7 @@ import Actualites from './pages/Actualites';
 import Ressources from './pages/Ressources';
 import Infos from './pages/Infos';
 import Profile from './pages/Profile';
+import EbookReader from './pages/EbookReader';
 
 function App() {
   const location = useLocation();
@@ -18,7 +19,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="App">
-        <ProfessionalHeader />
+        <LibraryHeader />
         <main>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
@@ -57,6 +58,7 @@ function App() {
                   <Profile />
                 </PageTransition>
               } />
+              <Route path="/ebook/:id" element={<EbookReader />} />
             </Routes>
           </AnimatePresence>
         </main>

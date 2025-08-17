@@ -10,7 +10,10 @@ import {
   FaUserShield,
   FaStar,
   FaGraduationCap,
-  FaDatabase
+  FaDatabase,
+  FaCheckCircle,
+  FaShieldAlt,
+  FaUserPlus
 } from 'react-icons/fa';
 
 const Auth = () => {
@@ -46,208 +49,265 @@ const Auth = () => {
   };
 
   const features = [
-    { icon: FaBook, label: 'Catalogue complet', count: '15k+' },
+    { icon: FaBook, label: 'Catalogue complet', count: '15k+ livres' },
     { icon: FaDatabase, label: 'Ressources numériques', count: 'Premium' },
-    { icon: FaGraduationCap, label: 'Espace personnel', count: 'Sécurisé' }
+    { icon: FaGraduationCap, label: 'Espace personnel', count: 'Sécurisé' },
+    { icon: FaUserShield, label: 'Données protégées', count: '100%' }
+  ];
+
+  const benefits = [
+    'Accès illimité au catalogue complet',
+    'Réservation et emprunt en ligne',
+    'Ressources numériques exclusives',
+    'Historique et recommandations',
+    'Notifications personnalisées'
   ];
 
   return (
     <div className="auth-container">
-      {/* Auth Section */}
-      <section className="auth-section">
+      {/* Hero Section */}
+      <section className="auth-hero">
         <div className="container">
-          <div className="row justify-content-center g-4">
-            <div className="col-xl-10 col-lg-11">
-              <div className="row g-0">
-                
-                {/* Left Panel - Features */}
-                <div className="col-lg-5 d-none d-lg-block">
-                  <div className="auth-feature-panel h-100">
-                    <div className="feature-content">
-                      {/* Badge */}
-                      <div className="auth-badge">
-                        <FaStar size={12} className="me-2" />
-                        Plateforme Académique
-                      </div>
-                      
-                      {/* Title */}
-                      <h2 className="feature-title">
-                        Bibliothèque <span className="text-warning">ZTF</span>
-                      </h2>
-                      
-                      {/* Description */}
-                      <p className="feature-description">
-                        Accédez à votre espace personnel et découvrez nos ressources 
-                        académiques de qualité.
-                      </p>
-                      
-                      {/* Features Grid */}
-                      <div className="features-grid">
-                        {features.map((feature, index) => {
-                          const Icon = feature.icon;
-                          return (
-                            <div key={index} className="feature-item">
-                              <div className="feature-icon">
-                                <Icon size={16} />
-                              </div>
-                              <div className="feature-info">
-                                <div className="feature-label">{feature.label}</div>
-                                <div className="feature-count">{feature.count}</div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      
-                      {/* Security note */}
-                      <div className="security-note">
-                        <FaUserShield size={14} className="me-2" />
-                        <span>Données protégées et chiffrées</span>
-                      </div>
-                    </div>
+          <div className="row align-items-center g-4">
+            <div className="col-lg-8">
+              <div className="hero-content">
+                <div className="hero-badge">
+                  <FaUserShield size={12} className="me-2" />
+                  Espace Membre
+                </div>
+                <h1 className="hero-title">
+                  {isLogin ? 'Connexion' : 'Créer un compte'} 
+                  <span className="text-warning"> Bibliothèque</span>
+                </h1>
+                <p className="hero-subtitle">
+                  {isLogin 
+                    ? 'Accédez à votre espace personnel et profitez de tous nos services' 
+                    : 'Rejoignez notre communauté académique et découvrez nos ressources'
+                  }
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="quick-access-card">
+                <div className="access-item">
+                  <FaBook className="access-icon text-warning" />
+                  <div>
+                    <div className="access-number">15,000+</div>
+                    <div className="access-label">Ouvrages</div>
                   </div>
                 </div>
+                <div className="access-item">
+                  <FaDatabase className="access-icon text-info" />
+                  <div>
+                    <div className="access-number">Premium</div>
+                    <div className="access-label">Ressources</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* Right Panel - Form */}
-                <div className="col-lg-7">
-                  <div className="auth-form-panel">
+      {/* Main Auth Section */}
+      <section className="auth-main-section">
+        <div className="container">
+          <div className="row g-3">
+            
+            {/* Features Sidebar */}
+            <div className="col-lg-4">
+              {/* Features Card */}
+              <div className="features-card">
+                <div className="card-header">
+                  <FaStar size={16} />
+                  <h5>Avantages membres</h5>
+                </div>
+                <div className="card-content">
+                  <div className="features-grid">
+                    {features.map((feature, index) => {
+                      const Icon = feature.icon;
+                      return (
+                        <div key={index} className="feature-item">
+                          <div className="feature-icon">
+                            <Icon size={14} />
+                          </div>
+                          <div className="feature-info">
+                            <div className="feature-label">{feature.label}</div>
+                            <div className="feature-count">{feature.count}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Benefits Card */}
+              <div className="benefits-card">
+                <div className="card-header">
+                  <FaCheckCircle size={16} />
+                  <h5>Ce que vous obtenez</h5>
+                </div>
+                <div className="card-content">
+                  <div className="benefits-list">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="benefit-item">
+                        <FaCheckCircle size={12} className="benefit-icon" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Form Section */}
+            <div className="col-lg-8">
+              <div className="auth-form-card">
+                
+                {/* Form Header */}
+                <div className="form-header">
+                  <div className="header-icon">
+                    {isLogin ? <FaUser size={20} /> : <FaUserPlus size={20} />}
+                  </div>
+                  <h3 className="form-title">
+                    {isLogin ? 'Connexion à votre compte' : 'Créer votre compte'}
+                  </h3>
+                  <p className="form-subtitle">
+                    {isLogin 
+                      ? 'Connectez-vous pour accéder à vos services' 
+                      : 'Rejoignez notre communauté en quelques clics'
+                    }
+                  </p>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="auth-form">
+                  <div className="row g-3">
                     
-                    {/* Form Header */}
-                    <div className="form-header">
-                      <h3 className="form-title">
-                        {isLogin ? 'Connexion' : 'Créer un compte'}
-                      </h3>
-                      <p className="form-subtitle">
-                        {isLogin 
-                          ? 'Accédez à votre espace personnel' 
-                          : 'Rejoignez notre communauté académique'
-                        }
-                      </p>
+                    {/* Email */}
+                    <div className="col-12">
+                      <label className="form-label">
+                        <FaEnvelope size={12} className="me-2" />
+                        Adresse Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control form-control-modern"
+                        placeholder="votre.email@exemple.com"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                      />
                     </div>
 
-                    {/* Form */}
-                    <form onSubmit={handleSubmit} className="auth-form">
-                      <div className="row g-3">
-                        
-                        {/* Email */}
-                        <div className="col-12">
-                          <label className="form-label">
-                            <FaEnvelope size={12} className="me-2" />
-                            Adresse Email
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            className="form-control form-control-modern"
-                            placeholder="votre.email@exemple.com"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                          />
-                        </div>
+                    {/* Student ID (if register) */}
+                    {!isLogin && (
+                      <div className="col-12">
+                        <label className="form-label">
+                          <FaUser size={12} className="me-2" />
+                          Numéro Étudiant
+                        </label>
+                        <input
+                          type="text"
+                          name="studentId"
+                          className="form-control form-control-modern"
+                          placeholder="Ex: ETU123456"
+                          value={formData.studentId}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    )}
 
-                        {/* Student ID (if register) */}
-                        {!isLogin && (
-                          <div className="col-12">
-                            <label className="form-label">
-                              <FaUser size={12} className="me-2" />
-                              Numéro Étudiant
-                            </label>
-                            <input
-                              type="text"
-                              name="studentId"
-                              className="form-control form-control-modern"
-                              placeholder="Ex: ETU123456"
-                              value={formData.studentId}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        )}
+                    {/* Password */}
+                    <div className="col-12">
+                      <label className="form-label">
+                        <FaLock size={12} className="me-2" />
+                        Mot de passe
+                      </label>
+                      <div className="password-input-wrapper">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          name="password"
+                          className="form-control form-control-modern"
+                          placeholder="Votre mot de passe"
+                          value={formData.password}
+                          onChange={handleInputChange}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+                        </button>
+                      </div>
+                    </div>
 
-                        {/* Password */}
-                        <div className="col-12">
-                          <label className="form-label">
-                            <FaLock size={12} className="me-2" />
-                            Mot de passe
-                          </label>
-                          <div className="password-input-wrapper">
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              name="password"
-                              className="form-control form-control-modern"
-                              placeholder="Votre mot de passe"
-                              value={formData.password}
-                              onChange={handleInputChange}
-                              required
-                            />
-                            <button
-                              type="button"
-                              className="password-toggle"
-                              onClick={() => setShowPassword(!showPassword)}
-                            >
-                              {showPassword ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
-                            </button>
-                          </div>
-                        </div>
+                    {/* Confirm Password (if register) */}
+                    {!isLogin && (
+                      <div className="col-12">
+                        <label className="form-label">
+                          <FaLock size={12} className="me-2" />
+                          Confirmer le mot de passe
+                        </label>
+                        <input
+                          type="password"
+                          name="confirmPassword"
+                          className="form-control form-control-modern"
+                          placeholder="Confirmez votre mot de passe"
+                          value={formData.confirmPassword}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    )}
 
-                        {/* Confirm Password (if register) */}
-                        {!isLogin && (
-                          <div className="col-12">
-                            <label className="form-label">
-                              <FaLock size={12} className="me-2" />
-                              Confirmer le mot de passe
-                            </label>
-                            <input
-                              type="password"
-                              name="confirmPassword"
-                              className="form-control form-control-modern"
-                              placeholder="Confirmez votre mot de passe"
-                              value={formData.confirmPassword}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        )}
-
-                        {/* Forgot Password */}
-                        {isLogin && (
-                          <div className="col-12">
-                            <div className="forgot-password">
-                              <button type="button" className="link-button">
-                                Mot de passe oublié ?
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Submit Button */}
-                        <div className="col-12">
-                          <button type="submit" className="btn btn-primary btn-modern w-100">
-                            {isLogin ? 'Se connecter' : 'Créer le compte'}
-                            <FaArrowRight size={12} className="ms-2" />
+                    {/* Forgot Password */}
+                    {isLogin && (
+                      <div className="col-12">
+                        <div className="forgot-password">
+                          <button type="button" className="link-button">
+                            Mot de passe oublié ?
                           </button>
                         </div>
-
-                        {/* Toggle Mode */}
-                        <div className="col-12">
-                          <div className="auth-toggle">
-                            <span className="toggle-text">
-                              {isLogin 
-                                ? "Vous n'avez pas de compte ?" 
-                                : 'Vous avez déjà un compte ?'
-                              }
-                            </span>
-                            <button
-                              type="button"
-                              onClick={toggleAuthMode}
-                              className="link-button link-primary"
-                            >
-                              {isLogin ? 'Créer un compte' : 'Se connecter'}
-                            </button>
-                          </div>
-                        </div>
                       </div>
-                    </form>
+                    )}
+
+                    {/* Submit Button */}
+                    <div className="col-12">
+                      <button type="submit" className="btn btn-primary btn-modern w-100">
+                        {isLogin ? 'Se connecter' : 'Créer le compte'}
+                        <FaArrowRight size={12} className="ms-2" />
+                      </button>
+                    </div>
+
+                    {/* Toggle Mode */}
+                    <div className="col-12">
+                      <div className="auth-toggle">
+                        <span className="toggle-text">
+                          {isLogin 
+                            ? "Vous n'avez pas de compte ?" 
+                            : 'Vous avez déjà un compte ?'
+                          }
+                        </span>
+                        <button
+                          type="button"
+                          onClick={toggleAuthMode}
+                          className="link-button link-primary"
+                        >
+                          {isLogin ? 'Créer un compte' : 'Se connecter'}
+                        </button>
+                      </div>
+                    </div>
                   </div>
+                </form>
+
+                {/* Security Notice */}
+                <div className="security-notice">
+                  <FaShieldAlt size={14} className="me-2" />
+                  <span>Vos données sont sécurisées et chiffrées</span>
                 </div>
               </div>
             </div>
@@ -259,50 +319,23 @@ const Auth = () => {
         .auth-container {
           background: var(--bg-primary);
           min-height: 100vh;
-          display: flex;
-          align-items: center;
         }
 
-        /* Container adjustments */
         .container {
           max-width: 1200px;
         }
 
-        .auth-section {
-          padding: 2rem 0;
-          width: 100%;
-        }
-
-        /* Feature Panel */
-        .auth-feature-panel {
+        /* Hero Section */
+        .auth-hero {
+          padding: 3rem 0;
           background: linear-gradient(135deg, 
-            rgba(29, 79, 139, 0.15) 0%, 
-            rgba(60, 107, 139, 0.1) 100%);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px 0 0 12px;
-          padding: 2rem;
-          display: flex;
-          align-items: center;
-          position: relative;
-          overflow: hidden;
+            rgba(29, 79, 139, 0.1) 0%, 
+            rgba(60, 107, 139, 0.05) 100%);
+          border-radius: 0 0 20px 20px;
+          margin-bottom: 2rem;
         }
 
-        .auth-feature-panel::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, var(--warning) 0%, rgba(241, 196, 14, 0.5) 100%);
-        }
-
-        .feature-content {
-          width: 100%;
-        }
-
-        .auth-badge {
+        .hero-badge {
           display: inline-flex;
           align-items: center;
           background: rgba(241, 196, 14, 0.1);
@@ -312,29 +345,105 @@ const Auth = () => {
           font-weight: 500;
           padding: 0.25rem 0.75rem;
           border-radius: 20px;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
         }
 
-        .feature-title {
-          font-size: 1.75rem;
+        .hero-title {
+          font-size: 2.5rem;
           font-weight: 700;
           color: var(--text-primary);
           margin-bottom: 1rem;
           line-height: 1.2;
         }
 
-        .feature-description {
-          font-size: 0.875rem;
+        .hero-subtitle {
+          font-size: 1rem;
           color: var(--text-secondary);
-          margin-bottom: 2rem;
-          line-height: 1.5;
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+        }
+
+        .quick-access-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .access-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem 0;
+        }
+
+        .access-item:not(:last-child) {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .access-icon {
+          font-size: 1.5rem;
+        }
+
+        .access-number {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+
+        .access-label {
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+        }
+
+        /* Main Auth Section */
+        .auth-main-section {
+          padding: 2rem 0 4rem;
+        }
+
+        .features-card,
+        .benefits-card,
+        .auth-form-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card-header h5 {
+          margin: 0;
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        .card-header svg {
+          color: var(--warning);
+        }
+
+        .card-content {
+          padding: 1rem;
         }
 
         .features-grid {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          margin-bottom: 2rem;
+          gap: 0.75rem;
         }
 
         .feature-item {
@@ -343,12 +452,15 @@ const Auth = () => {
           gap: 0.75rem;
           padding: 0.75rem;
           background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
-          transition: background 0.3s ease;
+          transition: all 0.3s ease;
         }
 
         .feature-item:hover {
           background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(241, 196, 14, 0.3);
+          transform: translateY(-1px);
         }
 
         .feature-icon {
@@ -364,90 +476,110 @@ const Auth = () => {
         }
 
         .feature-label {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           font-weight: 500;
           color: var(--text-primary);
+          line-height: 1.2;
         }
 
         .feature-count {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           color: var(--text-secondary);
         }
 
-        .security-note {
+        .benefits-list {
           display: flex;
-          align-items: center;
-          background: rgba(241, 196, 14, 0.1);
-          border: 1px solid rgba(241, 196, 14, 0.2);
-          color: var(--warning);
-          font-size: 0.75rem;
-          padding: 0.75rem;
-          border-radius: 8px;
+          flex-direction: column;
+          gap: 0.6rem;
         }
 
-        /* Form Panel */
-        .auth-form-panel {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 0 12px 12px 0;
-          padding: 2rem;
-          height: 100%;
-          min-height: 500px;
+        .benefit-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+          line-height: 1.3;
+        }
+
+        .benefit-icon {
+          color: var(--warning);
+          flex-shrink: 0;
+        }
+
+        /* Form Card */
+        .auth-form-card {
+          margin-bottom: 0;
         }
 
         .form-header {
-          margin-bottom: 2rem;
+          padding: 1.5rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           text-align: center;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .header-icon {
+          width: 48px;
+          height: 48px;
+          background: rgba(241, 196, 14, 0.1);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--warning);
+          margin: 0 auto 1rem;
         }
 
         .form-title {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           font-weight: 600;
           color: var(--text-primary);
           margin-bottom: 0.5rem;
         }
 
         .form-subtitle {
-          font-size: 0.875rem;
+          font-size: 0.85rem;
           color: var(--text-secondary);
+          margin: 0;
         }
 
         /* Form Elements */
         .auth-form {
-          width: 100%;
+          padding: 1.5rem;
         }
 
         .form-label {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.9);
+          color: var(--text-primary);
           margin-bottom: 0.5rem;
           display: flex;
           align-items: center;
         }
 
         .form-control-modern {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           padding: 0.75rem;
-          font-size: 0.875rem;
+          font-size: 0.85rem;
           color: var(--text-primary);
           transition: all 0.3s ease;
           width: 100%;
         }
 
         .form-control-modern:focus {
-          background: rgba(255, 255, 255, 0.12);
-          border-color: var(--warning);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(241, 196, 14, 0.5);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
           outline: none;
           color: var(--text-primary);
         }
 
         .form-control-modern::placeholder {
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--text-tertiary);
+          font-size: 0.8rem;
         }
 
         .password-input-wrapper {
@@ -472,11 +604,11 @@ const Auth = () => {
         }
 
         .btn-modern {
-          background: var(--gradient-accent);
+          background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
           border: none;
           border-radius: 8px;
           color: var(--dark-900);
-          font-size: 0.875rem;
+          font-size: 0.85rem;
           font-weight: 600;
           padding: 0.75rem 1rem;
           transition: all 0.3s ease;
@@ -496,7 +628,7 @@ const Auth = () => {
           background: none;
           border: none;
           color: var(--text-secondary);
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           cursor: pointer;
           transition: color 0.3s ease;
           padding: 0;
@@ -512,7 +644,7 @@ const Auth = () => {
         }
 
         .link-primary:hover {
-          color: #ffffff !important;
+          color: var(--text-primary) !important;
         }
 
         .forgot-password {
@@ -526,43 +658,48 @@ const Auth = () => {
         }
 
         .toggle-text {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           color: var(--text-secondary);
           margin-right: 0.5rem;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 991.98px) {
-          .auth-container {
-            padding-top: 100px;
-            padding-bottom: 2rem;
-          }
-
-          .auth-form-panel {
-            border-radius: 12px;
-            min-height: auto;
-          }
-
-          .form-header {
-            margin-bottom: 1.5rem;
-          }
-
-          .feature-title {
-            font-size: 1.5rem;
-          }
+        .security-notice {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(241, 196, 14, 0.1);
+          border: 1px solid rgba(241, 196, 14, 0.3);
+          color: var(--warning);
+          font-size: 0.75rem;
+          padding: 0.75rem;
+          margin: 1rem 1.5rem 1.5rem;
+          border-radius: 8px;
         }
 
-        @media (max-width: 576px) {
-          .auth-section {
-            padding: 1rem 0;
+        /* Responsive */
+        @media (max-width: 768px) {
+          .hero-title {
+            font-size: 2rem;
           }
-
-          .auth-form-panel {
-            padding: 1.5rem;
+          
+          .quick-access-card {
+            margin-top: 2rem;
           }
-
+          
+          .auth-form-card {
+            margin-top: 1rem;
+          }
+          
+          .form-header {
+            padding: 1.25rem;
+          }
+          
+          .auth-form {
+            padding: 1.25rem;
+          }
+          
           .form-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
           }
         }
       `}</style>
