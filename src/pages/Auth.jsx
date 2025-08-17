@@ -1,66 +1,75 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaUser, 
   FaLock, 
-  FaEye, 
-  FaEyeSlash, 
   FaEnvelope,
-  FaArrowRight,
-  FaBook,
-  FaUserShield,
-  FaStar,
+  FaEye,
+  FaEyeSlash,
+  FaUserPlus,
+  FaSignInAlt,
+  FaGoogle,
+  FaFacebook,
   FaGraduationCap,
-  FaDatabase,
-  FaCheckCircle,
+  FaBook,
   FaShieldAlt,
-  FaUserPlus
+  FaCheckCircle
 } from 'react-icons/fa';
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [activeTab, setActiveTab] = useState('login');
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  const [loginData, setLoginData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
-    studentId: ''
+    rememberMe: false
   });
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const [registerData, setRegisterData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    studentId: '',
+    password: '',
+    confirmPassword: '',
+    userType: 'student',
+    acceptTerms: false
+  });
+
+  const handleLoginChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setLoginData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleRegisterChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setRegisterData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('Login attempt:', loginData);
+    // Ici on intégrerait l'authentification
   };
 
-  const toggleAuthMode = () => {
-    setIsLogin(!isLogin);
-    setFormData({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      studentId: ''
-    });
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log('Register attempt:', registerData);
+    // Ici on intégrerait la création de compte
   };
 
-  const features = [
-    { icon: FaBook, label: 'Catalogue complet', count: '15k+ livres' },
-    { icon: FaDatabase, label: 'Ressources numériques', count: 'Premium' },
-    { icon: FaGraduationCap, label: 'Espace personnel', count: 'Sécurisé' },
-    { icon: FaUserShield, label: 'Données protégées', count: '100%' }
-  ];
-
-  const benefits = [
-    'Accès illimité au catalogue complet',
-    'Réservation et emprunt en ligne',
-    'Ressources numériques exclusives',
-    'Historique et recommandations',
-    'Notifications personnalisées'
+  const userTypes = [
+    { value: 'student', label: 'Étudiant', icon: FaGraduationCap },
+    { value: 'researcher', label: 'Chercheur', icon: FaBook },
+    { value: 'staff', label: 'Personnel', icon: FaUser }
   ];
 
   return (
@@ -69,171 +78,89 @@ const Auth = () => {
       <section className="auth-hero">
         <div className="container">
           <div className="row align-items-center g-4">
-            <div className="col-lg-8">
+            <div className="col-lg-6">
               <div className="hero-content">
                 <div className="hero-badge">
-                  <FaUserShield size={12} className="me-2" />
-                  Espace Membre
+                  <FaShieldAlt size={12} className="me-2" />
+                  Espace Sécurisé
                 </div>
                 <h1 className="hero-title">
-                  {isLogin ? 'Connexion' : 'Créer un compte'} 
-                  <span className="text-warning"> Bibliothèque</span>
+                  Accédez à votre <span className="text-warning">Espace Personnel</span>
                 </h1>
                 <p className="hero-subtitle">
-                  {isLogin 
-                    ? 'Accédez à votre espace personnel et profitez de tous nos services' 
-                    : 'Rejoignez notre communauté académique et découvrez nos ressources'
-                  }
+                  Connectez-vous ou créez un compte pour accéder à nos services numériques, 
+                  gérer vos emprunts et découvrir nos collections exclusives.
                 </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="quick-access-card">
-                <div className="access-item">
-                  <FaBook className="access-icon text-warning" />
-                  <div>
-                    <div className="access-number">15,000+</div>
-                    <div className="access-label">Ouvrages</div>
-                  </div>
-                </div>
-                <div className="access-item">
-                  <FaDatabase className="access-icon text-info" />
-                  <div>
-                    <div className="access-number">Premium</div>
-                    <div className="access-label">Ressources</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Auth Section */}
-      <section className="auth-main-section">
-        <div className="container">
-          <div className="row g-3">
-            
-            {/* Features Sidebar */}
-            <div className="col-lg-4">
-              {/* Features Card */}
-              <div className="features-card">
-                <div className="card-header">
-                  <FaStar size={16} />
-                  <h5>Avantages membres</h5>
-                </div>
-                <div className="card-content">
-                  <div className="features-grid">
-                    {features.map((feature, index) => {
-                      const Icon = feature.icon;
-                      return (
-                        <div key={index} className="feature-item">
-                          <div className="feature-icon">
-                            <Icon size={14} />
-                          </div>
-                          <div className="feature-info">
-                            <div className="feature-label">{feature.label}</div>
-                            <div className="feature-count">{feature.count}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Benefits Card */}
-              <div className="benefits-card">
-                <div className="card-header">
-                  <FaCheckCircle size={16} />
-                  <h5>Ce que vous obtenez</h5>
-                </div>
-                <div className="card-content">
-                  <div className="benefits-list">
-                    {benefits.map((benefit, index) => (
-                      <div key={index} className="benefit-item">
-                        <FaCheckCircle size={12} className="benefit-icon" />
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Form Section */}
-            <div className="col-lg-8">
-              <div className="auth-form-card">
                 
-                {/* Form Header */}
-                <div className="form-header">
-                  <div className="header-icon">
-                    {isLogin ? <FaUser size={20} /> : <FaUserPlus size={20} />}
+                <div className="benefits-list">
+                  <div className="benefit-item">
+                    <FaCheckCircle className="benefit-icon" />
+                    <span>Accès complet aux ressources numériques</span>
                   </div>
-                  <h3 className="form-title">
-                    {isLogin ? 'Connexion à votre compte' : 'Créer votre compte'}
-                  </h3>
-                  <p className="form-subtitle">
-                    {isLogin 
-                      ? 'Connectez-vous pour accéder à vos services' 
-                      : 'Rejoignez notre communauté en quelques clics'
-                    }
-                  </p>
+                  <div className="benefit-item">
+                    <FaCheckCircle className="benefit-icon" />
+                    <span>Gestion de vos emprunts en ligne</span>
+                  </div>
+                  <div className="benefit-item">
+                    <FaCheckCircle className="benefit-icon" />
+                    <span>Réservations et notifications personnalisées</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="auth-card">
+                {/* Tabs */}
+                <div className="auth-tabs">
+                  <button
+                    className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('login')}
+                  >
+                    <FaSignInAlt size={16} />
+                    <span>Connexion</span>
+                  </button>
+                  <button
+                    className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('register')}
+                  >
+                    <FaUserPlus size={16} />
+                    <span>Inscription</span>
+                  </button>
                 </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="auth-form">
-                  <div className="row g-3">
-                    
-                    {/* Email */}
-                    <div className="col-12">
+                {/* Login Form */}
+                {activeTab === 'login' && (
+                  <form className="auth-form" onSubmit={handleLogin}>
+                    <div className="form-group">
                       <label className="form-label">
                         <FaEnvelope size={12} className="me-2" />
-                        Adresse Email
+                        Email
                       </label>
                       <input
                         type="email"
                         name="email"
-                        className="form-control form-control-modern"
+                        className="form-control"
                         placeholder="votre.email@exemple.com"
-                        value={formData.email}
-                        onChange={handleInputChange}
+                        value={loginData.email}
+                        onChange={handleLoginChange}
                         required
                       />
                     </div>
 
-                    {/* Student ID (if register) */}
-                    {!isLogin && (
-                      <div className="col-12">
-                        <label className="form-label">
-                          <FaUser size={12} className="me-2" />
-                          Numéro Étudiant
-                        </label>
-                        <input
-                          type="text"
-                          name="studentId"
-                          className="form-control form-control-modern"
-                          placeholder="Ex: ETU123456"
-                          value={formData.studentId}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    )}
-
-                    {/* Password */}
-                    <div className="col-12">
+                    <div className="form-group">
                       <label className="form-label">
                         <FaLock size={12} className="me-2" />
                         Mot de passe
                       </label>
-                      <div className="password-input-wrapper">
+                      <div className="password-input">
                         <input
                           type={showPassword ? 'text' : 'password'}
                           name="password"
-                          className="form-control form-control-modern"
+                          className="form-control"
                           placeholder="Votre mot de passe"
-                          value={formData.password}
-                          onChange={handleInputChange}
+                          value={loginData.password}
+                          onChange={handleLoginChange}
                           required
                         />
                         <button
@@ -246,69 +173,200 @@ const Auth = () => {
                       </div>
                     </div>
 
-                    {/* Confirm Password (if register) */}
-                    {!isLogin && (
-                      <div className="col-12">
-                        <label className="form-label">
-                          <FaLock size={12} className="me-2" />
-                          Confirmer le mot de passe
-                        </label>
+                    <div className="form-options">
+                      <label className="checkbox-label">
                         <input
-                          type="password"
-                          name="confirmPassword"
-                          className="form-control form-control-modern"
-                          placeholder="Confirmez votre mot de passe"
-                          value={formData.confirmPassword}
-                          onChange={handleInputChange}
+                          type="checkbox"
+                          name="rememberMe"
+                          checked={loginData.rememberMe}
+                          onChange={handleLoginChange}
+                        />
+                        <span className="checkmark"></span>
+                        Se souvenir de moi
+                      </label>
+                      <Link to="/forgot-password" className="forgot-link">
+                        Mot de passe oublié ?
+                      </Link>
+                    </div>
+
+                    <button type="submit" className="btn btn-warning btn-lg w-100">
+                      <FaSignInAlt size={16} className="me-2" />
+                      Se connecter
+                    </button>
+
+                    <div className="divider">
+                      <span>ou</span>
+                    </div>
+
+                    <div className="social-login">
+                      <button type="button" className="btn btn-outline-light social-btn">
+                        <FaGoogle size={16} />
+                        <span>Google</span>
+                      </button>
+                      <button type="button" className="btn btn-outline-light social-btn">
+                        <FaFacebook size={16} />
+                        <span>Facebook</span>
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {/* Register Form */}
+                {activeTab === 'register' && (
+                  <form className="auth-form" onSubmit={handleRegister}>
+                    <div className="row g-3">
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="form-label">Prénom</label>
+                          <input
+                            type="text"
+                            name="firstName"
+                            className="form-control"
+                            placeholder="Votre prénom"
+                            value={registerData.firstName}
+                            onChange={handleRegisterChange}
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="form-label">Nom</label>
+                          <input
+                            type="text"
+                            name="lastName"
+                            className="form-control"
+                            placeholder="Votre nom"
+                            value={registerData.lastName}
+                            onChange={handleRegisterChange}
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <FaEnvelope size={12} className="me-2" />
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        placeholder="votre.email@exemple.com"
+                        value={registerData.email}
+                        onChange={handleRegisterChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Type d'utilisateur</label>
+                      <div className="user-type-grid">
+                        {userTypes.map(type => {
+                          const Icon = type.icon;
+                          return (
+                            <label key={type.value} className="user-type-option">
+                              <input
+                                type="radio"
+                                name="userType"
+                                value={type.value}
+                                checked={registerData.userType === type.value}
+                                onChange={handleRegisterChange}
+                              />
+                              <div className="user-type-card">
+                                <Icon size={20} />
+                                <span>{type.label}</span>
+                              </div>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {registerData.userType === 'student' && (
+                      <div className="form-group">
+                        <label className="form-label">Numéro étudiant</label>
+                        <input
+                          type="text"
+                          name="studentId"
+                          className="form-control"
+                          placeholder="Ex: ETU20240001"
+                          value={registerData.studentId}
+                          onChange={handleRegisterChange}
+                          required
                         />
                       </div>
                     )}
 
-                    {/* Forgot Password */}
-                    {isLogin && (
-                      <div className="col-12">
-                        <div className="forgot-password">
-                          <button type="button" className="link-button">
-                            Mot de passe oublié ?
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Submit Button */}
-                    <div className="col-12">
-                      <button type="submit" className="btn btn-primary btn-modern w-100">
-                        {isLogin ? 'Se connecter' : 'Créer le compte'}
-                        <FaArrowRight size={12} className="ms-2" />
-                      </button>
-                    </div>
-
-                    {/* Toggle Mode */}
-                    <div className="col-12">
-                      <div className="auth-toggle">
-                        <span className="toggle-text">
-                          {isLogin 
-                            ? "Vous n'avez pas de compte ?" 
-                            : 'Vous avez déjà un compte ?'
-                          }
-                        </span>
+                    <div className="form-group">
+                      <label className="form-label">
+                        <FaLock size={12} className="me-2" />
+                        Mot de passe
+                      </label>
+                      <div className="password-input">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          name="password"
+                          className="form-control"
+                          placeholder="Minimum 8 caractères"
+                          value={registerData.password}
+                          onChange={handleRegisterChange}
+                          required
+                        />
                         <button
                           type="button"
-                          onClick={toggleAuthMode}
-                          className="link-button link-primary"
+                          className="password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
                         >
-                          {isLogin ? 'Créer un compte' : 'Se connecter'}
+                          {showPassword ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
                         </button>
                       </div>
                     </div>
-                  </div>
-                </form>
 
-                {/* Security Notice */}
-                <div className="security-notice">
-                  <FaShieldAlt size={14} className="me-2" />
-                  <span>Vos données sont sécurisées et chiffrées</span>
-                </div>
+                    <div className="form-group">
+                      <label className="form-label">Confirmer le mot de passe</label>
+                      <div className="password-input">
+                        <input
+                          type={showConfirmPassword ? 'text' : 'password'}
+                          name="confirmPassword"
+                          className="form-control"
+                          placeholder="Confirmez votre mot de passe"
+                          value={registerData.confirmPassword}
+                          onChange={handleRegisterChange}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                          {showConfirmPassword ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          name="acceptTerms"
+                          checked={registerData.acceptTerms}
+                          onChange={handleRegisterChange}
+                          required
+                        />
+                        <span className="checkmark"></span>
+                        J'accepte les <Link to="/terms">conditions d'utilisation</Link> et la <Link to="/privacy">politique de confidentialité</Link>
+                      </label>
+                    </div>
+
+                    <button type="submit" className="btn btn-warning btn-lg w-100">
+                      <FaUserPlus size={16} className="me-2" />
+                      Créer un compte
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
@@ -319,28 +377,33 @@ const Auth = () => {
         .auth-container {
           background: var(--bg-primary);
           min-height: 100vh;
+          width: 100%;
+          margin: 0;
+          padding: 0;
         }
 
-        .container {
-          max-width: 1200px;
+        .auth-container .container {
+          max-width: 1400px !important;
+          margin: 0 auto !important;
+          padding: 0 1rem !important;
+          width: 100% !important;
         }
 
         /* Hero Section */
         .auth-hero {
           padding: 3rem 0;
           background: linear-gradient(135deg, 
-            rgba(29, 79, 139, 0.1) 0%, 
-            rgba(60, 107, 139, 0.05) 100%);
+            rgba(59, 130, 246, 0.1) 0%, 
+            rgba(139, 69, 19, 0.05) 100%);
           border-radius: 0 0 20px 20px;
-          margin-bottom: 2rem;
         }
 
         .hero-badge {
           display: inline-flex;
           align-items: center;
-          background: rgba(241, 196, 14, 0.1);
-          border: 1px solid rgba(241, 196, 14, 0.3);
-          color: var(--warning);
+          background: rgba(59, 130, 246, 0.1);
+          border: 1px solid rgba(59, 130, 246, 0.3);
+          color: #3b82f6;
           font-size: 0.75rem;
           font-weight: 500;
           padding: 0.25rem 0.75rem;
@@ -359,198 +422,82 @@ const Auth = () => {
         .hero-subtitle {
           font-size: 1rem;
           color: var(--text-secondary);
-          margin-bottom: 1.5rem;
+          margin-bottom: 2rem;
           line-height: 1.6;
-        }
-
-        .quick-access-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 1.25rem;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .access-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 1rem 0;
-        }
-
-        .access-item:not(:last-child) {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .access-icon {
-          font-size: 1.5rem;
-        }
-
-        .access-number {
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: var(--text-primary);
-        }
-
-        .access-label {
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-        }
-
-        /* Main Auth Section */
-        .auth-main-section {
-          padding: 2rem 0 4rem;
-        }
-
-        .features-card,
-        .benefits-card,
-        .auth-form-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          overflow: hidden;
-          margin-bottom: 1.5rem;
-        }
-
-        .card-header {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          background: rgba(255, 255, 255, 0.05);
-        }
-
-        .card-header h5 {
-          margin: 0;
-          font-size: 0.95rem;
-          font-weight: 600;
-          color: var(--text-primary);
-        }
-
-        .card-header svg {
-          color: var(--warning);
-        }
-
-        .card-content {
-          padding: 1rem;
-        }
-
-        .features-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-
-        .feature-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(241, 196, 14, 0.3);
-          transform: translateY(-1px);
-        }
-
-        .feature-icon {
-          width: 32px;
-          height: 32px;
-          background: rgba(241, 196, 14, 0.1);
-          border-radius: 6px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--warning);
-          flex-shrink: 0;
-        }
-
-        .feature-label {
-          font-size: 0.8rem;
-          font-weight: 500;
-          color: var(--text-primary);
-          line-height: 1.2;
-        }
-
-        .feature-count {
-          font-size: 0.7rem;
-          color: var(--text-secondary);
         }
 
         .benefits-list {
           display: flex;
           flex-direction: column;
-          gap: 0.6rem;
+          gap: 0.75rem;
         }
 
         .benefit-item {
           display: flex;
           align-items: center;
-          gap: 0.6rem;
-          font-size: 0.8rem;
+          gap: 0.75rem;
           color: var(--text-secondary);
-          line-height: 1.3;
+          font-size: 0.875rem;
         }
 
         .benefit-icon {
-          color: var(--warning);
+          color: #22c55e;
           flex-shrink: 0;
         }
 
-        /* Form Card */
-        .auth-form-card {
-          margin-bottom: 0;
-        }
-
-        .form-header {
-          padding: 1.5rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          text-align: center;
+        /* Auth Card */
+        .auth-card {
           background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          overflow: hidden;
         }
 
-        .header-icon {
-          width: 48px;
-          height: 48px;
-          background: rgba(241, 196, 14, 0.1);
-          border-radius: 12px;
+        .auth-tabs {
+          display: flex;
+          background: rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+          flex: 1;
+          background: none;
+          border: none;
+          color: var(--text-secondary);
+          padding: 1.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--warning);
-          margin: 0 auto 1rem;
+          gap: 0.5rem;
         }
 
-        .form-title {
-          font-size: 1.25rem;
-          font-weight: 600;
+        .tab-btn:hover {
+          background: rgba(255, 255, 255, 0.05);
           color: var(--text-primary);
-          margin-bottom: 0.5rem;
         }
 
-        .form-subtitle {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          margin: 0;
+        .tab-btn.active {
+          background: rgba(241, 196, 14, 0.1);
+          color: var(--warning);
+          border-bottom: 2px solid var(--warning);
         }
 
-        /* Form Elements */
+        /* Form */
         .auth-form {
-          padding: 1.5rem;
+          padding: 2rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
         }
 
         .form-label {
-          font-size: 0.8rem;
+          font-size: 0.875rem;
           font-weight: 500;
           color: var(--text-primary);
           margin-bottom: 0.5rem;
@@ -558,31 +505,30 @@ const Auth = () => {
           align-items: center;
         }
 
-        .form-control-modern {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+        .form-control {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 8px;
           padding: 0.75rem;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           color: var(--text-primary);
           transition: all 0.3s ease;
           width: 100%;
         }
 
-        .form-control-modern:focus {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(241, 196, 14, 0.5);
+        .form-control:focus {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: var(--warning);
           box-shadow: 0 0 0 3px rgba(241, 196, 14, 0.1);
           outline: none;
           color: var(--text-primary);
         }
 
-        .form-control-modern::placeholder {
-          color: var(--text-tertiary);
-          font-size: 0.8rem;
+        .form-control::placeholder {
+          color: var(--text-placeholder);
         }
 
-        .password-input-wrapper {
+        .password-input {
           position: relative;
         }
 
@@ -593,24 +539,77 @@ const Auth = () => {
           transform: translateY(-50%);
           background: none;
           border: none;
-          color: var(--text-secondary);
+          color: var(--text-tertiary);
           cursor: pointer;
           padding: 0.25rem;
-          transition: color 0.3s ease;
         }
 
         .password-toggle:hover {
-          color: var(--warning);
+          color: var(--text-secondary);
         }
 
-        .btn-modern {
-          background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
+        .form-options {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+        }
+
+        .checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+          cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+          display: none;
+        }
+
+        .checkmark {
+          width: 16px;
+          height: 16px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 4px;
+          position: relative;
+          transition: all 0.3s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+          background: var(--warning);
+          border-color: var(--warning);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+          content: '✓';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: var(--dark-900);
+          font-size: 0.75rem;
+          font-weight: bold;
+        }
+
+        .forgot-link {
+          color: var(--warning);
+          text-decoration: none;
+          font-size: 0.875rem;
+          transition: all 0.3s ease;
+        }
+
+        .forgot-link:hover {
+          color: #e67e22;
+          text-decoration: underline;
+        }
+
+        .btn {
           border: none;
           border-radius: 8px;
-          color: var(--dark-900);
-          font-size: 0.85rem;
           font-weight: 600;
-          padding: 0.75rem 1rem;
           transition: all 0.3s ease;
           display: flex;
           align-items: center;
@@ -618,62 +617,95 @@ const Auth = () => {
           gap: 0.5rem;
         }
 
-        .btn-modern:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(241, 196, 14, 0.3);
+        .btn-warning {
+          background: var(--gradient-accent);
           color: var(--dark-900);
         }
 
-        .link-button {
-          background: none;
-          border: none;
-          color: var(--text-secondary);
-          font-size: 0.8rem;
-          cursor: pointer;
-          transition: color 0.3s ease;
-          padding: 0;
+        .btn-warning:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(241, 196, 14, 0.3);
         }
 
-        .link-button:hover {
-          color: var(--text-primary);
-        }
-
-        .link-primary {
-          color: var(--warning) !important;
-          font-weight: 500;
-        }
-
-        .link-primary:hover {
-          color: var(--text-primary) !important;
-        }
-
-        .forgot-password {
-          text-align: right;
-        }
-
-        .auth-toggle {
-          text-align: center;
-          padding-top: 1rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .toggle-text {
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-          margin-right: 0.5rem;
-        }
-
-        .security-notice {
+        .divider {
           display: flex;
           align-items: center;
-          justify-content: center;
-          background: rgba(241, 196, 14, 0.1);
-          border: 1px solid rgba(241, 196, 14, 0.3);
-          color: var(--warning);
-          font-size: 0.75rem;
+          margin: 1.5rem 0;
+          color: var(--text-tertiary);
+          font-size: 0.875rem;
+        }
+
+        .divider::before,
+        .divider::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+          padding: 0 1rem;
+        }
+
+        .social-login {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+        }
+
+        .social-btn {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: var(--text-secondary);
           padding: 0.75rem;
-          margin: 1rem 1.5rem 1.5rem;
+          font-size: 0.875rem;
+        }
+
+        .social-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: var(--text-primary);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* User Type Selection */
+        .user-type-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
+        }
+
+        .user-type-option {
+          cursor: pointer;
+        }
+
+        .user-type-option input[type="radio"] {
+          display: none;
+        }
+
+        .user-type-card {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
+          padding: 1rem;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          transition: all 0.3s ease;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+        }
+
+        .user-type-option:hover .user-type-card {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-type-option input[type="radio"]:checked + .user-type-card {
+          background: rgba(241, 196, 14, 0.1);
+          border-color: rgba(241, 196, 14, 0.3);
+          color: var(--warning);
         }
 
         /* Responsive */
@@ -682,24 +714,20 @@ const Auth = () => {
             font-size: 2rem;
           }
           
-          .quick-access-card {
-            margin-top: 2rem;
+          .auth-tabs {
+            flex-direction: column;
           }
           
-          .auth-form-card {
-            margin-top: 1rem;
+          .tab-btn {
+            padding: 1rem;
           }
           
-          .form-header {
-            padding: 1.25rem;
+          .user-type-grid {
+            grid-template-columns: 1fr;
           }
           
-          .auth-form {
-            padding: 1.25rem;
-          }
-          
-          .form-title {
-            font-size: 1.1rem;
+          .social-login {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

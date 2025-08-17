@@ -36,7 +36,10 @@ import {
   FaDesktop,
   FaCoffee,
   FaWifi,
-  FaParking
+  FaParking,
+  FaSignInAlt,
+  FaAddressCard,
+  FaQuestionCircle
 } from 'react-icons/fa';
 
 const LibraryHeader = () => {
@@ -195,21 +198,16 @@ const LibraryHeader = () => {
       }
     },
     {
-      id: 'actualites',
-      label: 'Actualités',
-      path: '/actualites',
-      icon: FaNewspaper
+      id: 'about',
+      label: 'À Propos',
+      path: '/about',
+      icon: FaQuestionCircle
     },
     {
-      id: 'infos',
-      label: 'Infos',
-      icon: FaInfoCircle,
-      dropdown: [
-        { label: 'Horaires & Contact', path: '/infos', icon: FaClock },
-        { label: 'Plan de la Bibliothèque', path: '/infos#plan', icon: FaMapMarkerAlt },
-        { label: 'Règlement', path: '/infos#reglement', icon: FaFileAlt },
-        { label: 'Équipements', path: '/infos#equipements', icon: FaDesktop }
-      ]
+      id: 'contact',
+      label: 'Contact',
+      path: '/contact',
+      icon: FaAddressCard
     }
   ];
 
@@ -241,13 +239,13 @@ const LibraryHeader = () => {
                   </span>
                 </div>
                 <div className="top-actions">
+                  <Link to="/auth" className="login-link">
+                    <FaSignInAlt size={12} />
+                    <span>Connexion</span>
+                  </Link>
                   <button onClick={toggleTheme} className="theme-toggle" title={`Mode ${isDark ? 'clair' : 'sombre'}`}>
                     {isDark ? <FaSun size={12} /> : <FaMoon size={12} />}
                   </button>
-                  <Link to="/auth" className="login-link">
-                    <FaUser size={12} />
-                    Connexion
-                  </Link>
                 </div>
               </div>
             </div>
@@ -390,9 +388,9 @@ const LibraryHeader = () => {
                     </Link>
                   </div>
                   <div className="user-actions">
-                    <Link to="/profile" className="profile-btn" title="Mon Profil">
-                      <FaUserCircle size={16} />
-                      <span>Mon Compte</span>
+                    <Link to="/profile" className="profile-btn" title="Mon profil">
+                      <FaUserCircle size={14} />
+                      <span>Profil</span>
                     </Link>
                   </div>
                 </div>
