@@ -1161,18 +1161,22 @@ const LibraryHeader = () => {
             display: none;
           }
 
+          .quick-access-menu {
+            display: none;
+          }
+
           .mobile-menu-toggle {
             display: block;
+            z-index: 1001;
+            position: relative;
           }
 
           .mobile-menu-overlay {
             display: block;
           }
 
-          .header-actions .search-btn,
-          .header-actions .profile-btn {
-            width: 36px;
-            height: 36px;
+          .header-content {
+            justify-content: space-between;
           }
 
           .logo-title {
