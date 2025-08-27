@@ -37,7 +37,7 @@ const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   
-  // ✅ PANIER MOBILE + DROPDOWN MENU + HEADER BIBLIOTHÈQUE - 27/08/2025 10:35 ✅
+  // ✅ STATS CIBLÉES: HEADER BLANC / COMPOSANTS BLEU - 27/08/2025 10:43 ✅
 
   // Données utilisateur
   const userInfo = {
@@ -388,13 +388,22 @@ const UserProfile = () => {
           display: block;
           font-size: 1.5rem;
           font-weight: 700;
-          color: white;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+          color: #1d4f8b;
         }
 
         .stat-label {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--text-secondary);
+        }
+
+        /* Stats spécifiques au header profile */
+        .profile-stats .stat-number {
+          color: white;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .profile-stats .stat-label {
+          color: rgba(255, 255, 255, 0.9);
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
@@ -406,9 +415,9 @@ const UserProfile = () => {
         }
 
         .profile-btn {
-          background: rgba(29, 79, 139, 0.1);
-          border: 1px solid rgba(29, 79, 139, 0.3);
-          color: #1d4f8b;
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          color: white;
           padding: 0.75rem 1.5rem;
           border-radius: 8px;
           font-weight: 600;
@@ -426,7 +435,7 @@ const UserProfile = () => {
         }
 
         .profile-btn:hover {
-          background: #1d4f8b;
+          background: rgba(255, 255, 255, 0.3);
           color: white;
           transform: translateY(-2px);
         }
@@ -439,7 +448,7 @@ const UserProfile = () => {
           position: absolute;
           top: -5px;
           right: -5px;
-          background: #1d4f8b;
+          background: #ff4444;
           color: white;
           border-radius: 50%;
           width: 18px;

@@ -591,8 +591,8 @@ const Carts = () => {
         }
 
         .quantity-controls button {
-          background: rgba(29, 79, 139, 0.1);
-          border: none;
+          background: rgba(29, 79, 139, 0.15);
+          border: 1px solid rgba(29, 79, 139, 0.3);
           border-radius: 4px;
           width: 28px;
           height: 28px;
@@ -602,10 +602,13 @@ const Carts = () => {
           color: #1d4f8b;
           cursor: pointer;
           transition: all 0.3s ease;
+          font-weight: 600;
         }
 
         .quantity-controls button:hover {
-          background: rgba(29, 79, 139, 0.2);
+          background: rgba(29, 79, 139, 0.25);
+          border-color: rgba(29, 79, 139, 0.5);
+          color: #1d4f8b;
         }
 
         .quantity-controls span {

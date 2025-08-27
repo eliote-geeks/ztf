@@ -492,7 +492,7 @@ const Favorites = () => {
           width: 100%;
           padding: 0.75rem 0.75rem 0.75rem 2.5rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
@@ -509,7 +509,7 @@ const Favorites = () => {
 
         .filter-select {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           padding: 0.75rem;
           color: var(--text-primary);
@@ -529,7 +529,7 @@ const Favorites = () => {
 
         .view-btn {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           padding: 0.5rem;
           color: var(--text-secondary);

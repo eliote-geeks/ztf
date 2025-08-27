@@ -499,7 +499,7 @@ const Shop = () => {
           width: 100%;
           padding: 0.75rem 0.75rem 0.75rem 2.5rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
@@ -516,7 +516,7 @@ const Shop = () => {
 
         .filter-select {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           padding: 0.75rem;
           color: var(--text-primary);
@@ -664,21 +664,22 @@ const Shop = () => {
         }
 
         .overlay-btn {
-          background: rgba(255, 255, 255, 0.9);
-          border: none;
+          background: #1d4f8b;
+          border: 2px solid white;
           border-radius: 50%;
           width: 40px;
           height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #1d4f8b;
+          color: white;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .overlay-btn:hover {
-          background: white;
+          background: rgba(29, 79, 139, 0.9);
+          border-color: rgba(255, 255, 255, 0.8);
           transform: scale(1.1);
         }
 

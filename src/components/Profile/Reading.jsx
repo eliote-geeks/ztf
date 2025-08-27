@@ -761,7 +761,7 @@ const Reading = () => {
           align-items: center;
           gap: 0.25rem;
           font-size: 0.8rem;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
         }
 
         .book-tags {

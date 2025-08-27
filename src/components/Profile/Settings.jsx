@@ -544,6 +544,7 @@ const Settings = () => {
         .section-icon {
           color: #1d4f8b;
           font-size: 1.5rem;
+          filter: brightness(1.3);
         }
 
         .section-header h3 {
@@ -615,7 +616,8 @@ const Settings = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(108, 117, 125, 0.3);
+          border: 1px solid rgba(108, 117, 125, 0.4);
           transition: 0.3s;
           border-radius: 28px;
         }
@@ -627,7 +629,8 @@ const Settings = () => {
           width: 20px;
           left: 4px;
           bottom: 4px;
-          background: white;
+          background: rgba(255, 255, 255, 0.8);
+          border: 1px solid rgba(108, 117, 125, 0.2);
           transition: 0.3s;
           border-radius: 50%;
         }
@@ -638,6 +641,8 @@ const Settings = () => {
 
         input:checked + .toggle-slider:before {
           transform: translateX(22px);
+          background: white;
+          border-color: transparent;
         }
 
         .setting-group {
@@ -648,7 +653,7 @@ const Settings = () => {
           width: 100%;
           padding: 0.75rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
@@ -716,7 +721,7 @@ const Settings = () => {
           width: 80px;
           padding: 0.5rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;

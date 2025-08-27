@@ -576,7 +576,7 @@ const ReadingRoom = () => {
         .form-input {
           padding: 0.75rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 6px;
           color: var(--text-primary);
           font-size: 0.875rem;

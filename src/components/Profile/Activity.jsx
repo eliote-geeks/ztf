@@ -631,6 +631,12 @@ const Activity = () => {
           display: flex;
           align-items: center;
           justify-content: center;
+          border: 2px solid white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .activity-type svg {
+          color: white !important;
         }
 
         .activity-details {
@@ -670,7 +676,7 @@ const Activity = () => {
           align-items: center;
           gap: 0.5rem;
           font-size: 0.85rem;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
         }
 
         .days-remaining {

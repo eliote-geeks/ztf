@@ -718,7 +718,7 @@ const Account = ({ userInfo }) => {
           width: 100%;
           padding: 0.75rem;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
@@ -904,14 +904,20 @@ const Account = ({ userInfo }) => {
         }
 
         .btn-outline {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: var(--text-secondary);
+          background: rgba(29, 79, 139, 0.1);
+          border: 2px solid #1d4f8b;
+          color: #1d4f8b;
+          font-weight: 600;
+          padding: 0.75rem 1rem;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 4px rgba(29, 79, 139, 0.1);
         }
 
         .btn-outline:hover {
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--text-primary);
+          background: #1d4f8b;
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(29, 79, 139, 0.2);
         }
 
         @media (max-width: 768px) {

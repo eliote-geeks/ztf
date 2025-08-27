@@ -354,7 +354,7 @@ const Search = () => {
           display: flex;
           align-items: center;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 12px;
           padding: 0.75rem;
           gap: 0.75rem;
@@ -421,7 +421,7 @@ const Search = () => {
 
         .filter-select {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           border-radius: 8px;
           padding: 0.5rem;
           color: var(--text-primary);
@@ -506,8 +506,8 @@ const Search = () => {
         }
 
         .action-btn {
-          background: rgba(0, 0, 0, 0.7);
-          border: none;
+          background: rgba(255, 255, 255, 0.9);
+          border: 2px solid rgba(255, 255, 255, 0.5);
           border-radius: 50%;
           width: 32px;
           height: 32px;
@@ -521,10 +521,14 @@ const Search = () => {
 
         .action-btn.favorite:hover {
           background: #1d4f8b;
+          color: white;
+          border-color: #1d4f8b;
         }
 
         .action-btn.bookmark:hover {
           background: #3498db;
+          color: white;
+          border-color: #3498db;
         }
 
         .result-info {
@@ -646,7 +650,7 @@ const Search = () => {
 
         .btn-primary {
           background: #1d4f8b;
-          color: var(--dark-900);
+          color: white;
           border: none;
           padding: 0.5rem 1rem;
           border-radius: 8px;
