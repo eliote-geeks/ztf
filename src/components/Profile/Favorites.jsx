@@ -647,21 +647,23 @@ const Favorites = () => {
         }
 
         .available {
-          background: rgba(29, 79, 139, 0.9);
-          color: #1d4f8b;
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
           padding: 0.25rem 0.5rem;
           border-radius: 12px;
           font-size: 0.7rem;
           font-weight: 600;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .unavailable {
-          background: rgba(29, 79, 139, 0.9);
-          color: #1d4f8b;
+          background: rgba(0, 0, 0, 0.8);
+          color: rgba(255, 255, 255, 0.8);
           padding: 0.25rem 0.5rem;
           border-radius: 12px;
           font-size: 0.7rem;
           font-weight: 600;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .favorite-info {

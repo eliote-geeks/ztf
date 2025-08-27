@@ -204,18 +204,6 @@ const Reading = () => {
         <p className="book-description">{book.description}</p>
         
         <div className="book-meta">
-          <div className="meta-item">
-            <FaMapMarkerAlt size={12} />
-            <span>{book.location}</span>
-          </div>
-          <div className="meta-item">
-            <FaBook size={12} />
-            <span>{book.pages} pages</span>
-          </div>
-          <div className="meta-item">
-            <FaStar size={12} />
-            <span>{book.rating}/5</span>
-          </div>
         </div>
 
         <div className="book-tags">

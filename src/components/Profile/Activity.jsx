@@ -653,7 +653,7 @@ const Activity = () => {
 
         .activity-header h4 {
           font-size: 1.1rem;
-          font-weight: 600;
+          font-weight: 500;
           color: var(--text-primary);
           margin: 0;
           line-height: 1.3;

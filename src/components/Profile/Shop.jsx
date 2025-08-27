@@ -758,13 +758,13 @@ const Shop = () => {
         }
 
         .in-stock {
-          color: #1d4f8b;
+          color: rgba(255, 255, 255, 0.9);
           font-size: 0.8rem;
           font-weight: 500;
         }
 
         .out-of-stock {
-          color: #1d4f8b;
+          color: rgba(255, 255, 255, 0.7);
           font-size: 0.8rem;
           font-weight: 500;
         }
