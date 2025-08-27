@@ -16,7 +16,7 @@ import CatalogueZTF from './pages/CatalogueZTF';
 import Auth from './pages/Auth';
 import Contact from './pages/Contact';
 import About from './pages/About';
-import Profile from './pages/Profile';
+import UserProfile from './pages/UserProfile';
 import Cairn from './pages/resources/Cairn';
 import OpenEdition from './pages/resources/OpenEdition';
 import Persee from './pages/resources/Persee';
@@ -130,7 +130,7 @@ function App() {
               } />
               <Route path="/profile" element={
                 <PageTransition>
-                  <Profile />
+                  <UserProfile />
                 </PageTransition>
               } />
               <Route path="/ressources/cairn" element={
