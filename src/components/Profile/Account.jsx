@@ -619,10 +619,9 @@ const Account = ({ userInfo }) => {
           position: absolute;
           bottom: 0;
           right: 0;
-          background: #1d4f8b;
+          background: none;
           color: white;
           border: none;
-          border-radius: 50%;
           width: 32px;
           height: 32px;
           display: flex;
@@ -630,11 +629,14 @@ const Account = ({ userInfo }) => {
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s ease;
+          font-size: 16px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .avatar-edit-btn:hover {
-          background: #1d4f8b;
-          transform: scale(1.1);
+          color: #1d4f8b;
+          transform: scale(1.2);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
         }
 
         .profile-basic-info h3 {
@@ -717,16 +719,19 @@ const Account = ({ userInfo }) => {
         .form-input {
           width: 100%;
           padding: 0.75rem;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.15);
+          border: 2px solid rgba(255, 255, 255, 0.8);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
+          transition: all 0.3s ease;
         }
 
         .form-input:focus {
           outline: none;
           border-color: #1d4f8b;
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 0 0 3px rgba(29, 79, 139, 0.1);
         }
 
         .account-details {

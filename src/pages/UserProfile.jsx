@@ -29,7 +29,6 @@ import Favorites from '../components/Profile/Favorites';
 import Shop from '../components/Profile/Shop';
 import Account from '../components/Profile/Account';
 import Settings from '../components/Profile/Settings';
-import ReadingRoom from '../components/Profile/ReadingRoom';
 import Carts from '../components/Profile/Carts';
 import ProfilePageTransition from '../components/Profile/PageTransition';
 
@@ -61,7 +60,6 @@ const UserProfile = () => {
     { id: 'search', label: 'Rechercher', icon: FaSearch },
     { id: 'activity', label: 'Mon Activité', icon: FaClock },
     { id: 'reading', label: 'Lecture', icon: FaBookOpen },
-    { id: 'reading-room', label: 'Réserver une salle', icon: FaEye },
     { id: 'favorites', label: 'Favoris', icon: FaHeart },
     { id: 'carts', label: 'Paniers', icon: FaShoppingCart },
     { id: 'shop', label: 'Boutique', icon: FaShoppingCart },
@@ -90,8 +88,6 @@ const UserProfile = () => {
         return <Activity />;
       case 'reading':
         return <Reading />;
-      case 'reading-room':
-        return <ReadingRoom />;
       case 'favorites':
         return <Favorites />;
       case 'carts':
@@ -220,7 +216,6 @@ const UserProfile = () => {
                           {tab.id === 'reading' && <span className="nav-badge">3</span>}
                           {tab.id === 'favorites' && <span className="nav-badge">34</span>}
                           {tab.id === 'carts' && <span className="nav-badge">5</span>}
-                          {tab.id === 'reading-room' && <span className="nav-badge">2</span>}
                         </button>
                       );
                     })}

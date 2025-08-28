@@ -224,69 +224,55 @@ const Activity = () => {
             <p className="activity-description">{activity.description}</p>
           )}
 
-          <div className="activity-meta">
+          <div className="activity-stats">
             {isLoan ? (
               <>
-                <div className="meta-item">
-                  <FaCalendar size={12} />
-                  <span>Emprunté le {formatDate(activity.loanDate)}</span>
+                <div className="stat-badge">
+                  <span>📚 {activity.itemType === 'physical' ? 'Livre physique' : 'Document numérique'}</span>
                 </div>
-                <div className="meta-item">
-                  <FaClock size={12} />
-                  <span>
-                    {activity.status === 'returned' 
-                      ? `Retourné le ${formatDate(activity.returnDate)}`
-                      : `Échéance: ${formatDate(activity.dueDate)}`
-                    }
-                  </span>
+                <div className="stat-badge">
+                  <span>🔄 Renouvellement: {activity.renewals}/{activity.maxRenewals}</span>
                 </div>
                 {activity.status === 'active' && (
-                  <div className="meta-item">
-                    <span className="days-remaining">
-                      {(() => {
-                        const days = calculateDaysRemaining(activity.dueDate);
-                        if (days > 0) return `${days} jours restants`;
-                        if (days === 0) return 'Échéance aujourd\'hui';
-                        return `${Math.abs(days)} jours de retard`;
-                      })()}
-                    </span>
+                  <div className="stat-badge">
+                    <span>⏰ {(() => {
+                      const days = calculateDaysRemaining(activity.dueDate);
+                      if (days > 0) return `${days} jour(s) restant(s)`;
+                      if (days === 0) return 'À rendre aujourd\'hui';
+                      return `${Math.abs(days)} jour(s) de retard`;
+                    })()}</span>
+                  </div>
+                )}
+                {activity.status === 'overdue' && (
+                  <div className="stat-badge overdue">
+                    <span>⚠️ En retard</span>
+                  </div>
+                )}
+                {activity.status === 'returned' && (
+                  <div className="stat-badge success">
+                    <span>✅ Retourné</span>
                   </div>
                 )}
               </>
             ) : (
               <>
-                <div className="meta-item">
-                  <FaCalendar size={12} />
-                  <span>Réservé le {formatDate(activity.reservationDate)}</span>
+                <div className="stat-badge">
+                  <span>🏛️ {activity.itemType === 'room' ? 'Salle de lecture' : 'Livre réservé'}</span>
                 </div>
-                <div className="meta-item">
-                  <FaClock size={12} />
-                  <span>
-                    {activity.status === 'completed' 
-                      ? `Utilisé le ${formatDate(activity.scheduledDate)}`
-                      : `Prévu le ${formatDate(activity.scheduledDate)}`
-                    }
-                  </span>
+                {activity.capacity && (
+                  <div className="stat-badge">
+                    <span>👥 Capacité: {activity.capacity} places</span>
+                  </div>
+                )}
+                <div className="stat-badge">
+                  <span>⭐ Priorité haute</span>
                 </div>
                 {activity.timeSlot && (
-                  <div className="meta-item">
-                    <span>{activity.timeSlot}</span>
+                  <div className="stat-badge">
+                    <span>🕒 {activity.timeSlot}</span>
                   </div>
                 )}
               </>
-            )}
-
-            <div className="meta-item">
-              <FaMapMarkerAlt size={12} />
-              <span>{activity.location}</span>
-            </div>
-
-            {activity.amenities && (
-              <div className="meta-item amenities">
-                {activity.amenities.map((amenity, index) => (
-                  <span key={index} className="amenity-tag">{amenity}</span>
-                ))}
-              </div>
             )}
           </div>
         </div>
@@ -671,12 +657,36 @@ const Activity = () => {
           gap: 0.5rem;
         }
 
-        .meta-item {
+        .activity-stats {
+          display: flex;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-bottom: 1rem;
+        }
+
+        .stat-badge {
+          background: rgba(29, 79, 139, 0.1);
+          border: 1px solid rgba(29, 79, 139, 0.2);
+          color: #1d4f8b;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0;
+          font-size: 0.75rem;
+          font-weight: 500;
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.8);
+          gap: 0.25rem;
+        }
+
+        .stat-badge.overdue {
+          background: rgba(239, 68, 68, 0.1);
+          border-color: rgba(239, 68, 68, 0.3);
+          color: #ef4444;
+        }
+
+        .stat-badge.success {
+          background: rgba(34, 197, 94, 0.1);
+          border-color: rgba(34, 197, 94, 0.3);
+          color: #22c55e;
         }
 
         .days-remaining {

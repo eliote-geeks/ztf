@@ -181,21 +181,6 @@ const Favorites = () => {
     <div className="favorite-card">
       <div className="favorite-cover">
         <img src={favorite.cover} alt={favorite.title} />
-        <div className="favorite-overlay">
-          <button className="overlay-btn" title="Voir détails">
-            <FaEye />
-          </button>
-          <button className="overlay-btn" title="Partager">
-            <FaShare />
-          </button>
-          <button 
-            className="overlay-btn remove"
-            title="Retirer des favoris"
-            onClick={() => removeFromFavorites(favorite.id)}
-          >
-            <FaTrash />
-          </button>
-        </div>
         <div className="availability-indicator">
           {favorite.available ? (
             <span className="available">Disponible</span>
@@ -598,47 +583,6 @@ const Favorites = () => {
           object-fit: cover;
         }
 
-        .favorite-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.7);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .favorite-card:hover .favorite-overlay {
-          opacity: 1;
-        }
-
-        .overlay-btn {
-          background: rgba(255, 255, 255, 0.9);
-          border: none;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #1d4f8b;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .overlay-btn:hover {
-          background: white;
-          transform: scale(1.1);
-        }
-
-        .overlay-btn.remove:hover {
-          background: rgba(29, 79, 139, 0.8);
-        }
 
         .availability-indicator {
           position: absolute;

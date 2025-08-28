@@ -231,14 +231,6 @@ const Search = () => {
             <div key={result.id} className="result-card">
               <div className="result-cover">
                 <img src={result.cover} alt={result.title} />
-                <div className="result-actions">
-                  <button className="action-btn favorite">
-                    <FaHeart />
-                  </button>
-                  <button className="action-btn bookmark">
-                    <FaBookmark />
-                  </button>
-                </div>
               </div>
               
               <div className="result-info">
@@ -490,46 +482,6 @@ const Search = () => {
           object-fit: cover;
         }
 
-        .result-actions {
-          position: absolute;
-          top: 0.5rem;
-          right: 0.5rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .result-card:hover .result-actions {
-          opacity: 1;
-        }
-
-        .action-btn {
-          background: rgba(255, 255, 255, 0.9);
-          border: 2px solid rgba(255, 255, 255, 0.5);
-          border-radius: 50%;
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #1d4f8b;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .action-btn.favorite:hover {
-          background: #1d4f8b;
-          color: white;
-          border-color: #1d4f8b;
-        }
-
-        .action-btn.bookmark:hover {
-          background: #3498db;
-          color: white;
-          border-color: #3498db;
-        }
 
         .result-info {
           text-align: center;

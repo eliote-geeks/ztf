@@ -226,14 +226,6 @@ const Shop = () => {
       
       <div className="product-image">
         <img src={product.image} alt={product.name} />
-        <div className="product-overlay">
-          <button className="overlay-btn" title="Aperçu rapide">
-            <FaEye />
-          </button>
-          <button className="overlay-btn" title="Ajouter aux favoris">
-            <FaHeart />
-          </button>
-        </div>
       </div>
 
       <div className="product-info">
@@ -537,7 +529,7 @@ const Shop = () => {
 
         .cart-toggle {
           background: #1d4f8b;
-          color: var(--dark-900);
+          color: white;
           border: none;
           padding: 0.5rem 0.75rem;
           border-radius: 8px;
@@ -644,44 +636,6 @@ const Shop = () => {
           object-fit: cover;
         }
 
-        .product-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.7);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .product-card:hover .product-overlay {
-          opacity: 1;
-        }
-
-        .overlay-btn {
-          background: #1d4f8b;
-          border: 2px solid white;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .overlay-btn:hover {
-          background: rgba(29, 79, 139, 0.9);
-          border-color: rgba(255, 255, 255, 0.8);
-          transform: scale(1.1);
-        }
 
         .product-info {
           padding: 1.5rem;
@@ -936,21 +890,25 @@ const Shop = () => {
         }
 
         .quantity-controls button {
-          background: rgba(255, 255, 255, 0.1);
-          border: none;
-          width: 24px;
-          height: 24px;
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          width: 20px;
+          height: 20px;
           border-radius: 4px;
-          color: var(--text-secondary);
+          color: white;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
+          font-size: 10px;
+          transition: all 0.2s ease;
         }
 
         .quantity-controls button:hover:not(:disabled) {
-          background: rgba(255, 255, 255, 0.2);
-          color: var(--text-primary);
+          background: #1d4f8b;
+          border-color: #1d4f8b;
+          color: white;
+          transform: scale(1.1);
         }
 
         .quantity-controls button:disabled {
@@ -999,9 +957,9 @@ const Shop = () => {
           background: #1d4f8b;
           color: white;
           border: none;
-          padding: 0.75rem;
+          padding: 0.5rem;
           border-radius: 8px;
-          font-size: 1rem;
+          font-size: 0.875rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;

@@ -652,8 +652,8 @@ const Settings = () => {
         .setting-select {
           width: 100%;
           padding: 0.75rem;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.6);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
@@ -720,8 +720,8 @@ const Settings = () => {
         .setting-input {
           width: 80px;
           padding: 0.5rem;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.6);
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
