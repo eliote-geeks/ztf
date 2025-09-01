@@ -617,7 +617,7 @@ const Activity = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 2px solid white;
+          border: 2px solid #1d4f8b;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         

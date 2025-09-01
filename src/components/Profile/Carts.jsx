@@ -607,7 +607,7 @@ const Carts = () => {
           display: flex;
           align-items: center;
           gap: 0;
-          border: 2px solid rgba(255, 255, 255, 0.6);
+          border: 2px solid #1d4f8b;
           border-radius: 0;
           background: rgba(0, 0, 0, 0.3);
         }

@@ -720,7 +720,7 @@ const Account = ({ userInfo }) => {
           width: 100%;
           padding: 0.75rem;
           background: rgba(255, 255, 255, 0.15);
-          border: 2px solid rgba(255, 255, 255, 0.8);
+          border: 2px solid #1d4f8b;
           border-radius: 8px;
           color: var(--text-primary);
           font-size: 0.875rem;
