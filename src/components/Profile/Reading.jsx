@@ -362,71 +362,55 @@ const Reading = () => {
               {filteredBooks.length} livre(s) disponible(s) pour consultation sur place
             </div>
             
-            <div className="books-table-wrapper">
-              <div className="books-table-container">
-                <table className="books-table">
+            <div className="datatable-wrapper">
+              <div className="datatable-header">
+                <div className="datatable-info">
+                  Affichage de {filteredBooks.length} livres
+                </div>
+                <div className="datatable-search">
+                  <FaSearch size={14} />
+                  <input
+                    type="text"
+                    placeholder="Rechercher..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="datatable-search-input"
+                  />
+                </div>
+              </div>
+              
+              <div className="datatable-container">
+                <table className="datatable">
                   <thead>
                     <tr>
-                      <th>Livre</th>
+                      <th>Titre</th>
                       <th>Auteur</th>
                       <th>Catégorie</th>
-                      <th>Localisation</th>
-                      <th>Pages</th>
-                      <th>Année</th>
-                      <th>Note</th>
-                      <th>Éditeur</th>
-                      <th>ISBN</th>
-                      <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredBooks.map(book => (
-                      <tr key={book.id} className={`book-row ${book.availability}`}>
-                        <td className="book-info-cell">
-                          <div className="book-info-row">
-                            <img src={book.cover} alt={book.title} className="book-thumbnail" />
-                            <div className="book-details">
-                              <h4 className="book-title">{book.title}</h4>
-                              <p className="book-description">{book.description}</p>
-                            </div>
+                      <tr key={book.id} className="datatable-row">
+                        <td className="title-cell">
+                          <div className="book-title-info">
+                            <img src={book.cover} alt={book.title} className="book-thumb" />
+                            <span className="book-title-text">{book.title}</span>
                           </div>
                         </td>
                         <td className="author-cell">{book.author}</td>
                         <td className="category-cell">
-                          <span className="category-badge">{book.category}</span>
-                        </td>
-                        <td className="location-cell">{book.location}</td>
-                        <td className="pages-cell">{book.pages} p.</td>
-                        <td className="year-cell">{book.publishYear}</td>
-                        <td className="rating-cell">
-                          <div className="rating-display">
-                            <span className="rating-value">★ {book.rating}</span>
-                          </div>
-                        </td>
-                        <td className="publisher-cell">{book.publisher || "Non spécifié"}</td>
-                        <td className="isbn-cell">
-                          <code className="isbn-code">{book.isbn || "N/A"}</code>
-                        </td>
-                        <td className="status-cell">
-                          {getAvailabilityBadge(book.availability)}
+                          <span className="category-tag">{book.category}</span>
                         </td>
                         <td className="actions-cell">
-                          <div className="table-actions">
-                            <button 
-                              className="action-btn-table primary"
-                              disabled={book.availability === 'in_use'}
-                              onClick={() => console.log(`Commencer la lecture: ${book.title}`)}
-                            >
-                              <FaBookOpen size={14} />
-                              {book.availability === 'available' ? 'Lire' : 'Indisponible'}
+                          <div className="datatable-actions">
+                            <button className="dt-btn primary">
+                              <FaBook size={14} />
+                              Emprunter
                             </button>
-                            <button 
-                              className="action-btn-table secondary"
-                              onClick={() => addToReadingList(book)}
-                              disabled={readingList.find(item => item.id === book.id)}
-                            >
-                              <FaPlus size={14} />
+                            <button className="dt-btn secondary">
+                              <FaEye size={14} />
+                              Lire
                             </button>
                           </div>
                         </td>
@@ -434,6 +418,17 @@ const Reading = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              
+              <div className="datatable-footer">
+                <div className="entries-info">
+                  {filteredBooks.length} entrées au total
+                </div>
+                <div className="pagination">
+                  <button className="page-btn">Précédent</button>
+                  <span className="page-info">1 sur 1</span>
+                  <button className="page-btn">Suivant</button>
+                </div>
               </div>
             </div>
           </>
@@ -707,77 +702,125 @@ const Reading = () => {
           font-size: 0.875rem;
         }
 
-        .books-table-wrapper {
-          width: 100%;
-          overflow-x: auto;
-          border-radius: 12px;
-          box-shadow: 0 4px 20px rgba(29, 79, 139, 0.1);
-        }
-
-        .books-table-wrapper::-webkit-scrollbar {
-          height: 8px;
-        }
-
-        .books-table-wrapper::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-        }
-
-        .books-table-wrapper::-webkit-scrollbar-thumb {
-          background: #1d4f8b;
-          border-radius: 4px;
-        }
-
-        .books-table-wrapper::-webkit-scrollbar-thumb:hover {
-          background: #3c6b8b;
-        }
-
-        .books-table-container {
+        .datatable-wrapper {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(29, 79, 139, 0.1);
           border-radius: 12px;
           overflow: hidden;
-          min-width: 1200px;
         }
 
-        .books-table {
+        .datatable-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          background: rgba(29, 79, 139, 0.05);
+          border-bottom: 1px solid rgba(29, 79, 139, 0.1);
+        }
+
+        .datatable-info {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+
+        .datatable-search {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 6px;
+          padding: 0.5rem 0.75rem;
+        }
+
+        .datatable-search svg {
+          color: var(--text-tertiary);
+        }
+
+        .datatable-search-input {
+          background: transparent;
+          border: none;
+          outline: none;
+          color: var(--text-primary);
+          font-size: 0.875rem;
+          width: 200px;
+        }
+
+        .datatable-search-input::placeholder {
+          color: var(--text-tertiary);
+        }
+
+        .datatable-container {
+          overflow-x: auto;
+          max-height: 600px;
+          overflow-y: auto;
+        }
+
+        .datatable {
           width: 100%;
           border-collapse: collapse;
           background: transparent;
         }
 
-        .books-table th {
-          background: rgba(29, 79, 139, 0.1);
+        .datatable th {
+          background: rgba(29, 79, 139, 0.08);
           color: #1d4f8b;
-          padding: 1rem;
+          padding: 1rem 1.5rem;
           text-align: left;
           font-weight: 600;
           font-size: 0.9rem;
-          border-bottom: 1px solid rgba(29, 79, 139, 0.2);
+          border-bottom: 1px solid rgba(29, 79, 139, 0.15);
           white-space: nowrap;
+          position: sticky;
+          top: 0;
+          z-index: 10;
         }
 
-        .books-table td {
-          padding: 1rem;
+        .datatable td {
+          padding: 1rem 1.5rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          vertical-align: top;
+          vertical-align: middle;
         }
 
-        .book-row {
-          transition: all 0.3s ease;
+        .datatable-row {
+          transition: all 0.2s ease;
         }
 
-        .book-row:hover {
-          background: rgba(29, 79, 139, 0.05);
+        .datatable-row:hover {
+          background: rgba(29, 79, 139, 0.03);
         }
 
-        .book-row.in_use {
-          opacity: 0.6;
+        .datatable-row:nth-child(even) {
+          background: rgba(255, 255, 255, 0.01);
         }
 
-        .book-info-cell {
-          min-width: 300px;
-          width: 300px;
+        .datatable-row:nth-child(even):hover {
+          background: rgba(29, 79, 139, 0.03);
+        }
+
+        .title-cell {
+          min-width: 350px;
+        }
+
+        .book-title-info {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .book-thumb {
+          width: 40px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 4px;
+          flex-shrink: 0;
+        }
+
+        .book-title-text {
+          font-weight: 600;
+          color: var(--text-primary);
+          font-size: 0.95rem;
         }
 
         .pages-cell {
@@ -886,19 +929,111 @@ const Reading = () => {
           color: var(--text-secondary);
           font-weight: 500;
           min-width: 150px;
+          font-size: 0.9rem;
         }
 
         .category-cell {
           min-width: 120px;
         }
 
-        .category-badge {
+        .category-tag {
           background: rgba(29, 79, 139, 0.1);
           color: #1d4f8b;
-          padding: 0.25rem 0.5rem;
-          border-radius: 12px;
-          font-size: 0.75rem;
+          padding: 0.4rem 0.8rem;
+          border-radius: 8px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          display: inline-block;
+        }
+
+        .actions-cell {
+          min-width: 200px;
+        }
+
+        .datatable-actions {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+        }
+
+        .dt-btn {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 6px;
+          font-size: 0.8rem;
           font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          white-space: nowrap;
+        }
+
+        .dt-btn.primary {
+          background: #1d4f8b;
+          color: white;
+        }
+
+        .dt-btn.primary:hover {
+          background: #1a4480;
+        }
+
+        .dt-btn.secondary {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          border: 1px solid rgba(29, 79, 139, 0.2);
+        }
+
+        .dt-btn.secondary:hover {
+          background: rgba(29, 79, 139, 0.2);
+        }
+
+        .datatable-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          background: rgba(29, 79, 139, 0.03);
+          border-top: 1px solid rgba(29, 79, 139, 0.1);
+        }
+
+        .entries-info {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+        }
+
+        .pagination {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .page-btn {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          border: 1px solid rgba(29, 79, 139, 0.2);
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+          background: rgba(29, 79, 139, 0.15);
+        }
+
+        .page-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .page-info {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          font-weight: 500;
         }
 
         .location-cell {
