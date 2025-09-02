@@ -40,11 +40,12 @@ import Parking from './pages/services/Parking';
 
 function App() {
   const location = useLocation();
+  const isProfilePage = location.pathname === '/profile';
 
   return (
     <ThemeProvider>
       <div className="App">
-        <LibraryHeader />
+        {!isProfilePage && <LibraryHeader />}
         <main>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>

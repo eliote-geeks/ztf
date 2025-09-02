@@ -199,22 +199,6 @@ const Favorites = () => {
         <h4 className="favorite-title">{favorite.title}</h4>
         <p className="favorite-author">par {favorite.author}</p>
         
-        <div className="rating-section">
-          <div className="stars">
-            {renderStarRating(favorite.rating)}
-          </div>
-          <span className="rating-text">Votre note</span>
-        </div>
-
-        <p className="favorite-description">{favorite.description}</p>
-
-        {favorite.personalNote && (
-          <div className="personal-note">
-            <FaTag size={12} />
-            <span>"{favorite.personalNote}"</span>
-          </div>
-        )}
-
         <div className="favorite-tags">
           {favorite.tags.map(tag => (
             <span key={tag} className="tag">#{tag}</span>
@@ -222,23 +206,14 @@ const Favorites = () => {
         </div>
 
         <div className="favorite-actions">
-          {favorite.available ? (
-            <button className="action-btn primary">
-              <FaBook size={14} />
-              Emprunter
-            </button>
-          ) : (
-            <button className="action-btn secondary">
-              <FaBookmark size={14} />
-              Réserver
-            </button>
-          )}
-          {favorite.type === 'ebook' && (
-            <button className="action-btn outline">
-              <FaEye size={14} />
-              Lire
-            </button>
-          )}
+          <button className="action-btn primary">
+            <FaBook size={14} />
+            Emprunter
+          </button>
+          <button className="action-btn outline">
+            <FaEye size={14} />
+            Lire
+          </button>
         </div>
       </div>
     </div>

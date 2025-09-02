@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaUser, 
   FaBook,
@@ -21,7 +22,8 @@ import {
   FaTimes,
   FaUserPlus,
   FaEnvelope,
-  FaChevronDown
+  FaChevronDown,
+  FaChevronLeft
 } from 'react-icons/fa';
 
 import Dashboard from '../components/Profile/Dashboard';
@@ -119,6 +121,14 @@ const UserProfile = () => {
         <div className="profile-header">
           <div className="profile-cover">
             <div className="profile-info">
+              {/* Ligne avec bouton retour et contenu principal */}
+              <div className="header-top-row">
+                <Link to="/" className="back-to-home">
+                  <FaChevronLeft size={16} />
+                  Retour à l'accueil
+                </Link>
+              </div>
+
               {/* Ligne principale: photo, nom, stats, bouton */}
               <div className="profile-main-line">
                 <div className="profile-avatar">
@@ -207,7 +217,7 @@ const UserProfile = () => {
 
         {/* Content Layout */}
         <div className="profile-content">
-          <div className="row g-4">
+          <div className="row g-4" style={{ display: 'flex' }}>
             
             {/* Sidebar avec Navigation */}
             <div className="col-lg-3">
@@ -284,6 +294,9 @@ const UserProfile = () => {
           border-radius: 16px;
           overflow: hidden;
           margin-bottom: 2rem;
+          position: relative;
+          z-index: 100;
+          width: 100%;
         }
 
         .profile-cover {
@@ -301,6 +314,35 @@ const UserProfile = () => {
 
         .profile-info {
           width: 100%;
+          position: relative;
+        }
+
+        .header-top-row {
+          width: 100%;
+          margin-bottom: 1.5rem;
+        }
+
+        .back-to-home {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: 25px;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          transition: all 0.3s ease;
+          width: fit-content;
+        }
+
+        .back-to-home:hover {
+          color: white;
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateX(-3px);
         }
 
         .profile-main-line {
@@ -597,10 +639,40 @@ const UserProfile = () => {
           z-index: 1;
         }
 
+        .col-lg-3 {
+          position: relative;
+          width: 280px;
+          padding: 2rem;
+          background: var(--bg-primary);
+        }
+
+        .col-lg-3::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        .col-lg-3::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .col-lg-3::-webkit-scrollbar-thumb {
+          background: rgba(29, 79, 139, 0.3);
+          border-radius: 3px;
+        }
+
+        .col-lg-3::-webkit-scrollbar-thumb:hover {
+          background: rgba(29, 79, 139, 0.5);
+        }
+
+        .col-lg-9 {
+          flex: 1;
+          padding-left: 2rem;
+        }
+
         .sidebar {
           display: flex;
           flex-direction: column;
           gap: 0;
+          height: 100%;
         }
 
 
@@ -668,6 +740,23 @@ const UserProfile = () => {
         }
 
         @media (max-width: 768px) {
+          .col-lg-3 {
+            position: relative;
+            width: 100%;
+            height: auto;
+            left: auto;
+            top: auto;
+            margin-left: 0;
+            padding: 1rem;
+            background: transparent;
+          }
+
+          .col-lg-9 {
+            margin-left: 0;
+            width: 100%;
+            padding-left: 1rem;
+          }
+
           .profile-main-line {
             flex-direction: column;
             align-items: center;
