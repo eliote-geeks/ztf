@@ -63,7 +63,7 @@ function App() {
                   <Ressources />
                 </PageTransition>
               } />
-              <Route path="/catalogue/avanced" element={
+              <Route path="/catalogue/advanced" element={
                 <PageTransition>
                   <CatalogueAdvanced />
                 </PageTransition>

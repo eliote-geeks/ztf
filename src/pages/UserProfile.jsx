@@ -18,7 +18,10 @@ import {
   FaExclamationTriangle,
   FaEye,
   FaBars,
-  FaTimes
+  FaTimes,
+  FaUserPlus,
+  FaEnvelope,
+  FaChevronDown
 } from 'react-icons/fa';
 
 import Dashboard from '../components/Profile/Dashboard';
@@ -30,11 +33,13 @@ import Shop from '../components/Profile/Shop';
 import Account from '../components/Profile/Account';
 import Settings from '../components/Profile/Settings';
 import Carts from '../components/Profile/Carts';
+import MembershipForm from '../components/Profile/MembershipForm';
 import ProfilePageTransition from '../components/Profile/PageTransition';
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showProfileDetails, setShowProfileDetails] = useState(false);
   
   // ✅ STATS CIBLÉES: HEADER BLANC / COMPOSANTS BLEU - 27/08/2025 10:43 ✅
 
@@ -63,6 +68,7 @@ const UserProfile = () => {
     { id: 'favorites', label: 'Favoris', icon: FaHeart },
     { id: 'carts', label: 'Paniers', icon: FaShoppingCart },
     { id: 'shop', label: 'Boutique', icon: FaShoppingCart },
+    { id: 'membership', label: 'Devenir membre', icon: FaUserPlus },
     { id: 'account', label: 'Mon Compte', icon: FaUser },
     { id: 'settings', label: 'Paramètres', icon: FaCog }
   ];
@@ -94,6 +100,8 @@ const UserProfile = () => {
         return <Carts />;
       case 'shop':
         return <Shop />;
+      case 'membership':
+        return <MembershipForm />;
       case 'account':
         return <Account userInfo={userInfo} />;
       case 'settings':
@@ -111,59 +119,87 @@ const UserProfile = () => {
         <div className="profile-header">
           <div className="profile-cover">
             <div className="profile-info">
-              <div className="profile-avatar">
-                <img src={userInfo.avatar} alt="Avatar" />
-                <button className="avatar-edit">
-                  <FaEdit size={12} />
-                </button>
-              </div>
-              
-              <div className="profile-details">
-                <h1 className="profile-name">
-                  {userInfo.firstName} {userInfo.lastName}
-                </h1>
-                <p className="profile-title">{getUserTypeLabel(userInfo.userType)}</p>
-                <div className="profile-meta">
-                  <span className="meta-item">
-                    <FaGraduationCap size={14} />
-                    {userInfo.department}
-                  </span>
-                  <span className="meta-item">
-                    <FaCalendar size={14} />
-                    Membre depuis {userInfo.joinDate}
-                  </span>
-                  <span className="meta-item">
-                    <FaMapMarkerAlt size={14} />
-                    {userInfo.address}
-                  </span>
+              {/* Ligne principale: photo, nom, stats, bouton */}
+              <div className="profile-main-line">
+                <div className="profile-avatar">
+                  <img src={userInfo.avatar} alt="Avatar" />
+                  <button className="avatar-edit">
+                    <FaEdit size={12} />
+                  </button>
                 </div>
+                
+                <div className="profile-name-section">
+                  <h1 className="profile-name">
+                    {userInfo.firstName} {userInfo.lastName}
+                  </h1>
+                  <p className="profile-title">{getUserTypeLabel(userInfo.userType)}</p>
+                </div>
+
+                <div className="profile-stats">
+                  <div className="stat">
+                    <span className="stat-number">127</span>
+                    <span className="stat-label">Emprunts</span>
+                  </div>
+                  <div className="stat">
+                    <span className="stat-number">34</span>
+                    <span className="stat-label">Favoris</span>
+                  </div>
+                  <div className="stat">
+                    <span className="stat-number">245h</span>
+                    <span className="stat-label">Lecture</span>
+                  </div>
+                </div>
+
+                <button 
+                  className="details-toggle"
+                  onClick={() => setShowProfileDetails(!showProfileDetails)}
+                >
+                  <FaChevronDown className={`chevron ${showProfileDetails ? 'open' : ''}`} size={16} />
+                </button>
               </div>
 
-              <div className="profile-stats">
-                <div className="stat">
-                  <span className="stat-number">127</span>
-                  <span className="stat-label">Emprunts</span>
+              {/* Informations détaillées (déroulantes) */}
+              {showProfileDetails && (
+                <div className="profile-meta-detailed">
+                  <div className="detailed-grid">
+                    <span className="meta-item">
+                      <FaGraduationCap size={14} />
+                      {userInfo.department}
+                    </span>
+                    <span className="meta-item">
+                      <FaCalendar size={14} />
+                      Membre depuis {userInfo.joinDate}
+                    </span>
+                    <span className="meta-item">
+                      <FaMapMarkerAlt size={14} />
+                      {userInfo.address}
+                    </span>
+                    <span className="meta-item">
+                      <FaEnvelope size={14} />
+                      {userInfo.email}
+                    </span>
+                    <span className="meta-item">
+                      <FaClock size={14} />
+                      {userInfo.phone}
+                    </span>
+                    <span className="meta-item">
+                      <FaExclamationTriangle size={14} />
+                      Expire le {userInfo.membershipExpiry}
+                    </span>
+                  </div>
+                  
+                  <div className="profile-actions">
+                    <button className="profile-btn primary">
+                      <FaEdit size={14} />
+                      Modifier profil
+                    </button>
+                    <button className="profile-btn">
+                      <FaBell size={14} />
+                      <span className="notification-badge">3</span>
+                    </button>
+                  </div>
                 </div>
-                <div className="stat">
-                  <span className="stat-number">34</span>
-                  <span className="stat-label">Favoris</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-number">245h</span>
-                  <span className="stat-label">Lecture</span>
-                </div>
-              </div>
-
-              <div className="profile-actions">
-                <button className="profile-btn primary">
-                  <FaEdit size={14} />
-                  Modifier profil
-                </button>
-                <button className="profile-btn">
-                  <FaBell size={14} />
-                  <span className="notification-badge">3</span>
-                </button>
-              </div>
+              )}
             </div>
           </div>
 
@@ -186,14 +222,6 @@ const UserProfile = () => {
                   <span>Menu</span>
                 </button>
 
-                {/* Photo utilisateur */}
-                <div className="sidebar-user">
-                  <div className="sidebar-avatar">
-                    <img src={userInfo.avatar} alt="Photo de profil" />
-                  </div>
-                  <h4>{userInfo.firstName} {userInfo.lastName}</h4>
-                  <p>{userInfo.department}</p>
-                </div>
 
                 {/* Navigation */}
                 <div className={`sidebar-nav ${showMobileMenu ? 'mobile-open' : ''}`}>
@@ -222,26 +250,6 @@ const UserProfile = () => {
                   </div>
                 </div>
 
-                {/* Activité récente */}
-                <div className="sidebar-widget">
-                  <h5>Activité récente</h5>
-                  <div className="activity-list">
-                    <div className="activity-item">
-                      <FaBook />
-                      <div>
-                        <p>Emprunt livre</p>
-                        <span>il y a 2h</span>
-                      </div>
-                    </div>
-                    <div className="activity-item">
-                      <FaHeart />
-                      <div>
-                        <p>Ajout favoris</p>
-                        <span>il y a 4h</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -292,10 +300,18 @@ const UserProfile = () => {
         }
 
         .profile-info {
+          width: 100%;
+        }
+
+        .profile-main-line {
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           gap: 2rem;
-          flex-wrap: wrap;
+          width: 100%;
+        }
+
+        .profile-name-section {
+          flex: 1;
         }
 
         .profile-avatar {
@@ -339,25 +355,83 @@ const UserProfile = () => {
         }
 
         .profile-name {
-          font-size: 2rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: white;
-          margin-bottom: 0.5rem;
+          margin: 0;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .profile-title {
-          font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.9);
-          font-weight: 600;
-          margin-bottom: 1rem;
+          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.8);
+          font-weight: 500;
+          margin: 0.25rem 0 0 0;
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
-        .profile-meta {
+        .profile-meta-basic {
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .profile-meta-detailed {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-top: 1rem;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .details-toggle {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          padding: 0.75rem;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          flex-shrink: 0;
+          width: 44px;
+          height: 44px;
+        }
+
+        .details-toggle:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: scale(1.05);
+        }
+
+        .details-toggle .chevron {
+          transition: transform 0.3s ease;
+        }
+
+        .details-toggle .chevron.open {
+          transform: rotate(180deg);
+        }
+
+        .detailed-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1rem;
+          margin-bottom: 1.5rem;
         }
 
         .meta-item {
@@ -371,8 +445,9 @@ const UserProfile = () => {
 
         .profile-stats {
           display: flex;
-          gap: 2rem;
+          gap: 1.5rem;
           flex-shrink: 0;
+          align-items: center;
         }
 
         .stat {
@@ -454,40 +529,6 @@ const UserProfile = () => {
           justify-content: center;
         }
 
-        .sidebar-user {
-          background: #1d4f8b;
-          color: white;
-          padding: 1.5rem;
-          text-align: center;
-          margin-bottom: 1.5rem;
-        }
-        
-        .sidebar-avatar {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          overflow: hidden;
-          margin: 0 auto 1rem;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .sidebar-avatar img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        
-        .sidebar-user h4 {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-        }
-        
-        .sidebar-user p {
-          font-size: 0.875rem;
-          opacity: 0.8;
-          margin: 0;
-        }
         
         .sidebar-nav {
           margin-bottom: 1.5rem;
@@ -549,18 +590,6 @@ const UserProfile = () => {
           margin-left: auto;
         }
         
-        .sidebar-widget {
-          border-top: 1px solid rgba(29, 79, 139, 0.15);
-          padding-top: 1.5rem;
-        }
-        
-        .sidebar-widget h5 {
-          color: #1d4f8b;
-          font-size: 1rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          padding: 0 0.5rem;
-        }
 
         .profile-content {
           margin-top: 2rem;
@@ -574,78 +603,7 @@ const UserProfile = () => {
           gap: 0;
         }
 
-        .activity-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
 
-        .activity-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem 1rem;
-          color: var(--text-secondary);
-          font-size: 0.875rem;
-        }
-
-        .activity-item svg {
-          color: #1d4f8b;
-          flex-shrink: 0;
-        }
-
-        .activity-item div p {
-          margin: 0 0 0.25rem 0;
-          font-weight: 500;
-          color: var(--text-primary);
-        }
-
-        .activity-item div span {
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-        }
-
-        .widget-title {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--text-primary);
-          margin-bottom: 1rem;
-        }
-
-        .activity-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .activity-item {
-          display: flex;
-          gap: 1rem;
-          align-items: flex-start;
-        }
-
-        .activity-icon {
-          width: 36px;
-          height: 36px;
-          background: rgba(29, 79, 139, 0.1);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #1d4f8b;
-          flex-shrink: 0;
-        }
-
-        .activity-content p {
-          font-size: 0.9rem;
-          color: var(--text-primary);
-          margin-bottom: 0.25rem;
-        }
-
-        .activity-content span {
-          font-size: 0.8rem;
-          color: var(--text-tertiary);
-        }
 
         .summary-list {
           display: flex;
@@ -710,14 +668,29 @@ const UserProfile = () => {
         }
 
         @media (max-width: 768px) {
-          .profile-info {
+          .profile-main-line {
             flex-direction: column;
             align-items: center;
             text-align: center;
+            gap: 1.5rem;
+          }
+
+          .profile-name-section {
+            order: 1;
           }
 
           .profile-stats {
+            order: 2;
             justify-content: center;
+          }
+
+          .details-toggle {
+            order: 3;
+          }
+
+          .detailed-grid {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
           }
 
           .profile-content .row {

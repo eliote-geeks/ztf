@@ -34,6 +34,7 @@ const Reading = () => {
       title: "Encyclopédie Théologique Complète",
       author: "Jean-Baptiste Cardinal",
       isbn: "978-2-123456-78-9",
+      publisher: "Éditions du Cerf",
       category: "Référence",
       cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop&q=80",
       description: "Ouvrage de référence complet sur la théologie chrétienne, consultation sur place uniquement",
@@ -244,15 +245,15 @@ const Reading = () => {
         <p className="history-author">{item.author}</p>
         
         <div className="history-meta">
-          <div className="meta-item">
+          <div className="meta-badge">
             <FaClock size={12} />
             <span>{item.sessionDate} - {item.duration}</span>
           </div>
-          <div className="meta-item">
+          <div className="meta-badge">
             <FaBook size={12} />
             <span>{item.pages}</span>
           </div>
-          <div className="meta-item">
+          <div className="meta-badge">
             <FaMapMarkerAlt size={12} />
             <span>{item.location}</span>
           </div>
@@ -361,8 +362,79 @@ const Reading = () => {
               {filteredBooks.length} livre(s) disponible(s) pour consultation sur place
             </div>
             
-            <div className={`books-grid ${viewMode}`}>
-              {filteredBooks.map(book => renderBookCard(book))}
+            <div className="books-table-wrapper">
+              <div className="books-table-container">
+                <table className="books-table">
+                  <thead>
+                    <tr>
+                      <th>Livre</th>
+                      <th>Auteur</th>
+                      <th>Catégorie</th>
+                      <th>Localisation</th>
+                      <th>Pages</th>
+                      <th>Année</th>
+                      <th>Note</th>
+                      <th>Éditeur</th>
+                      <th>ISBN</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredBooks.map(book => (
+                      <tr key={book.id} className={`book-row ${book.availability}`}>
+                        <td className="book-info-cell">
+                          <div className="book-info-row">
+                            <img src={book.cover} alt={book.title} className="book-thumbnail" />
+                            <div className="book-details">
+                              <h4 className="book-title">{book.title}</h4>
+                              <p className="book-description">{book.description}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="author-cell">{book.author}</td>
+                        <td className="category-cell">
+                          <span className="category-badge">{book.category}</span>
+                        </td>
+                        <td className="location-cell">{book.location}</td>
+                        <td className="pages-cell">{book.pages} p.</td>
+                        <td className="year-cell">{book.publishYear}</td>
+                        <td className="rating-cell">
+                          <div className="rating-display">
+                            <span className="rating-value">★ {book.rating}</span>
+                          </div>
+                        </td>
+                        <td className="publisher-cell">{book.publisher || "Non spécifié"}</td>
+                        <td className="isbn-cell">
+                          <code className="isbn-code">{book.isbn || "N/A"}</code>
+                        </td>
+                        <td className="status-cell">
+                          {getAvailabilityBadge(book.availability)}
+                        </td>
+                        <td className="actions-cell">
+                          <div className="table-actions">
+                            <button 
+                              className="action-btn-table primary"
+                              disabled={book.availability === 'in_use'}
+                              onClick={() => console.log(`Commencer la lecture: ${book.title}`)}
+                            >
+                              <FaBookOpen size={14} />
+                              {book.availability === 'available' ? 'Lire' : 'Indisponible'}
+                            </button>
+                            <button 
+                              className="action-btn-table secondary"
+                              onClick={() => addToReadingList(book)}
+                              disabled={readingList.find(item => item.id === book.id)}
+                            >
+                              <FaPlus size={14} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </>
         )}
@@ -635,17 +707,264 @@ const Reading = () => {
           font-size: 0.875rem;
         }
 
-        .books-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-          gap: 1.5rem;
-          margin: 0 auto;
+        .books-table-wrapper {
+          width: 100%;
+          overflow-x: auto;
+          border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(29, 79, 139, 0.1);
         }
 
-        .books-grid.list {
+        .books-table-wrapper::-webkit-scrollbar {
+          height: 8px;
+        }
+
+        .books-table-wrapper::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+        }
+
+        .books-table-wrapper::-webkit-scrollbar-thumb {
+          background: #1d4f8b;
+          border-radius: 4px;
+        }
+
+        .books-table-wrapper::-webkit-scrollbar-thumb:hover {
+          background: #3c6b8b;
+        }
+
+        .books-table-container {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(29, 79, 139, 0.1);
+          border-radius: 12px;
+          overflow: hidden;
+          min-width: 1200px;
+        }
+
+        .books-table {
+          width: 100%;
+          border-collapse: collapse;
+          background: transparent;
+        }
+
+        .books-table th {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          padding: 1rem;
+          text-align: left;
+          font-weight: 600;
+          font-size: 0.9rem;
+          border-bottom: 1px solid rgba(29, 79, 139, 0.2);
+          white-space: nowrap;
+        }
+
+        .books-table td {
+          padding: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          vertical-align: top;
+        }
+
+        .book-row {
+          transition: all 0.3s ease;
+        }
+
+        .book-row:hover {
+          background: rgba(29, 79, 139, 0.05);
+        }
+
+        .book-row.in_use {
+          opacity: 0.6;
+        }
+
+        .book-info-cell {
+          min-width: 300px;
+          width: 300px;
+        }
+
+        .pages-cell {
+          min-width: 80px;
+          text-align: center;
+          color: var(--text-secondary);
+          font-weight: 500;
+          font-size: 0.85rem;
+        }
+
+        .year-cell {
+          min-width: 80px;
+          text-align: center;
+          color: var(--text-secondary);
+          font-weight: 500;
+          font-size: 0.85rem;
+        }
+
+        .rating-cell {
+          min-width: 80px;
+          text-align: center;
+        }
+
+        .rating-display {
           display: flex;
-          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .rating-value {
+          color: #1d4f8b;
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+
+        .publisher-cell {
+          min-width: 150px;
+          color: var(--text-secondary);
+          font-size: 0.85rem;
+        }
+
+        .isbn-cell {
+          min-width: 140px;
+          text-align: center;
+        }
+
+        .isbn-code {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          padding: 0.25rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-family: 'Courier New', monospace;
+        }
+
+        .book-info-row {
+          display: flex;
           gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .book-thumbnail {
+          width: 60px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 6px;
+          flex-shrink: 0;
+        }
+
+        .book-details {
+          flex: 1;
+        }
+
+        .book-title {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin: 0 0 0.5rem 0;
+          line-height: 1.3;
+        }
+
+        .book-description {
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+          margin: 0 0 0.75rem 0;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .book-meta-inline {
+          display: flex;
+          gap: 1rem;
+          font-size: 0.8rem;
+          color: var(--text-tertiary);
+        }
+
+        .book-rating {
+          color: #1d4f8b;
+          font-weight: 600;
+        }
+
+        .author-cell {
+          color: var(--text-secondary);
+          font-weight: 500;
+          min-width: 150px;
+        }
+
+        .category-cell {
+          min-width: 120px;
+        }
+
+        .category-badge {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          padding: 0.25rem 0.5rem;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          font-weight: 600;
+        }
+
+        .location-cell {
+          color: var(--text-secondary);
+          font-size: 0.85rem;
+          min-width: 150px;
+        }
+
+        .status-cell {
+          min-width: 130px;
+        }
+
+        .actions-cell {
+          min-width: 150px;
+        }
+
+        .table-actions {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+        }
+
+        .action-btn-table {
+          padding: 0.5rem 0.75rem;
+          border: none;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          white-space: nowrap;
+        }
+
+        .action-btn-table.primary {
+          background: #1d4f8b;
+          color: white;
+        }
+
+        .action-btn-table.primary:hover:not(:disabled) {
+          background: #1a4480;
+        }
+
+        .action-btn-table.primary:disabled {
+          background: rgba(255, 255, 255, 0.1);
+          color: var(--text-tertiary);
+          cursor: not-allowed;
+        }
+
+        .action-btn-table.secondary {
+          background: rgba(29, 79, 139, 0.1);
+          color: #1d4f8b;
+          border: 1px solid rgba(29, 79, 139, 0.2);
+          padding: 0.5rem;
+          min-width: auto;
+        }
+
+        .action-btn-table.secondary:hover:not(:disabled) {
+          background: rgba(29, 79, 139, 0.2);
+        }
+
+        .action-btn-table.secondary:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
 
         .book-card {
@@ -750,6 +1069,24 @@ const Reading = () => {
           gap: 0.25rem;
           font-size: 0.8rem;
           color: rgba(255, 255, 255, 0.8);
+        }
+
+        .meta-badge {
+          display: flex;
+          align-items: center;
+          gap: 0.375rem;
+          background: rgba(29, 79, 139, 0.15);
+          border: 1px solid rgba(29, 79, 139, 0.3);
+          color: #1d4f8b;
+          padding: 0.375rem 0.75rem;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+
+        .meta-badge svg {
+          color: #1d4f8b;
+          opacity: 0.8;
         }
 
         .book-tags {
@@ -896,8 +1233,8 @@ const Reading = () => {
         .history-meta {
           display: flex;
           flex-wrap: wrap;
-          gap: 1rem;
-          margin-bottom: 1rem;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
         }
 
         .history-notes {
@@ -940,9 +1277,43 @@ const Reading = () => {
             flex-direction: column;
           }
 
-          .books-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
+          .books-table-wrapper {
+            margin: 0 -1rem;
+            border-radius: 0;
+          }
+
+          .books-table-container {
+            border-radius: 0;
+            min-width: 1000px;
+          }
+
+          .book-info-cell {
+            min-width: 250px;
+            width: 250px;
+          }
+
+          .book-thumbnail {
+            width: 50px;
+            height: 65px;
+          }
+
+          .book-title {
+            font-size: 0.9rem;
+          }
+
+          .book-description {
+            font-size: 0.8rem;
+            -webkit-line-clamp: 1;
+          }
+
+          .action-btn-table {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+          }
+
+          .books-table th,
+          .books-table td {
+            padding: 0.75rem 0.5rem;
           }
 
           .books-grid.list .book-card {

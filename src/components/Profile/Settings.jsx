@@ -478,12 +478,12 @@ const Settings = () => {
 
       <style jsx>{`
         .settings-content {
-          padding: 2rem;
+          padding: 1.5rem;
           min-height: 600px;
         }
 
         .settings-header {
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
         }
 
         .settings-header h2 {
@@ -524,21 +524,21 @@ const Settings = () => {
         .settings-layout {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: 1.5rem;
         }
 
         .settings-section {
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 16px;
-          padding: 2rem;
+          border-radius: 12px;
+          padding: 1.5rem;
         }
 
         .section-header {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          margin-bottom: 2rem;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
         }
 
         .section-icon {
@@ -557,7 +557,7 @@ const Settings = () => {
         .settings-group {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1rem;
         }
 
         .settings-group h4,
@@ -572,9 +572,9 @@ const Settings = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 1rem;
+          padding: 0.75rem;
           background: rgba(255, 255, 255, 0.03);
-          border-radius: 12px;
+          border-radius: 8px;
         }
 
         .setting-info {
@@ -646,18 +646,19 @@ const Settings = () => {
         }
 
         .setting-group {
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
         }
 
         .setting-select {
-          width: 100%;
-          padding: 0.75rem;
+          width: 250px;
+          max-width: 100%;
+          padding: 0.625rem;
           background: rgba(255, 255, 255, 0.15);
           border: 1px solid #1d4f8b;
-          border-radius: 8px;
+          border-radius: 6px;
           color: var(--text-primary);
           font-size: 0.875rem;
-          margin-top: 0.5rem;
+          margin-top: 0.375rem;
         }
 
         .setting-select:focus {
@@ -672,19 +673,19 @@ const Settings = () => {
         .theme-options {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1rem;
-          margin-top: 1rem;
+          gap: 0.75rem;
+          margin-top: 0.75rem;
         }
 
         .theme-option {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.5rem;
-          padding: 1rem;
+          gap: 0.375rem;
+          padding: 0.75rem;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
+          border-radius: 8px;
           cursor: pointer;
           transition: all 0.3s ease;
           color: var(--text-secondary);
@@ -714,15 +715,15 @@ const Settings = () => {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          margin-top: 0.5rem;
+          margin-top: 0.375rem;
         }
 
         .setting-input {
-          width: 80px;
+          width: 70px;
           padding: 0.5rem;
           background: rgba(255, 255, 255, 0.15);
           border: 1px solid #1d4f8b;
-          border-radius: 8px;
+          border-radius: 6px;
           color: var(--text-primary);
           font-size: 0.875rem;
           text-align: center;
@@ -739,9 +740,9 @@ const Settings = () => {
         }
 
         .data-actions {
-          padding: 1rem;
+          padding: 0.875rem;
           background: rgba(255, 255, 255, 0.03);
-          border-radius: 12px;
+          border-radius: 8px;
         }
 
         .danger-zone {

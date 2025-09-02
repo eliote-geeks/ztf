@@ -289,13 +289,6 @@ const Activity = () => {
             <FaEye size={14} />
             Détails
           </button>
-
-          {(isLoan || activity.itemType === 'book') && (
-            <button className="action-btn secondary">
-              <FaDownload size={14} />
-              Reçu
-            </button>
-          )}
         </div>
       </div>
     );

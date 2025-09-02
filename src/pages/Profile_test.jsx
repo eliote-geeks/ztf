@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import MembershipForm from '../components/Profile/MembershipForm';
 import { 
   FaUser, 
   FaEdit,
@@ -51,7 +52,8 @@ import {
   FaVideo,
   FaSignOutAlt,
   FaShoppingCart,
-  FaBars
+  FaBars,
+  FaUserPlus
 } from 'react-icons/fa';
 
 const Profile = () => {
@@ -228,7 +230,8 @@ const Profile = () => {
     { id: 'reading', label: 'Lecture sur place', icon: FaEye },
     { id: 'reservations', label: 'Réservations', icon: FaBookmark },
     { id: 'shop', label: 'Boutique', icon: FaShoppingCart },
-    { id: 'favorites', label: 'Favoris', icon: FaHeart }
+    { id: 'favorites', label: 'Favoris', icon: FaHeart },
+    { id: 'membership', label: 'Devenir membre', icon: FaUserPlus }
   ];
 
   // Sub navigation pour Emprunts & Historique
@@ -638,7 +641,18 @@ const Profile = () => {
               <div className="search-header">
                 <h2>Rechercher dans la bibliothèque</h2>
                 <p className="search-subtitle">Trouvez rapidement les documents que vous cherchez</p>
+              </div>
+            </div>
+          )}
 
+          {/* Section Adhésion */}
+          {activeTab === 'membership' && (
+            <MembershipForm />
+          )}
+
+        </div>
+      </main>
+    </div>
   );
 };
 
